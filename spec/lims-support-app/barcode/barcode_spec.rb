@@ -48,9 +48,6 @@ module Lims::SupportApp
       it_has_a :labware, String
       it_has_a :role, String
       it_has_a :contents, String
-
-      it_has_a :ean13_barcode, String
-      it_has_a :sanger_barcode, String
     end
 
     context "valid" do
@@ -60,6 +57,18 @@ module Lims::SupportApp
         let(:code) { "7351353" }
         it { subject.calculate_ean13_checksum(code).should == 7 }
       end
+
+      context "test suffix calculation for sanger barcode" do
+        let(:prefix) { "DN" }
+        let(:number) { 123333 }
+        it { subject.calculate_sanger_barcode_checksum(prefix, number).should == "F" }
+      end
+
+#      context "test sanger barcode generation" do
+#        let(:role) { "stock" }
+#        let(:contents) { "blood" }
+#        it { subject.sanger_barcode(role, contents).should == "DN9383983983K" }
+#      end
     end
 
   end
