@@ -140,7 +140,7 @@ def generate_http_request(example, target)
     (example.steps || []).each { |step| generate_http_request(step, target) }
 
   elsif example["method"]
-    target.puts %Q{    response = #{example["method"].downcase} #{[example.url.inspect, example.parameters.inspect].compact.join(', ')} }
+    target.puts %Q{    response = #{example["method"].downcase} #{[example.url.inspect, example.parameters.inspect].compact.join(', ')}}
       target.puts %Q{    response.status.should == #{example.status || 200}}
       target.puts %Q{    response.body.should match_json #{example.response.gsub(/"\//, '"http://example.org/').inspect}} if example.response
     target.puts

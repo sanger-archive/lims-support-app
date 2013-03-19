@@ -1,0 +1,48 @@
+#shared contexts for integrations
+require 'lims-core'
+require 'lims-support-app'
+#Lims::Core::Laboratory::Barcode = Lims::SupportApp::Barcode::Barcode
+require 'spec_helper'
+require 'lims-support-app'
+require 'lims-api/context_service'
+
+require 'lims-core/persistence/sequel'
+require 'logger'
+
+Loggers = []
+#Loggers << Logger.new($stdout)
+  
+def connect_db(env)
+  config = YAML.load_file(File.join('config','database.yml'))
+  Sequel.connect(config[env.to_s], :loggers => Loggers)
+end
+
+def config_bus(env)
+  YAML.load_file(File.join('config','amqp.yml'))[env.to_s] 
+end
+
+shared_context 'use core context service' do
+  let(:db) { connect_db(:test) }
+  let(:store) { Lims::Core::Persistence::Sequel::Store.new(db) }
+  let(:message_bus) { mock(:message_bus).tap { |m| m.stub(:publish) } } 
+  let(:context_service) { Lims::Api::ContextService.new(store, message_bus) }
+
+  before(:each) do
+    app.set(:context_service, context_service)
+  end
+  # This code is cleaning up the DB after each test case execution
+  after(:each) do
+    # list of all the tables in our DB
+    %w{items orders batches searches labels labellables tube_aliquots spin_column_aliquots windows wells lanes tag_group_associations aliquots tube_rack_slots tube_racks tubes spin_columns gels plates flowcells samples oligos tag_groups studies users uuid_resources}.each do |table|
+      db[table.to_sym].delete
+    end
+    db.disconnect
+  end
+end
+
+shared_context 'JSON' do
+  before(:each) {
+    header('Accept', 'application/json')
+    header('Content-Type', 'application/json')
+  }
+end
