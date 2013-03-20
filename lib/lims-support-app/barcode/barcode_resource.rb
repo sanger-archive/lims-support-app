@@ -1,12 +1,12 @@
-require 'lims-api/core_action_resource'
+require 'lims-api/core_resource'
 require 'lims-api/struct_stream'
 module Lims::SupportApp
   class Barcode
-    class CreateBarcodeResource < Lims::Api::CoreActionResource
+    class BarcodeResource < Lims::Api::CoreResource
 
       def content_to_stream(s, mime_type)
         sanger_prefix = sanger_prefix(object)
-        sanger_number = sanger_number(barcode)
+        sanger_number = sanger_number(object)
 
         s.add_key "ean13"
         s.add_value object.ean13_barcode(sanger_barcode(object, sanger_prefix, sanger_number))

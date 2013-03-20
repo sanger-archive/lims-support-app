@@ -11,6 +11,7 @@ describe "use_the_create_barcode_action" do
     header('Content-Type', 'application/json')
 
     response = post "/actions/create_barcode", "{ \"create_barcode\": {\n    \"labware\": \"tube\",\n    \"role\": \"stock\",\n    \"contents\": \"DNA\"\n}}\n"
+    puts response.body
     response.status.should == 200
     response.body.should match_json "{ \"create_barcode\": {\n    \"actions\": {\n    },\n    \"user\": \"user\",\n    \"application\": \"application\",\n    \"result\": {\n        \"barcode\": {\n            \"actions\": {\n                \"read\": \"http://example.org/11111111-2222-3333-4444-555555555555\",\n                \"update\": \"http://example.org/11111111-2222-3333-4444-555555555555\",\n                \"delete\": \"http://example.org/11111111-2222-3333-4444-555555555555\",\n                \"create\": \"http://example.org/11111111-2222-3333-4444-555555555555\"\n            },\n            \"uuid\": \"11111111-2222-3333-4444-555555555555\",\n            \"labware\": \"tube\",\n            \"role\": \"stock\",\n            \"contents\": \"DNA\"\n        },\n        \"ean13\": \"1234567891011\",\n        \"sanger\": {\n            \"prefix\": \"DN\",\n            \"number\": \"1234567\",\n            \"suffix\": \"K\"\n        }\n    },\n    \"labware\": \"tube\",\n    \"role\": \"stock\",\n    \"contents\": \"DNA\"\n}}\n"
 
