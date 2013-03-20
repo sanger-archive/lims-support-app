@@ -12,7 +12,7 @@ describe "list_actions_for_a_barcode_resource" do
     header('Accept', 'application/json')
     header('Content-Type', 'application/json')
 
-    response = get "/barcodes", nil 
+    response = get "/barcodes", nil
     response.status.should == 200
     response.body.should match_json "{ \"barcodes\": {\n    \"actions\": {\n        \"create\": \"http://example.org/barcodes\",\n        \"read\": \"http://example.org/barcodes\",\n        \"first\": \"http://example.org/barcodes/page=1\",\n        \"last\": \"http://example.org/barcodes/page=-1\"\n    }\n} }\n"
 
