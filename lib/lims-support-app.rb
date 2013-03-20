@@ -9,12 +9,13 @@ require 'lims-support-app/barcode/create_barcode'
 require 'lims-support-app/barcode/barcode_persistor'
 require 'lims-support-app/barcode/create_barcode_resource'
 
+require 'lims-core/persistence/sequel/session'
 module Lims::Core
 
   # TODO ke4 this override is a temporary solution for lims-support-app
   # Remove it after refactoring lims-core persistence layer
   module Persistence
-    class SessionX
+    class Session
 
       # Get the persistor corresponding to the object class
       # @param [Resource, String, Symbol, Persistor] object
@@ -56,6 +57,7 @@ end
 
 # aliasing the resources and actions
 
+require 'lims-core/laboratory'
 Lims::Core::Laboratory::Barcode = Lims::SupportApp::Barcode
 Lims::Core::Actions::CreateBarcode = Lims::SupportApp::Barcode::CreateBarcode
 Lims::Core::Persistence::Barcode = Lims::SupportApp::Barcode::BarcodePersistor

@@ -11,6 +11,7 @@ describe "read_a_barcode_object" do
     header('Accept', 'application/json')
     header('Content-Type', 'application/json')
 
+
     response = post "/barcodes", "{ \"barcode\": {\n    \"labware\": \"tube\",\n    \"role\": \"stock\",\n    \"contents\": \"DNA\"\n}}\n"
     response.status.should == 200
     response.body.should match_json "{ \"barcode\": {\n    \"actions\": {\n        \"read\": \"http://example.org/11111111-2222-3333-4444-555555555555\",\n        \"update\": \"http://example.org/11111111-2222-3333-4444-555555555555\",\n        \"delete\": \"http://example.org/11111111-2222-3333-4444-555555555555\",\n        \"create\": \"http://example.org/11111111-2222-3333-4444-555555555555\"\n    },\n    \"uuid\": \"11111111-2222-3333-4444-555555555555\",\n    \"labware\": \"tube\",\n    \"role\": \"stock\",\n    \"contents\": \"DNA\"\n}}\n"

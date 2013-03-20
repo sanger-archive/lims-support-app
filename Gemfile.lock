@@ -20,9 +20,9 @@ PATH
       json
 
 PATH
-  remote: ../lims-api
+  remote: ../api
   specs:
-    lims-api (1.2.0.2.0)
+    lims-api (1.2.0.2.1)
       active_support
       bunny (= 0.9.0.pre4)
       json
@@ -30,9 +30,9 @@ PATH
       state_machine
 
 PATH
-  remote: ../lims-core
+  remote: ../core2
   specs:
-    lims-core (1.4.0.0.1)
+    lims-core (1.4.0.0.2)
       active_support
       aequitas
       bunny (= 0.9.0.pre4)

@@ -1,8 +1,8 @@
-require 'lims-api/core_resource'
+require 'lims-api/core_action_resource'
 require 'lims-api/struct_stream'
 module Lims::SupportApp
   class Barcode
-    class CreateBarcodeResource < Lims::Api::CoreResource
+    class CreateBarcodeResource < Lims::Api::CoreActionResource
 
       def content_to_stream(s, mime_type)
         sanger_prefix = sanger_prefix(object)
