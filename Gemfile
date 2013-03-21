@@ -4,10 +4,10 @@ source "http://rubygems.org"
 gemspec
 
 gem 'sinatra', :git => 'http://github.com/sinatra/sinatra.git'
- #gem 'lims-core', '~>1.4.0.0.1', :git => 'http://github.com/sanger/lims-core.git' , :branch => 'development'
-gem 'lims-core', '~>1.4.0.0.1', :path => '../core2'
-# gem 'lims-api', '~>1.2.0.2.0', :git => 'http://github.com/sanger/lims-api.git' , :branch => 'development'
-gem 'lims-api', '~>1.2.0.2.0', :path => '../api'
+gem 'lims-core', '~>1.4.0.0.3', :git => 'http://github.com/sanger/lims-core.git' , :branch => 'development'
+# gem 'lims-core', '~>1.4.0.0.1', :path => '../lims-core'
+gem 'lims-api', '~>1.2.0.2.1', :git => 'http://github.com/sanger/lims-api.git' , :branch => 'development'
+# gem 'lims-api', '~>1.2.0.2.1', :path => '../lims-api'
 
 group :debugger do
   gem 'debugger'

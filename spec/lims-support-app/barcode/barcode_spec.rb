@@ -41,6 +41,8 @@ module Lims::SupportApp
 
     # validation of the parameter existance
     context "to be valid" do
+      subject { Barcode.new(creation_parameters)}
+
       it_needs_a :labware
       it_needs_a :role
       it_needs_a :contents
@@ -52,23 +54,48 @@ module Lims::SupportApp
 
     context "valid" do
       subject { Barcode.new(creation_parameters)}
-      
+
+      context "test prefix for sanger barcode" do
+        let(:role) { "gel_plate" }
+        let(:contents) { "DNA" }
+        it {subject.prefix_for_sanger_barcode(role, contents).should == "GD" }
+      end
+
+      context "test sanger_barcode_prefix method" do
+        it {subject.sanger_barcode_prefix.should == "ND" }
+      end
+
+      context "test suffix calculation for sanger barcode" do
+        let(:prefix) { "ND" }
+        let(:number) { "1233334" }
+        it { subject.calculate_sanger_barcode_checksum(prefix, number).should == "K" }
+      end
+
+      context "test sanger_barcode_suffix method" do
+        it {
+          subject.sanger_code("1233334")
+          subject.sanger_barcode_suffix.should == "K"
+        }
+      end
+
       context "test checksum calculating" do
         let(:code) { "7351353" }
         it { subject.calculate_ean13_checksum(code).should == 7 }
       end
 
-      context "test suffix calculation for sanger barcode" do
-        let(:prefix) { "DN" }
-        let(:number) { 123333 }
-        it { subject.calculate_sanger_barcode_checksum(prefix, number).should == "F" }
+      context "test calculate sanger barcode method" do
+        let(:role) { "stock" }
+        let(:contents) { "blood" }
+        let(:sanger_number) { "1234567" }
+        it { subject.sanger_barcode(role, contents, sanger_number).should == 66123456773 }
       end
 
-#      context "test sanger barcode generation" do
-#        let(:role) { "stock" }
-#        let(:contents) { "blood" }
-#        it { subject.sanger_barcode(role, contents).should == "DN9383983983K" }
-#      end
+      context "test ean13 calculation" do
+        it {
+          subject.sanger_code("1233334")
+          subject.ean13.should == "3821233334756"
+        }
+      end
     end
 
   end

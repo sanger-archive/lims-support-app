@@ -10,6 +10,17 @@ EOD
 h[:method] = "POST"
 h[:url] = '/actions/create_barcode'
 h[:header] << 'Accept: application/json'
+h[:setup]=<<EOD
+# This is class is generating a fake barcode
+# We will use it when we are generating a new sanger barcode.
+module Lims::SupportApp
+    class FakeBarcode
+        def self.new_fake_barcode
+            "1233334"
+        end
+    end
+end
+EOD
 h[:parameters] = <<EOD
 { "create_barcode": {
     "labware": "tube",
@@ -34,16 +45,14 @@ h[:response]=<<EOD
                 "create": "http://example.org/11111111-2222-3333-4444-555555555555"
             },
             "uuid": "11111111-2222-3333-4444-555555555555",
-            "labware": "tube",
-            "role": "stock",
-            "contents": "DNA"
+            "ean13": "3821233334756",
+            "sanger": {
+              "prefix": "ND",
+              "number": "1233334",
+              "suffix": "K"
+            }
         },
-        "ean13": "1234567891011",
-        "sanger": {
-            "prefix": "DN",
-            "number": "1234567",
-            "suffix": "K"
-        }
+        "uuid": "11111111-2222-3333-4444-555555555555"
     },
     "labware": "tube",
     "role": "stock",

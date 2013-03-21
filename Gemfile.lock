@@ -1,4 +1,31 @@
 GIT
+  remote: http://github.com/sanger/lims-api.git
+  revision: 7cc4d0939bf1ef6d552929c354ef53558a47d97d
+  branch: development
+  specs:
+    lims-api (1.2.0.2.1)
+      active_support
+      bunny (= 0.9.0.pre4)
+      json
+      sequel
+      state_machine
+
+GIT
+  remote: http://github.com/sanger/lims-core.git
+  revision: 70fe7670bb182888df514041d2535750013bf190
+  branch: development
+  specs:
+    lims-core (1.4.0.0.3)
+      active_support
+      aequitas
+      bunny (= 0.9.0.pre4)
+      facets (= 2.9.3)
+      sequel
+      state_machine
+      uuid
+      virtus (= 0.2.0)
+
+GIT
   remote: http://github.com/sanger/psd_logger.git
   revision: dd2d634114df75b1d8535715c169a7fc99521389
   specs:
@@ -18,29 +45,6 @@ PATH
   specs:
     lims-support-app (0.0.0.0.1)
       json
-
-PATH
-  remote: ../api
-  specs:
-    lims-api (1.2.0.2.1)
-      active_support
-      bunny (= 0.9.0.pre4)
-      json
-      sequel
-      state_machine
-
-PATH
-  remote: ../core2
-  specs:
-    lims-core (1.4.0.0.2)
-      active_support
-      aequitas
-      bunny (= 0.9.0.pre4)
-      facets (= 2.9.3)
-      sequel
-      state_machine
-      uuid
-      virtus (= 0.2.0)
 
 GEM
   remote: http://rubygems.org/
@@ -110,8 +114,8 @@ DEPENDENCIES
   debugger-completion
   github-markup (~> 0.7.1)
   hashdiff
-  lims-api (~> 1.2.0.2.0)!
-  lims-core (~> 1.4.0.0.1)!
+  lims-api (~> 1.2.0.2.1)!
+  lims-core (~> 1.4.0.0.3)!
   lims-support-app!
   mysql2
   psd_logger!

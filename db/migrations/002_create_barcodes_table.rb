@@ -5,6 +5,7 @@
       String :labware
       String :role
       String :contents
+      String :ean13_code
     end
   end
 

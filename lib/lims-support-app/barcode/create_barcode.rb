@@ -13,6 +13,11 @@ module Lims::SupportApp
 
       def _call_in_session(session)
         barcode = Lims::SupportApp::Barcode.new(:labware => labware, :role => role, :contents => contents)
+
+        barcode.sanger_code(Barcode::new_barcode)
+
+        barcode.ean13_code = barcode.ean13
+
         session << barcode
         
         { :barcode => barcode, :uuid => session.uuid_for!(barcode) }
