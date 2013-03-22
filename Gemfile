@@ -4,8 +4,8 @@ source "http://rubygems.org"
 gemspec
 
 gem 'sinatra', :git => 'http://github.com/sinatra/sinatra.git'
-gem 'lims-core', '~>1.4.0.0.3', :git => 'http://github.com/sanger/lims-core.git' , :branch => 'development'
-# gem 'lims-core', '~>1.4.0.0.1', :path => '../lims-core'
+gem 'lims-core', '~>1.4.1.0.4', :git => 'http://github.com/sanger/lims-core.git' , :branch => 'development'
+# gem 'lims-core', '~>1.4.1.0.4', :path => '../lims-core'
 gem 'lims-api', '~>1.2.0.2.1', :git => 'http://github.com/sanger/lims-api.git' , :branch => 'development'
 # gem 'lims-api', '~>1.2.0.2.1', :path => '../lims-api'
 
@@ -20,5 +20,5 @@ group :deployment do
   gem 'trinidad', :platforms => :jruby
   gem "trinidad_daemon_extension", :platforms => :jruby
   gem 'activesupport', '~> 3.0.0', :platforms => :jruby
-  gem "mysql2"
+  gem 'jdbc-mysql', :platforms => :jruby
 end
