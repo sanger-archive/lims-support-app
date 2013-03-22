@@ -57,8 +57,12 @@ end
 
 # aliasing the resources and actions
 
-require 'lims-core/laboratory'
-Lims::Core::Laboratory::Barcode = Lims::SupportApp::Barcode
+module Lims::Core
+  module Laboraory
+    Barcode = Lims::SupportApp::Barcode
+  end
+end
+
 Lims::Core::Actions::CreateBarcode = Lims::SupportApp::Barcode::CreateBarcode
 Lims::Core::Persistence::Barcode = Lims::SupportApp::Barcode::BarcodePersistor
 
