@@ -30,4 +30,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency('yard', '>= 0.7.0')
   s.add_development_dependency('yard-rspec', '0.1')
   s.add_development_dependency('github-markup', '~> 0.7.1')
+
+  s.add_dependency('bunny', '0.9.0.pre4')
 end
