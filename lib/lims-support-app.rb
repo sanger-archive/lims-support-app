@@ -58,7 +58,7 @@ end
 # aliasing the resources and actions
 
 module Lims::Core
-  module Laboraory
+  module Laboratory
     Barcode = Lims::SupportApp::Barcode
   end
 end
