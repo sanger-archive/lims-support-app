@@ -9,10 +9,20 @@ gem 'lims-core', '~>1.4.1.0.4', :git => 'http://github.com/sanger/lims-core.git'
 gem 'lims-api', '~>1.2.0.2.1', :git => 'http://github.com/sanger/lims-api.git' , :branch => 'development'
 # gem 'lims-api', '~>1.2.0.2.1', :path => '../lims-api'
 
+group :development do
+  gem 'redcarpet', '~> 2.1.0', :platforms => :mri
+  gem 'sqlite3', :platforms => :mri
+end
+
 group :debugger do
-  gem 'debugger'
-  gem 'debugger-completion'
-  gem 'shotgun'
+  gem 'debugger', :platforms => :mri
+  gem 'debugger-completion', :platforms => :mri
+  gem 'shotgun', :platforms => :mri
+end
+
+group :pry do
+  gem 'debugger-pry', :require => 'debugger/pry', :platforms => :mri
+  gem 'pry', :platforms => :mri
 end
 
 group :deployment do
