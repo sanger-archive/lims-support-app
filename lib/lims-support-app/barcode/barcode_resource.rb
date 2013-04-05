@@ -6,7 +6,7 @@ module Lims::SupportApp
 
       def content_to_stream(s, mime_type)
         s.add_key "ean13"
-        s.add_value object.ean13
+        s.add_value object.ean13_code
 
         s.add_key "sanger"
         s.with_hash do
@@ -14,7 +14,7 @@ module Lims::SupportApp
           s.add_value object.sanger_barcode_prefix
 
           s.add_key "number"
-          s.add_value object.generated_sanger_code
+          s.add_value object.sanger_barcode
 
           s.add_key "suffix"
           s.add_value object.sanger_barcode_suffix

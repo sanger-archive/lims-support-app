@@ -16,7 +16,7 @@ module Lims::SupportApp
 
         barcode.sanger_code(Barcode::new_barcode)
 
-        barcode.ean13_code = barcode.ean13
+        barcode.ean13_code = barcode.calculate_ean13
 
         session << barcode
         

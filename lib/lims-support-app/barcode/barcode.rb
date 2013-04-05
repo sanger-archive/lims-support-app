@@ -16,9 +16,14 @@ module Lims::SupportApp
     attribute :labware, String, :required => true, :writer => :private, :initializable => true
     attribute :role, String, :required => true, :writer => :private, :initializable => true
     attribute :contents, String, :required => true, :writer => :private, :initializable => true
-    attribute :ean13_code, String, :writer => :public
+    attribute :ean13_code, String, :writer => :public, :initializable => true
 
     attr_reader :generated_sanger_code
+
+    # InvalidBarcodeError exception raised if a barcode is not valid.
+    # It can happen if the prefix, sanger code or the suffix is nil.
+    class InvalidBarcodeError < StandardError
+    end
 
     def initialize(*args, &block)
       super(*args, &block)
@@ -49,14 +54,22 @@ module Lims::SupportApp
 
     # This method returns an ean13 type barcode
     # @return [String] an ean13 version of the sanger barcode
-    def ean13
-      ean13_barcode(sanger_barcode(role, contents, @generated_sanger_code)).to_s
+    def calculate_ean13
+      ean13_barcode(sanger_barcode_full(role, contents, @generated_sanger_code)).to_s
     end
 
-    # This method returns the prefix of sanger barcode
+    # This method calculates the prefix of sanger barcode
+    # @return [String] the prefix of sanger barcode
+    def calculate_sanger_barcode_prefix
+      prefix_for_sanger_barcode(role, contents)
+    end
+
+    # This method returns the prefix of a stored sanger barcode
     # @return [String] the prefix of sanger barcode
     def sanger_barcode_prefix
-      prefix_for_sanger_barcode(role, contents)
+      barcode_to_human(ean13_code) if @sanger_prefix.nil?
+      raise InvalidBarcodeError, "Barcode's prefix can't be nil." if @sanger_prefix.nil?
+      @sanger_prefix
     end
 
     # This method returns a generated number-like string with 7 digits (padded with '0')
@@ -65,10 +78,26 @@ module Lims::SupportApp
       @generated_sanger_code = new_barcode
     end
 
-    # This method returns the suffix of sanger barcode
+    # This method retrieve and returns the stored number-like string with 7 digits (padded with '0')
+    # @return [String] the stored sanger code
+    def sanger_barcode
+      barcode_to_human(ean13_code) if @sanger_code_str.nil?
+      raise InvalidBarcodeError, "Barcode's sanger code can't be nil." if @sanger_code_str.nil?
+      @sanger_code_str
+    end
+
+    # This method calculates the suffix of sanger barcode
+    # @return [String] the suffix of sanger barcode
+    def calculate_sanger_barcode_suffix
+      calculate_sanger_barcode_checksum(calculate_sanger_barcode_prefix, @generated_sanger_code)
+    end
+
+    # This method returns the stored suffix of sanger barcode
     # @return [String] the suffix of sanger barcode
     def sanger_barcode_suffix
-      calculate_sanger_barcode_checksum(sanger_barcode_prefix, @generated_sanger_code)
+      barcode_to_human(ean13_code) if @sanger_suffix.nil?
+      raise InvalidBarcodeError, "Barcode's suffix can't be nil." if @sanger_suffix.nil?
+      @sanger_suffix
     end
 
     # TODO ke4 This is just a temporary solution
@@ -83,24 +112,24 @@ module Lims::SupportApp
 
     #=== EAN13 Barcode Calculation begins===
 
-    # This method is generates an ean13 type barcode from sanger-barcode
+    # This method is generates an ean13 type barcode from a full sanger-barcode
     # @param [String] an assambled sanger barcode
     # (joining the sanger prefix, sanger code and sanger suffix in one string)
     # @return [String] an ean13 version of the sanger barcode
-    def ean13_barcode(sanger_barcode)
-      sanger_barcode * 10 + calculate_ean13_checksum(sanger_barcode.to_s)
+    def ean13_barcode(sanger_barcode_full)
+      sanger_barcode_full * 10 + calculate_ean13_checksum(sanger_barcode_full.to_s)
     end
 
     # The checksum is calculated taking a varying weight value times the value
     # of each number in the barcode to make a sum. The checksum digit is then
     # the digit which must be added to this sum to get a number evenly
     # divisible by 10 (i.e. the additive inverse of the sum, modulo 10)
-    # @param [String] an assambled sanger barcode in one string
+    # @param [String] an assambled (full) sanger barcode in one string
     # @return [String] the checksum for ean13 type barcode
-    def calculate_ean13_checksum(sanger_barcode, initial_weight=3)
+    def calculate_ean13_checksum(sanger_barcode_full, initial_weight=3)
       sum = 0
       weight = initial_weight
-      sanger_barcode.each_char do |c|
+      sanger_barcode_full.each_char do |c|
         sum += c.to_i * weight
         weight = weight == 1 ? 3 : 1
       end
@@ -118,7 +147,7 @@ module Lims::SupportApp
     # @param [String] the type of the aliquot the labware contains (DNA, RNA etc...)
     # @param [String] a generated number-like string with 7 digits
     # @return [String] an assambled sanger barcode
-    def sanger_barcode(role, contents, sanger_code)
+    def sanger_barcode_full(role, contents, sanger_code)
       calculate_sanger_barcode(prefix_for_sanger_barcode(role, contents), sanger_code)
     end
 
@@ -157,6 +186,40 @@ module Lims::SupportApp
         len = len - 1
       end
       return (sum % 23 + "A".ord).chr
+    end
+
+    # This method splits the ean13 typed barcode to its prefix, sanger code
+    # and suffix parts. Both of them are in numeric forms.
+    # @return [Array] the ean13 barcode's prefix, sanger code
+    # and suffix in numeric form.
+    def split_barcode(sanger_barcode_full)
+      sanger_barcode_full = sanger_barcode_full.to_s
+      if sanger_barcode_full.size > 11 && sanger_barcode_full.size < 14
+        # Pad with zeros
+        while sanger_barcode_full.size < 13
+          sanger_barcode_full = "0" + sanger_barcode_full
+        end
+      end
+      if /^(...)(.*)(..)(.)$/ =~ sanger_barcode_full
+        prefix, number, check, printer_check = $1, $2, $3, $4
+      end
+      [prefix, number.to_i, check.to_i]
+    end
+
+    # This method converts the ean13 barcode's numeric form
+    # to a human readable form.
+    def barcode_to_human(ean13_code)
+      raise InvalidBarcodeError, "An existing barcode object should contain an ean13 type code." if ean13_code.nil?
+      prefix, number, suffix = split_barcode(ean13_code)
+      @sanger_code_str = number.to_s
+      @sanger_suffix = suffix.chr
+      @sanger_prefix = prefix_to_human(prefix)
+    end
+
+    # This method converts the barcode's prefix from numerical form to
+    # two characters form.
+    def prefix_to_human(prefix)
+      human_prefix = ((prefix.to_i/27)+64).chr + ((prefix.to_i%27)+64).chr
     end
 
     # This methods convert the textual prefix to numerical value
