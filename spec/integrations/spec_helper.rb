@@ -1,9 +1,6 @@
 #shared contexts for integrations
-require 'lims-core'
 require 'lims-support-app'
-#Lims::Core::Laboratory::Barcode = Lims::SupportApp::Barcode::Barcode
 require 'spec_helper'
-require 'lims-support-app'
 require 'lims-api/context_service'
 
 require 'lims-core/persistence/sequel'

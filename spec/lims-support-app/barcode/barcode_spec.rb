@@ -52,6 +52,16 @@ module Lims::SupportApp
       it_has_a :contents, String
     end
 
+    context "invalid" do
+      subject { Barcode.new(creation_parameters)}
+
+      it "ean13 code can't be nil in a corretly setup barcode object" do
+        expect do
+          subject.sanger_barcode_prefix.should
+        end.to raise_error(Barcode::InvalidBarcodeError)
+      end
+    end
+
     context "valid" do
       subject { Barcode.new(creation_parameters)}
 
@@ -62,7 +72,9 @@ module Lims::SupportApp
       end
 
       context "test sanger_barcode_prefix method" do
-        it {subject.sanger_barcode_prefix.should == "ND" }
+        it {
+          subject.calculate_sanger_barcode_prefix.should == "ND"
+        }
       end
 
       context "test suffix calculation for sanger barcode" do
@@ -74,7 +86,7 @@ module Lims::SupportApp
       context "test sanger_barcode_suffix method" do
         it {
           subject.sanger_code("1233334")
-          subject.sanger_barcode_suffix.should == "K"
+          subject.calculate_sanger_barcode_suffix.should == "K"
         }
       end
 
@@ -87,13 +99,13 @@ module Lims::SupportApp
         let(:role) { "stock" }
         let(:contents) { "blood" }
         let(:sanger_number) { "1234567" }
-        it { subject.sanger_barcode(role, contents, sanger_number).should == 66123456773 }
+        it { subject.sanger_barcode_full(role, contents, sanger_number).should == 66123456773 }
       end
 
       context "test ean13 calculation" do
         it {
           subject.sanger_code("1233334")
-          subject.ean13.should == "3821233334756"
+          subject.calculate_ean13.should == "3821233334756"
         }
       end
     end
