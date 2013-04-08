@@ -66,27 +66,32 @@ module Lims::SupportApp
       subject { Barcode.new(creation_parameters)}
 
       context "test prefix for sanger barcode" do
-        let(:role) { "gel_plate" }
+        let(:labware) { "gel" }
+        let(:role) { "gel plate" }
         let(:contents) { "DNA" }
-        it {subject.prefix_for_sanger_barcode(role, contents).should == "GD" }
+        subject { Barcode.new(
+          { :labware => labware, :role => role, :contents => contents }) }
+        it {subject.calculate_sanger_barcode_prefix.should == "GD" }
       end
+
+      subject { Barcode.new(creation_parameters)}
 
       context "test sanger_barcode_prefix method" do
         it {
-          subject.calculate_sanger_barcode_prefix.should == "ND"
+          subject.calculate_sanger_barcode_prefix.should == "JD"
         }
       end
 
       context "test suffix calculation for sanger barcode" do
-        let(:prefix) { "ND" }
+        let(:prefix) { "JD" }
         let(:number) { "1233334" }
-        it { subject.calculate_sanger_barcode_checksum(prefix, number).should == "K" }
+        it { subject.calculate_sanger_barcode_checksum(prefix, number).should == "U" }
       end
 
       context "test sanger_barcode_suffix method" do
         it {
           subject.sanger_code("1233334")
-          subject.calculate_sanger_barcode_suffix.should == "K"
+          subject.calculate_sanger_barcode_suffix.should == "U"
         }
       end
 
@@ -105,7 +110,7 @@ module Lims::SupportApp
       context "test ean13 calculation" do
         it {
           subject.sanger_code("1233334")
-          subject.calculate_ean13.should == "3821233334758"
+          subject.calculate_ean13.should == "2741233334859"
         }
       end
 
