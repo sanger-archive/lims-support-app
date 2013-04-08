@@ -1,6 +1,9 @@
 require 'common'
 require 'lims/core/resource'
 
+require 'lims-support-app/barcode/prefix/barcode_prefixes'
+require 'lims-support-app/barcode/prefix/labware_triple'
+
 module Lims::SupportApp
 
   # A Barcode object is containing the sanger and ean13 type barcode
@@ -29,39 +32,23 @@ module Lims::SupportApp
       super(*args, &block)
     end
 
-    # This hash contains the prefixes for sanger barcode based on
-    # the role and the contents of the asset
-    def prefix_hash
-      { :stock => { "DNA" => "ND", "PDNA" => "NP", "RNA" => "NR",
-                    "blood" => "BL", "tumour_tissue" => "TS",
-                    "non_tumour_tissue" => "TN",
-                    "saliva" => "SV", "pathogen" => "PT"},
-        :tube => { "DNA" => "JD", "PDNA" => "JP", "RNA" => "JR"},
-        :working_dillution => { "DNA" => "WD", "PDNA" => "WQ", "RNA" => "WR"},
-        :pico_dillution => { "DNA" => "QD", "PDNA" => "QP"},
-        :pico_assay_a => { "DNA" => "PA", "PDNA" => "PD"},
-        :pico_assay_b => { "DNA" => "PB", "PDNA" => "PE"},
-        :ribo_dillution => { "RNA" => "QR"},
-        :ribo_assay_a => { "RNA" => "RH"},
-        :ribo_assay_b => { "RNA" => "RI"},
-        :gel_plate => { "DNA" => "GD", "PDNA" => "GQ", "RNA" => "GR"},
-        :standard => { "DNA" => "YD", "PDNA" => "YP", "RNA" => "YR"},
-        :control => { "DNA" => "XD", "PDNA" => "XP", "RNA" => "XR"},
-        :spin_column => { "DNA" => "KD", "PDNA" => "KP", "RNA" => "KR"}
-      }
-    end
-    private :prefix_hash
-
     # This method returns an ean13 type barcode
     # @return [String] an ean13 version of the sanger barcode
     def calculate_ean13
       ean13_barcode(sanger_barcode_full(role, contents, @generated_sanger_code)).to_s
     end
 
-    # This method calculates the prefix of sanger barcode
+    # This method returns the prefix of the sanger barcode based on
+    # the labware, role and contents of the labware. It is a 2 characters long string.
+    # @param [String] the role of the labware (like 'stock')
+    # @param [String] the type of the aliquot the labware contains (DNA, RNA etc...)
     # @return [String] the prefix of sanger barcode
     def calculate_sanger_barcode_prefix
-      prefix_for_sanger_barcode(role, contents)
+      labware_triple = Lims::SupportApp::BarcodePrefix::LabwareTriple.new(labware, role, contents)
+      prefix_rule = Lims::SupportApp::BarcodePrefix::BarcodePrefixes::PREFIXES.find do |rule|
+        rule.match(labware_triple)
+      end
+      prefix_rule.prefix
     end
 
     # This method returns the prefix of a stored sanger barcode
@@ -148,16 +135,7 @@ module Lims::SupportApp
     # @param [String] a generated number-like string with 7 digits
     # @return [String] an assambled sanger barcode
     def sanger_barcode_full(role, contents, sanger_code)
-      calculate_sanger_barcode(prefix_for_sanger_barcode(role, contents), sanger_code)
-    end
-
-    # This method returns the prefix of the sanger barcode based on the role
-    # and contents of the labware. It is a 2 characters long string.
-    # @param [String] the role of the labware (like 'stock')
-    # @param [String] the type of the aliquot the labware contains (DNA, RNA etc...)
-    # @return [String] the prefix of sanger barcode
-    def prefix_for_sanger_barcode(role, contents)
-      prefix_hash[role.to_sym][contents]
+      calculate_sanger_barcode(calculate_sanger_barcode_prefix, sanger_code)
     end
 
     # This method generates a sanger-barcode into one string

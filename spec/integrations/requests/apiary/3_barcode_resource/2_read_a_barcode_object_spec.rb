@@ -22,7 +22,7 @@ describe "read_a_barcode_object" do
 
     response = post "/barcodes", "{ \"barcode\": {\n    \"labware\": \"tube\",\n    \"role\": \"stock\",\n    \"contents\": \"DNA\"\n}}\n"
     response.status.should == 200
-    response.body.should match_json "{ \"barcode\": {\n    \"actions\": {\n        \"read\": \"http://example.org/11111111-2222-3333-4444-555555555555\",\n        \"update\": \"http://example.org/11111111-2222-3333-4444-555555555555\",\n        \"delete\": \"http://example.org/11111111-2222-3333-4444-555555555555\",\n        \"create\": \"http://example.org/11111111-2222-3333-4444-555555555555\"\n    },\n    \"uuid\": \"11111111-2222-3333-4444-555555555555\",\n    \"ean13\": \"3821233334756\",\n    \"sanger\": {\n      \"prefix\": \"ND\",\n      \"number\": \"1233334\",\n      \"suffix\": \"K\"\n    }\n}}\n"
+    response.body.should match_json "{ \"barcode\": {\n    \"actions\": {\n        \"read\": \"http://example.org/11111111-2222-3333-4444-555555555555\",\n        \"update\": \"http://example.org/11111111-2222-3333-4444-555555555555\",\n        \"delete\": \"http://example.org/11111111-2222-3333-4444-555555555555\",\n        \"create\": \"http://example.org/11111111-2222-3333-4444-555555555555\"\n    },\n    \"uuid\": \"11111111-2222-3333-4444-555555555555\",\n    \"ean13\": \"2741233334851\",\n    \"sanger\": {\n      \"prefix\": \"JD\",\n      \"number\": \"1233334\",\n      \"suffix\": \"U\"\n    }\n}}\n"
 
   end
 end
