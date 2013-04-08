@@ -1,4 +1,3 @@
-require 'lims-api'
 require 'lims-support-app'
 require 'rack/test'
 require 'hashdiff'
