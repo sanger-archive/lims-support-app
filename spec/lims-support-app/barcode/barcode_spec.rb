@@ -65,7 +65,7 @@ module Lims::SupportApp
     context "valid" do
       subject { Barcode.new(creation_parameters)}
 
-      context "test prefix for sanger barcode" do
+      context "test prefix for sanger barcode - gel plate with DNA" do
         let(:labware) { "gel" }
         let(:role) { "gel plate" }
         let(:contents) { "DNA" }
@@ -74,9 +74,18 @@ module Lims::SupportApp
         it {subject.calculate_sanger_barcode_prefix.should == "GD" }
       end
 
+      context "test prefix for sanger barcode - blood" do
+        let(:labware) { nil }
+        let(:role) { "stock" }
+        let(:contents) { "blood" }
+        subject { Barcode.new(
+          { :labware => labware, :role => role, :contents => contents }) }
+        it {subject.calculate_sanger_barcode_prefix.should == "BL" }
+      end
+
       subject { Barcode.new(creation_parameters)}
 
-      context "test sanger_barcode_prefix method" do
+      context "test sanger_barcode_prefix method - stock tube with DNA" do
         it {
           subject.calculate_sanger_barcode_prefix.should == "JD"
         }
