@@ -101,10 +101,8 @@ module Lims::SupportApp
       end
 
       context "test calculate sanger barcode method" do
-        let(:role) { "stock" }
-        let(:contents) { "blood" }
         let(:sanger_number) { "1234567" }
-        it { subject.sanger_barcode_full(role, contents, sanger_number).should == 66123456773 }
+        it { subject.sanger_barcode_full(sanger_number).should == 274123456781 }
       end
 
       context "test ean13 calculation" do

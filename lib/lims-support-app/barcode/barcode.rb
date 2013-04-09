@@ -35,7 +35,7 @@ module Lims::SupportApp
     # This method returns an ean13 type barcode
     # @return [String] an ean13 version of the sanger barcode
     def calculate_ean13
-      ean13_barcode(sanger_barcode_full(role, contents, @generated_sanger_code)).to_s
+      ean13_barcode(sanger_barcode_full(@generated_sanger_code)).to_s
     end
 
     # This method returns the prefix of the sanger barcode based on
@@ -136,7 +136,7 @@ module Lims::SupportApp
     # @param [String] the type of the aliquot the labware contains (DNA, RNA etc...)
     # @param [String] a generated number-like string with 7 digits
     # @return [String] an assambled sanger barcode
-    def sanger_barcode_full(role, contents, sanger_code)
+    def sanger_barcode_full(sanger_code)
       calculate_sanger_barcode(calculate_sanger_barcode_prefix, sanger_code)
     end
 
