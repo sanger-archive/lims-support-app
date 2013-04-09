@@ -65,28 +65,42 @@ module Lims::SupportApp
     context "valid" do
       subject { Barcode.new(creation_parameters)}
 
-      context "test prefix for sanger barcode" do
-        let(:role) { "gel_plate" }
+      context "test prefix for sanger barcode - gel plate with DNA" do
+        let(:labware) { "gel" }
+        let(:role) { "gel plate" }
         let(:contents) { "DNA" }
-        it {subject.prefix_for_sanger_barcode(role, contents).should == "GD" }
+        subject { Barcode.new(
+          { :labware => labware, :role => role, :contents => contents }) }
+        it {subject.calculate_sanger_barcode_prefix.should == "GD" }
       end
 
-      context "test sanger_barcode_prefix method" do
+      context "test prefix for sanger barcode - blood" do
+        let(:labware) { nil }
+        let(:role) { "stock" }
+        let(:contents) { "blood" }
+        subject { Barcode.new(
+          { :labware => labware, :role => role, :contents => contents }) }
+        it {subject.calculate_sanger_barcode_prefix.should == "BL" }
+      end
+
+      subject { Barcode.new(creation_parameters)}
+
+      context "test sanger_barcode_prefix method - stock tube with DNA" do
         it {
-          subject.calculate_sanger_barcode_prefix.should == "ND"
+          subject.calculate_sanger_barcode_prefix.should == "JD"
         }
       end
 
       context "test suffix calculation for sanger barcode" do
-        let(:prefix) { "ND" }
+        let(:prefix) { "JD" }
         let(:number) { "1233334" }
-        it { subject.calculate_sanger_barcode_checksum(prefix, number).should == "K" }
+        it { subject.calculate_sanger_barcode_checksum(prefix, number).should == "U" }
       end
 
       context "test sanger_barcode_suffix method" do
         it {
           subject.sanger_code("1233334")
-          subject.calculate_sanger_barcode_suffix.should == "K"
+          subject.calculate_sanger_barcode_suffix.should == "U"
         }
       end
 
@@ -96,16 +110,14 @@ module Lims::SupportApp
       end
 
       context "test calculate sanger barcode method" do
-        let(:role) { "stock" }
-        let(:contents) { "blood" }
         let(:sanger_number) { "1234567" }
-        it { subject.sanger_barcode_full(role, contents, sanger_number).should == 66123456773 }
+        it { subject.sanger_barcode_full(sanger_number).should == 274123456781 }
       end
 
       context "test ean13 calculation" do
         it {
           subject.sanger_code("1233334")
-          subject.calculate_ean13.should == "3821233334756"
+          subject.calculate_ean13.should == "2741233334851"
         }
       end
     end
