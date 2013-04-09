@@ -1,4 +1,5 @@
 require 'lims-support-app'
+require 'logger-middleware'
 
 Lims::Api::Server.configure(:development) do |config|
 require 'lims-api/sequel'
@@ -8,5 +9,9 @@ require 'lims-api/message_bus'
   config.set :context_service, Lims::Api::ContextService.new(store, message_bus)
   config.set :base_url, "http://localhost:9292"
 end
+
+logger = Logger.new($stdout)
+
+use LoggerMiddleware, logger
 
 run Lims::Api::Server
