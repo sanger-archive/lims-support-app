@@ -105,9 +105,34 @@ module Lims::SupportApp
       context "test ean13 calculation" do
         it {
           subject.sanger_code("1233334")
-          subject.calculate_ean13.should == "3821233334756"
+          subject.calculate_ean13.should == "3821233334758"
         }
       end
+
+      context "test ean13 calculation with prefix and sanger_code 1", :focus => true do
+        let(:labware) { nil }
+        let(:role) { "stock" }
+        let(:contents) { "DNA" }
+        subject { Barcode.new(
+          { :labware => labware, :role => role, :contents => contents }) }
+        it {
+          subject.sanger_code("5991378")
+          subject.calculate_ean13.should == "3825991378870"
+        }
+      end
+
+      context "test ean13 calculation with prefix and sanger_code 2", :focus => true do
+        let(:labware) { nil }
+        let(:role) { "stock" }
+        let(:contents) { "DNA" }
+        subject { Barcode.new(
+          { :labware => labware, :role => role, :contents => contents }) }
+        it {
+          subject.sanger_code("5539900")
+          subject.calculate_ean13.should == "3825539900846"
+        }
+      end
+
     end
 
   end
