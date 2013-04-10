@@ -123,7 +123,6 @@ module Lims::SupportApp
       end
 
       checksum = (10 - sum) % 10
-
     end
 
     #=== EAN13 Barcode Calculation ends===
