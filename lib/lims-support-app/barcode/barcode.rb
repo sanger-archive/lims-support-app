@@ -127,14 +127,16 @@ module Lims::SupportApp
     # @param [String] an assambled (full) sanger barcode in one string
     # @return [String] the checksum for ean13 type barcode
     def calculate_ean13_checksum(sanger_barcode_full, initial_weight=3)
+      sanger_barcode_full.reverse!
       sum = 0
       weight = initial_weight
       sanger_barcode_full.each_char do |c|
-        sum += c.to_i * weight
+        sum += c.to_i * weight % 10
         weight = weight == 1 ? 3 : 1
       end
 
-      checksum = 10 - sum % 10
+      checksum = (10 - sum) % 10
+
     end
 
     #=== EAN13 Barcode Calculation ends===
