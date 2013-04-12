@@ -1,9 +1,9 @@
 GIT
   remote: http://github.com/sanger/lims-api.git
-  revision: 87ab672c6aa83731937f162f8aabd33d95e08a8b
+  revision: 499036becab889d2418a36ecc7b7b98f33278396
   branch: development
   specs:
-    lims-api (1.2.0.2.1)
+    lims-api (1.2.0.2.3)
       active_support
       bunny (= 0.9.0.pre4)
       json
@@ -12,10 +12,10 @@ GIT
 
 GIT
   remote: http://github.com/sanger/lims-core.git
-  revision: 7844ba4241e11bc0f20bbb30d79ea5b882121389
+  revision: 3812d895612a0ce95003f413c6bdcaca439caab6
   branch: development
   specs:
-    lims-core (1.4.1.1.0)
+    lims-core (1.5.0.0.0)
       active_support
       aequitas
       bunny (= 0.9.0.pre4)
@@ -78,7 +78,7 @@ GEM
     github-markup (0.7.5)
     hashdiff (0.0.6)
     jdbc-mysql (5.1.24)
-    jruby-rack (1.1.13.1)
+    jruby-rack (1.1.13.2)
     json (1.7.7)
     json (1.7.7-java)
     macaddr (1.6.1)
@@ -103,12 +103,12 @@ GEM
     rspec-expectations (2.8.0)
       diff-lcs (~> 1.1.2)
     rspec-mocks (2.8.0)
-    sequel (3.45.0)
+    sequel (3.46.0)
     shotgun (0.9)
       rack (>= 1.0)
     slop (3.4.4)
     sqlite3 (1.3.7)
-    state_machine (1.1.2)
+    state_machine (1.2.0)
     systemu (2.5.2)
     tilt (1.3.6)
     trinidad (1.4.4)
@@ -136,8 +136,8 @@ DEPENDENCIES
   github-markup (~> 0.7.1)
   hashdiff
   jdbc-mysql
-  lims-api (~> 1.2.0.2.1)!
-  lims-core (~> 1.4.1.1.0)!
+  lims-api (~> 1.2.0.2.3)!
+  lims-core (~> 1.5.0.0.0)!
   lims-support-app!
   pry
   psd_logger!
