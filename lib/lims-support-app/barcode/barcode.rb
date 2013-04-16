@@ -190,7 +190,7 @@ module Lims::SupportApp
     def barcode_to_human(ean13_code)
       raise InvalidBarcodeError, "An existing barcode object should contain an ean13 type code." if ean13_code.nil?
       prefix, number, suffix = split_barcode(ean13_code)
-      @sanger_code_str = number.to_s
+      @sanger_code_str = "%07d" % number.to_s
       @sanger_suffix = suffix.chr
       @sanger_prefix = prefix_to_human(prefix)
     end
