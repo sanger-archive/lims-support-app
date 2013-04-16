@@ -2,6 +2,16 @@
 require 'lims-support-app/barcode/barcode'
 
 module Lims::SupportApp
+
+  shared_examples_for "a valid ean13_code" do |sanger_code, ean13_code|
+    subject { Barcode.new(
+      { :labware => labware, :role => role, :contents => contents }) }
+    it {
+      subject.sanger_code(sanger_code)
+      subject.calculate_ean13.should == ean13_code
+    }
+  end
+
   describe Barcode do
     #== Macro ====
     def self.it_has_a(attribute, type=nil)
@@ -115,37 +125,73 @@ module Lims::SupportApp
       end
 
       context "test ean13 calculation" do
-        it {
-          subject.sanger_code("1233334")
-          subject.calculate_ean13.should == "2741233334859"
-        }
+        it_behaves_like('a valid ean13_code', "1233334", "2741233334859")
       end
 
-      context "test ean13 calculation with prefix and sanger_code 1", :focus => true do
+      context "test ean13 calculation with prefix and sanger_code 1" do
         let(:labware) { nil }
         let(:role) { "stock" }
         let(:contents) { "DNA" }
-        subject { Barcode.new(
-          { :labware => labware, :role => role, :contents => contents }) }
-        it {
-          subject.sanger_code("5991378")
-          subject.calculate_ean13.should == "3825991378870"
-        }
+
+        it_behaves_like('a valid ean13_code', "5991378", "3825991378870")
       end
 
-      context "test ean13 calculation with prefix and sanger_code 2", :focus => true do
+      context "test ean13 calculation with prefix and sanger_code 2" do
         let(:labware) { nil }
         let(:role) { "stock" }
         let(:contents) { "DNA" }
-        subject { Barcode.new(
-          { :labware => labware, :role => role, :contents => contents }) }
-        it {
-          subject.sanger_code("5539900")
-          subject.calculate_ean13.should == "3825539900846"
-        }
+
+        it_behaves_like('a valid ean13_code', "5539900", "3825539900846")
+      end
+
+      context "test ean13 calculation with prefix and sanger_code 42852" do
+        let(:labware) { nil }
+        let(:role) { "stock" }
+        let(:contents) { "DNA" }
+
+        it_behaves_like('a valid ean13_code', "0042852", "3820042852743")
+      end
+
+      context "test ean13 calculation with prefix and sanger_code 564945" do
+        let(:labware) { nil }
+        let(:role) { "stock" }
+        let(:contents) { "RNA" }
+
+        it_behaves_like('a valid ean13_code', "0564945", "3960564945773")
+      end
+
+      context "test ean13 calculation with prefix and sanger_code 6911450" do
+        let(:labware) { nil }
+        let(:role) { "stock" }
+        let(:contents) { "RNA" }
+
+        it_behaves_like('a valid ean13_code', "6911450", "3966911450655")
+      end
+
+      context "test ean13 calculation with prefix and sanger_code 6981041" do
+        let(:labware) { nil }
+        let(:role) { "stock" }
+        let(:contents) { "RNA" }
+
+        it_behaves_like('a valid ean13_code', "6981041", "3966981041876")
+      end
+
+      context "test ean13 calculation with prefix and sanger_code 310543", :focus => true do
+        let(:labware) { nil }
+        let(:role) { "stock" }
+        let(:contents) { "DNA" }
+
+        it_behaves_like('a valid ean13_code', "0310543", "3820310543823")
+      end
+
+      context "test ean13 calculation with prefix and sanger_code 462804", :focus => true do
+        let(:labware) { nil }
+        let(:role) { "stock" }
+        let(:contents) { "DNA" }
+
+        it_behaves_like('a valid ean13_code', "0462804", "3820462804773")
       end
 
     end
-
   end
 end

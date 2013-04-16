@@ -62,7 +62,7 @@ module Lims::SupportApp
     # This method returns a generated number-like string with 7 digits (padded with '0')
     # @return [String] the generated sanger code
     def sanger_code(new_barcode)
-      @generated_sanger_code = new_barcode
+      @generated_sanger_code = ("%07d" % new_barcode.to_i)
     end
 
     # This method retrieve and returns the stored number-like string with 7 digits (padded with '0')
