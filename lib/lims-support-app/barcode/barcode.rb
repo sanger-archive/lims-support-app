@@ -62,7 +62,7 @@ module Lims::SupportApp
     # This method returns a generated number-like string with 7 digits (padded with '0')
     # @return [String] the generated sanger code
     def sanger_code(new_barcode)
-      @generated_sanger_code = new_barcode
+      @generated_sanger_code = ("%07d" % new_barcode.to_i)
     end
 
     # This method retrieve and returns the stored number-like string with 7 digits (padded with '0')
@@ -190,7 +190,7 @@ module Lims::SupportApp
     def barcode_to_human(ean13_code)
       raise InvalidBarcodeError, "An existing barcode object should contain an ean13 type code." if ean13_code.nil?
       prefix, number, suffix = split_barcode(ean13_code)
-      @sanger_code_str = number.to_s
+      @sanger_code_str = "%07d" % number.to_s
       @sanger_suffix = suffix.chr
       @sanger_prefix = prefix_to_human(prefix)
     end
