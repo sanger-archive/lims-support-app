@@ -44,8 +44,8 @@ module Lims::SupportApp
     # @param [String] the type of the aliquot the labware contains (DNA, RNA etc...)
     # @return [String] the prefix of sanger barcode
     def calculate_sanger_barcode_prefix
-      labware_triple = Lims::SupportApp::BarcodePrefix::LabwareTriple.new(labware, role, contents)
-      prefix_rule = Lims::SupportApp::BarcodePrefix::BarcodePrefixes::PREFIXES.find do |rule|
+      labware_triple = BarcodePrefix::LabwareTriple.new(labware, role, contents)
+      prefix_rule = BarcodePrefix::BarcodePrefixes.instance.prefixes.find do |rule|
         rule.match(labware_triple)
       end
       prefix_rule.prefix
