@@ -46,6 +46,8 @@
 { "labware": null, "role": "stock", "contents": "tumour tissue", "prefix": "TS"},
 { "labware": null, "role": "stock", "contents": "non-tumour tissue", "prefix": "TN"},
 { "labware": null, "role": "stock", "contents": "saliva", "prefix": "SV"},
-{ "labware": null, "role": "stock", "contents": "pathogen", "prefix": "PT"}
+{ "labware": null, "role": "stock", "contents": "pathogen", "prefix": "PT"},
+
+{ "labware": null, "role": null, "contents": null, "prefix": "??"}
 
 ]
