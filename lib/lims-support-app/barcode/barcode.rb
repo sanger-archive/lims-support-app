@@ -21,6 +21,7 @@ module Lims::SupportApp
     attribute :contents, String, :required => true, :writer => :private, :initializable => true
     attribute :ean13_code, String, :writer => :public, :initializable => true
 
+    attr_reader :prefix_from_rule
     attr_reader :generated_sanger_code
 
     # InvalidBarcodeError exception raised if a barcode is not valid.
@@ -48,15 +49,19 @@ module Lims::SupportApp
       prefix_rule = BarcodePrefix::BarcodePrefixes.instance.prefixes.find do |rule|
         rule.match(labware_triple)
       end
-      prefix_rule.prefix
+      @prefix_from_rule = prefix_rule.prefix
     end
 
     # This method returns the prefix of a stored sanger barcode
     # @return [String] the prefix of sanger barcode
     def sanger_barcode_prefix
-      barcode_to_human(ean13_code) if @sanger_prefix.nil?
-      raise InvalidBarcodeError, "Barcode's prefix can't be nil." if @sanger_prefix.nil?
-      @sanger_prefix
+      if @prefix_from_rule.nil?
+        barcode_to_human(ean13_code)
+        raise InvalidBarcodeError, "Barcode's prefix can't be nil." if @sanger_prefix.nil?
+        @sanger_prefix
+      else
+        @prefix_from_rule
+      end
     end
 
     # This method returns a generated number-like string with 7 digits (padded with '0')
