@@ -62,5 +62,36 @@ module Lims::SupportApp
       its(:valid?) { should be_true }
     end
 
+    context "valid to use the kit" do
+      subject { Kit.new(creation_parameters)}
+
+      it { subject.usable?.should == true }
+    end
+
+    context "valid to use the kit" do
+      let(:amount) { 0 }
+      subject { Kit.new(creation_parameters)}
+
+      it { subject.usable?.should == false }
+    end
+
+    context "valid when decreasing the kit's amount" do
+      subject { Kit.new(creation_parameters)}
+
+      it {
+        subject.decrease_amount
+        subject.usable?.should == true
+      }
+    end
+
+    context "invalid when decreasing the kit's amount" do
+      let(:amount) { 1 }
+      subject { Kit.new(creation_parameters)}
+      it {
+        expect do
+          subject.decrease_amount
+        end.to raise_error(Kit::InvalidKitError)
+      }
+    end
   end
 end
