@@ -11,9 +11,9 @@ require 'lims-support-app/barcode/barcode_persistor'
 require 'lims-support-app/barcode/barcode_resource'
 
 require 'lims-support-app/kit/kit'
-#require 'lims-support-app/kit/create_kit'
+require 'lims-support-app/kit/create_kit'
 require 'lims-support-app/kit/kit_persistor'
-#require 'lims-support-app/kit/kit_resource'
+require 'lims-support-app/kit/kit_resource'
 
 
 require 'lims-core/persistence/sequel/session'
@@ -72,12 +72,15 @@ module Lims::Core
 end
 
 Lims::Core::Actions::CreateBarcode = Lims::SupportApp::Barcode::CreateBarcode
+Lims::Core::Actions::CreateKit = Lims::SupportApp::Kit::CreateKit
+
 Lims::Core::Persistence::Barcode = Lims::SupportApp::Barcode::BarcodePersistor
 Lims::Core::Persistence::Kit = Lims::SupportApp::Kit::KitPersistor
 
 module Lims::Api
   module Resources
     BarcodeResource = Lims::SupportApp::Barcode::BarcodeResource
+    KitResource = Lims::SupportApp::Kit::KitResource
   end
 end
 
