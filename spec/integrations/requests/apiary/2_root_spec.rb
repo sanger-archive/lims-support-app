@@ -14,9 +14,68 @@ describe "root" do
     header('Accept', 'application/json')
     header('Content-Type', 'application/json')
 
-    response = get "/", nil
+    response = get "/"
     response.status.should == 200
-    response.body.should match_json " {\n         \"actions\": {\n           \"actions\": {\n             \"create\": \"http://example.org/actions/action\"\n           }\n         },\n         \"uuid_resources\": {\n           \"actions\": {\n             \"create\": \"http://example.org/uuid_resources\",\n             \"read\": \"http://example.org/uuid_resources\",\n             \"first\": \"http://example.org/uuid_resources/page=1\",\n             \"last\": \"http://example.org/uuid_resources/page=-1\"\n           }\n         },\n         \"barcodes\": {\n           \"actions\": {\n             \"create\": \"http://example.org/barcodes\",\n             \"read\": \"http://example.org/barcodes\",\n             \"first\": \"http://example.org/barcodes/page=1\",\n             \"last\": \"http://example.org/barcodes/page=-1\"\n           }\n         },\n         \"kits\": {\n           \"actions\": {\n             \"create\": \"http://example.org/kits\",\n             \"read\": \"http://example.org/kits\",\n             \"first\": \"http://example.org/kits/page=1\",\n             \"last\": \"http://example.org/kits/page=-1\"\n           }\n         },\n         \"create_barcodes\": {\n           \"actions\": {\n             \"create\": \"http://example.org/actions/create_barcode\"\n           }\n         },\n         \"create_kits\": {\n           \"actions\": {\n             \"create\": \"http://example.org/actions/create_kit\"\n           }\n         },\n         \"revision\": 3\n       }\n"
+    response.body.should match_json <<-EOD
+    {
+    "actions": {
+        "read": "http://example.org/"
+    },
+    "uuid_resources": {
+        "actions": {
+            "create": "http://example.org/uuid_resources",
+            "read": "http://example.org/uuid_resources",
+            "first": "http://example.org/uuid_resources/page=1",
+            "last": "http://example.org/uuid_resources/page=-1"
+        }
+    },
+    "barcodes": {
+        "actions": {
+            "create": "http://example.org/barcodes",
+            "read": "http://example.org/barcodes",
+            "first": "http://example.org/barcodes/page=1",
+            "last": "http://example.org/barcodes/page=-1"
+        }
+    },
+    "searches": {
+        "actions": {
+            "create": "http://example.org/searches",
+            "read": "http://example.org/searches",
+            "first": "http://example.org/searches/page=1",
+            "last": "http://example.org/searches/page=-1"
+        }
+    },
+    "kits": {
+        "actions": {
+            "create": "http://example.org/kits",
+            "read": "http://example.org/kits",
+            "first": "http://example.org/kits/page=1",
+            "last": "http://example.org/kits/page=-1"
+        }
+    },
+    "create_barcodes": {
+        "actions": {
+            "create": "http://example.org/actions/create_barcode"
+        }
+    },
+    "create_searches": {
+        "actions": {
+            "create": "http://example.org/actions/create_search"
+        }
+    },
+    "create_labels": {
+        "actions": {
+            "create": "http://example.org/actions/create_label"
+        }
+    },
+    "create_kits": {
+        "actions": {
+            "create": "http://example.org/actions/create_kit"
+        }
+    },
+    "revision": 3
+}
+    EOD
 
   end
 end
