@@ -1,4 +1,4 @@
-require 'lims/core/resource'
+require 'lims-core/resource'
 
 module Lims::SupportApp
   class Kit

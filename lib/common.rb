@@ -11,5 +11,8 @@ class Object
   def andtap(&block)
     self && (block ? block[self] : self)
   end
-end
 
+  def self.parent_scope()
+    @__parent_scope ||= eval self.name.split('::').tap { |_| _.pop }.join('::')
+  end
+end

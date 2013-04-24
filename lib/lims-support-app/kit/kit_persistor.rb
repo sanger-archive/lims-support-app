@@ -1,4 +1,4 @@
-require 'lims/core/persistence/persistor'
+require 'lims-core/persistence/persistor'
 require 'lims-support-app/kit/kit'
 
 module Lims::SupportApp

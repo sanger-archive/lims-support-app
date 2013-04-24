@@ -8,18 +8,18 @@ end
 
 def expand_uuid(ids)
   return ids if ids.is_a?(String)
-  Lims::Core::Uuids::UuidResource::Form.zip(ids).map { |length, id| id.to_s*length }.join('-')
+  Lims::Core::Persistence::UuidResource::Form.zip(ids).map { |length, id| id.to_s*length }.join('-')
 end
 
 Rspec.configure do |config|
   # Stub uuid to generete a Sequence of uuid 
   # depending on the class
   config.before(:each) do 
-    Lims::Core::Uuids::UuidResource.stub(:generate_uuid) do
+    Lims::Core::Persistence::UuidResource.stub(:generate_uuid) do
       sequence = $uuid_sequence
       $uuid_sequence +=1
       ids = []
-      Lims::Core::Uuids::UuidResource::Form.each do 
+      Lims::Core::Persistence::UuidResource::Form.each do 
         ids.unshift(sequence % 10)
         sequence = sequence / 10
       end

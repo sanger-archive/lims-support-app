@@ -1,4 +1,4 @@
-require 'lims/core/actions/action'
+require 'lims-core/actions/action'
 
 require 'lims-support-app/barcode/barcode'
 
