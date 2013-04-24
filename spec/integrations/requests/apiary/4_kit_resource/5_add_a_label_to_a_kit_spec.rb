@@ -1,5 +1,5 @@
 require "integrations/requests/apiary/4_kit_resource/spec_helper"
-describe "add_a_label_to_a_kit" do
+describe "add_a_label_to_a_kit", :kit => true do
   include_context "use core context service"
   it "add_a_label_to_a_kit" do
 
@@ -13,9 +13,47 @@ describe "add_a_label_to_a_kit" do
     header('Accept', 'application/json')
     header('Content-Type', 'application/json')
 
-    response = post "/actions/create_kit", "{ \"create_kit\": {\n    \"process\": \"DNA & RNA extraction\",\n    \"aliquot_type\": \"NA+P\",\n    \"expires\": \"2013-05-01\",\n    \"amount\": 10\n}}\n"
+    response = post "/actions/create_kit", <<-EOD
+    {
+    "create_kit": {
+        "process": "DNA & RNA extraction",
+        "aliquot_type": "NA+P",
+        "expires": "2013-05-01",
+        "amount": 10
+    }
+}
+    EOD
     response.status.should == 200
-    response.body.should match_json "{ \"create_kit\": {\n    \"actions\": {\n    },\n    \"user\": \"user\",\n    \"application\": \"application\",\n    \"result\": {\n        \"kit\": {\n            \"actions\": {\n                \"read\": \"http://example.org/11111111-2222-3333-4444-555555555555\",\n                \"update\": \"http://example.org/11111111-2222-3333-4444-555555555555\",\n                \"delete\": \"http://example.org/11111111-2222-3333-4444-555555555555\",\n                \"create\": \"http://example.org/11111111-2222-3333-4444-555555555555\"\n            },\n            \"uuid\": \"11111111-2222-3333-4444-555555555555\",\n            \"process\": \"DNA & RNA extraction\",\n            \"aliquotType\": \"NA+P\",\n            \"expires\": \"2013-05-01\",\n            \"amount\": 10\n        },\n        \"uuid\": \"11111111-2222-3333-4444-555555555555\"\n    },\n    \"process\": \"DNA & RNA extraction\",\n    \"aliquot_type\": \"NA+P\",\n    \"expires\": \"2013-05-01\",\n    \"amount\": 10\n}}\n"
+    response.body.should match_json <<-EOD
+    {
+    "create_kit": {
+        "actions": {
+        },
+        "user": "user",
+        "application": "application",
+        "result": {
+            "kit": {
+                "actions": {
+                    "read": "http://example.org/11111111-2222-3333-4444-555555555555",
+                    "update": "http://example.org/11111111-2222-3333-4444-555555555555",
+                    "delete": "http://example.org/11111111-2222-3333-4444-555555555555",
+                    "create": "http://example.org/11111111-2222-3333-4444-555555555555"
+                },
+                "uuid": "11111111-2222-3333-4444-555555555555",
+                "process": "DNA & RNA extraction",
+                "aliquotType": "NA+P",
+                "expires": "2013-05-01",
+                "amount": 10
+            },
+            "uuid": "11111111-2222-3333-4444-555555555555"
+        },
+        "process": "DNA & RNA extraction",
+        "aliquot_type": "NA+P",
+        "expires": "2013-05-01",
+        "amount": 10
+    }
+}
+    EOD
 
   # **Add a label to an asset.**
   # 
@@ -30,18 +68,80 @@ describe "add_a_label_to_a_kit" do
     header('Accept', 'application/json')
     header('Content-Type', 'application/json')
 
-    response = post "/labellables", "{ \"labellable\": {\n    \"name\": \"11111111-2222-3333-4444-555555555555\",\n    \"type\": \"resource\",\n    \"labels\": {\n        \"front barcode\": {\n            \"value\": \"1234567890123\",\n            \"type\": \"sanger-barcode\"\n        }\n    }\n}}\n"
+    response = post "/labellables", <<-EOD
+    {
+    "labellable": {
+        "name": "11111111-2222-3333-4444-555555555555",
+        "type": "resource",
+        "labels": {
+            "front barcode": {
+                "value": "1234567890123",
+                "type": "sanger-barcode"
+            }
+        }
+    }
+}
+    EOD
     response.status.should == 200
-    response.body.should match_json "{ \"labellable\": {\n    \"actions\": {\n        \"read\": \"http://example.org/11111111-2222-3333-4444-666666666666\",\n        \"update\": \"http://example.org/11111111-2222-3333-4444-666666666666\",\n        \"delete\": \"http://example.org/11111111-2222-3333-4444-666666666666\",\n        \"create\": \"http://example.org/11111111-2222-3333-4444-666666666666\"\n    },\n    \"uuid\": \"11111111-2222-3333-4444-666666666666\",\n    \"name\": \"11111111-2222-3333-4444-555555555555\",\n    \"type\": \"resource\",\n    \"labels\": {\n        \"front barcode\": {\n            \"value\": \"1234567890123\",\n            \"type\": \"sanger-barcode\"\n        }\n    }\n}}\n"
+    response.body.should match_json <<-EOD
+    {
+    "labellable": {
+        "actions": {
+            "read": "http://example.org/11111111-2222-3333-4444-666666666666",
+            "update": "http://example.org/11111111-2222-3333-4444-666666666666",
+            "delete": "http://example.org/11111111-2222-3333-4444-666666666666",
+            "create": "http://example.org/11111111-2222-3333-4444-666666666666"
+        },
+        "uuid": "11111111-2222-3333-4444-666666666666",
+        "name": "11111111-2222-3333-4444-555555555555",
+        "type": "resource",
+        "labels": {
+            "front barcode": {
+                "value": "1234567890123",
+                "type": "sanger-barcode"
+            }
+        }
+    }
+}
+    EOD
 
   # **Reads the previously created kit.**
 
     header('Accept', 'application/json')
     header('Content-Type', 'application/json')
 
-    response = get "/11111111-2222-3333-4444-555555555555", nil
+    response = get "/11111111-2222-3333-4444-555555555555"
     response.status.should == 200
-    response.body.should match_json "{ \"kit\": {\n    \"actions\": {\n        \"read\": \"http://example.org/11111111-2222-3333-4444-555555555555\",\n        \"update\": \"http://example.org/11111111-2222-3333-4444-555555555555\",\n        \"delete\": \"http://example.org/11111111-2222-3333-4444-555555555555\",\n        \"create\": \"http://example.org/11111111-2222-3333-4444-555555555555\"\n    },\n    \"uuid\": \"11111111-2222-3333-4444-555555555555\",\n    \"process\": \"DNA & RNA extraction\",\n    \"aliquotType\": \"NA+P\",\n    \"expires\": \"2013-05-01\",\n    \"amount\": 10,\n    \"labels\": {\n        \"actions\": {\n            \"read\": \"http://example.org/11111111-2222-3333-4444-666666666666\",\n            \"create\": \"http://example.org/11111111-2222-3333-4444-666666666666\",\n            \"update\": \"http://example.org/11111111-2222-3333-4444-666666666666\",\n            \"delete\": \"http://example.org/11111111-2222-3333-4444-666666666666\"\n        },\n        \"uuid\": \"11111111-2222-3333-4444-666666666666\",\n        \"front barcode\": {\n            \"value\": \"1234567890123\",\n            \"type\": \"sanger-barcode\"\n        }\n    }\n}}\n"
+    response.body.should match_json <<-EOD
+    {
+    "kit": {
+        "actions": {
+            "read": "http://example.org/11111111-2222-3333-4444-555555555555",
+            "update": "http://example.org/11111111-2222-3333-4444-555555555555",
+            "delete": "http://example.org/11111111-2222-3333-4444-555555555555",
+            "create": "http://example.org/11111111-2222-3333-4444-555555555555"
+        },
+        "uuid": "11111111-2222-3333-4444-555555555555",
+        "process": "DNA & RNA extraction",
+        "aliquotType": "NA+P",
+        "expires": "2013-05-01",
+        "amount": 10,
+        "labels": {
+            "actions": {
+                "read": "http://example.org/11111111-2222-3333-4444-666666666666",
+                "create": "http://example.org/11111111-2222-3333-4444-666666666666",
+                "update": "http://example.org/11111111-2222-3333-4444-666666666666",
+                "delete": "http://example.org/11111111-2222-3333-4444-666666666666"
+            },
+            "uuid": "11111111-2222-3333-4444-666666666666",
+            "front barcode": {
+                "value": "1234567890123",
+                "type": "sanger-barcode"
+            }
+        }
+    }
+}
+    EOD
 
   end
 end

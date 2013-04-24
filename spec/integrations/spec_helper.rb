@@ -14,6 +14,12 @@ def connect_db(env)
   Sequel.connect(config[env.to_s], :loggers => Loggers)
 end
 
+def set_uuid(session, object, uuid)
+  session << object
+  ur = session.new_uuid_resource_for(object)
+  ur.send(:uuid=, uuid)
+end
+
 def config_bus(env)
   YAML.load_file(File.join('config','amqp.yml'))[env.to_s] 
 end

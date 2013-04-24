@@ -1,5 +1,5 @@
 require "integrations/requests/apiary/4_kit_resource/spec_helper"
-describe "list_actions_for_a_kit_resource" do
+describe "list_actions_for_a_kit_resource", :kit => true do
   include_context "use core context service"
   it "list_actions_for_a_kit_resource" do
   # **List actions for a kit resource.**
@@ -12,9 +12,20 @@ describe "list_actions_for_a_kit_resource" do
     header('Accept', 'application/json')
     header('Content-Type', 'application/json')
 
-    response = get "/kits", nil
+    response = get "/kits"
     response.status.should == 200
-    response.body.should match_json "{ \"kits\": {\n    \"actions\": {\n        \"create\": \"http://example.org/kits\",\n        \"read\": \"http://example.org/kits\",\n        \"first\": \"http://example.org/kits/page=1\",\n        \"last\": \"http://example.org/kits/page=-1\"\n    }\n} }\n"
+    response.body.should match_json <<-EOD
+    {
+    "kits": {
+        "actions": {
+            "create": "http://example.org/kits",
+            "read": "http://example.org/kits",
+            "first": "http://example.org/kits/page=1",
+            "last": "http://example.org/kits/page=-1"
+        }
+    }
+}
+    EOD
 
   end
 end

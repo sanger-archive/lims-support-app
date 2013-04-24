@@ -1,9 +1,19 @@
 require 'integrations/spec_helper'
+require 'lims-api/laboratory/all'
+require 'lims-api/labels/all'
+require 'lims-api/organization/all'
+require 'lims-core/persistence/search/all'
+require 'lims-api/persistence/search_resource'
 
 def set_uuid_start(*ids)
   $uuid_sequence = ids.inject(0) do |m,id|
     m = m*10 + id 
   end
+end
+
+def push_uuids(uuids)
+  $uuids_sequence ||= []
+  $uuids_sequence.concat(uuids.is_a?(Array) ? uuids : [uuids])
 end
 
 def expand_uuid(ids)
@@ -16,16 +26,19 @@ Rspec.configure do |config|
   # depending on the class
   config.before(:each) do 
     Lims::Core::Persistence::UuidResource.stub(:generate_uuid) do
-      sequence = $uuid_sequence
-      $uuid_sequence +=1
-      ids = []
-      Lims::Core::Persistence::UuidResource::Form.each do 
-        ids.unshift(sequence % 10)
-        sequence = sequence / 10
+      if $uuids_sequence.is_a?(Array) && $uuids_sequence.size > 0
+        expand_uuid($uuids_sequence.shift)
+      else
+        sequence = $uuid_sequence
+        $uuid_sequence +=1
+        ids = []
+        Lims::Core::Persistence::UuidResource::Form.each do
+          ids.unshift(sequence % 10)
+          sequence = sequence / 10
+        end
+        expand_uuid(ids)
       end
-      expand_uuid(ids)
     end
-
     set_uuid_start(1,2,3,4,0)
   end
 end

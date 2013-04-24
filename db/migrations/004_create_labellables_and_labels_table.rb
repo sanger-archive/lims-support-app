@@ -1,12 +1,12 @@
 ::Sequel.migration do
   up do
-    create_table :labellables do
+    create_table? :labellables do
       primary_key :id
       String :name
       String :type
     end
 
-    create_table :labels do
+    create_table? :labels do
       primary_key :id
       foreign_key :labellable_id, :labellables, :key => :id
       String :type
