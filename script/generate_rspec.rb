@@ -68,8 +68,14 @@ def process_file(filename, directories=[])
     require_spec(helper_filename, target)
     h.post_require { |p| print_lines(target, p) }
 
-    target.puts %Q{describe "#{h.title}" do}
+    tag_name = directories.last.match(/^[0-9]*_([a-z_]*?)(_resource)?$/)
+    tag = tag_name ? ", :#{tag_name[1]} => true" : ""
+
+    target.puts %Q{describe "#{h.title}"#{tag} do}
     target.puts %Q{  include_context "use core context service"}
+    h.global_setup do |s|
+      print_lines(target, s) { |line| "  #{line}" }
+    end
 
     # Depending of the shape of h, we generate one or many tests
     case 
@@ -140,9 +146,27 @@ def generate_http_request(example, target)
     (example.steps || []).each { |step| generate_http_request(step, target) }
 
   elsif example["method"]
-    target.puts %Q{    response = #{example["method"].downcase} #{[example.url.inspect, example.parameters.inspect].compact.join(', ')}}
-      target.puts %Q{    response.status.should == #{example.status || 200}}
-      target.puts %Q{    response.body.should match_json #{example.response.gsub(/"\//, '"http://example.org/').inspect}} if example.response
+    method = example["method"].downcase
+
+    if method == 'get'
+      target.puts %Q{    response = #{method} #{example.url.inspect}}
+    else
+      target.puts %Q{    response = #{method} #{example.url.inspect}, <<-EOD}
+      parameters = example.parameters ? JSON.parse(example.parameters) : example.request
+      target.puts %Q{    #{JSON.pretty_generate(parameters, :indent => '    ')}}
+      target.puts "    EOD"
+    end
+    target.puts %Q{    response.status.should == #{example.status || 200}}
+    if example.response
+      expected_response = if example.response.is_a?(Hash)
+                            example.response.to_json.gsub(/http:\/\/localhost:9292/, 'http://example.org')
+                          else
+                            example.response.to_s.gsub(/"\//, '"http://example.org/')
+                          end
+      target.puts %Q{    response.body.should match_json <<-EOD}
+      target.puts %Q{    #{JSON.pretty_generate(JSON.parse(expected_response), :indent => '    ')}}
+      target.puts "    EOD"
+    end
     target.puts
   elsif example.is_a?(Hash)
     # hash containing differents stages

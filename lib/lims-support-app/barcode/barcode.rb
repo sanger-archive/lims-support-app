@@ -1,5 +1,4 @@
-require 'common'
-require 'lims/core/resource'
+require 'lims-core/resource'
 
 require 'lims-support-app/barcode/prefix/barcode_prefixes'
 require 'lims-support-app/barcode/prefix/labware_triple'

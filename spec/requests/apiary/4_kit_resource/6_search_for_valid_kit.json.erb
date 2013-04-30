@@ -1,0 +1,105 @@
+<%
+require 'json'
+search_step={:header => [], :response_header => [] }
+search_step[:description]=<<EOD
+**Search for a valid kit**
+
+* `description` describe the search
+* `model` searched model (in our case: Kit)
+* `criteria` set parameters for the search
+* The Kit's expires field should be greater then or equal to current date and
+* the Kit's amount field should be greater then 0
+
+The search below returns kits with 
+- expiry date gretaer or equals then 2013-04-24 and less then 2013-05-28
+- and amount of kit is equals 10.
+
+To actually get the search results, you need to access the first page of result 
+thanks to the `first` action in the JSON response.
+EOD
+search_step[:method] = "POST"
+search_step[:url]='/searches'
+search_step[:header] << 'Accept: application/json'
+search_step[:setup]=<<EOD
+kit1 = Lims::SupportApp::Kit.new(:process => "DNA & RNA extraction",
+  :aliquot_type => "NA+P",
+  :expires => "2013-03-01",
+  :amount => 10)
+kit2 = Lims::SupportApp::Kit.new(:process => "DNA & RNA extraction",
+  :aliquot_type => "NA+P",
+  :expires => "2013-05-01",
+  :amount => 10)
+kit3 = Lims::SupportApp::Kit.new(:process => "DNA & RNA extraction",
+  :aliquot_type => "NA+P",
+  :expires => "2013-05-01",
+  :amount => 15)
+
+save_with_uuid kit1 => [1,2,3,4,6], kit2 => [1,2,3,4,7], kit3 => [1,2,3,4,8]
+EOD
+search_step[:parameters]=<<EOD
+{ "search": {
+    "description": "search for valid kit(s)",
+    "model": "kit",
+    "criteria": {
+        "comparison": {
+            "expires": {
+                ">=": "2013-04-24",
+                "<": "2013-05-28"
+            },
+            "amount": {
+                "=": 10
+            }
+        }
+    }
+}}
+EOD
+search_step[:status]=200
+search_step[:response_header] << 'Content-Type: application/json'
+search_step[:response]=<<EOD
+{
+    "search": {
+        "actions": {
+            "read": "/11111111-2222-3333-4444-555555555555",
+            "first": "/11111111-2222-3333-4444-555555555555/page=1",
+            "last": "/11111111-2222-3333-4444-555555555555/page=-1"
+        },
+        "uuid": "11111111-2222-3333-4444-555555555555"
+    }
+}
+EOD
+
+result_step = {:header => [], :response_header => [] }
+result_step[:description] = "Get the search result"
+result_step[:method] = "GET"
+result_step[:url] = "/11111111-2222-3333-4444-555555555555/page=1"
+result_step[:header] << 'Accept: application/json'
+result_step[:status] = 200
+result_step[:response_header] << 'Content-Type: application/json'
+result_step[:response] = <<EOD
+{
+"actions": {
+  "read": "http://example.org/kits/page=1",
+  "first": "http://example.org/kits/page=1",
+  "last": "http://example.org/kits/page=-1"
+},
+"size": 1,
+"kits": [
+  {
+    "actions": {
+      "read": "http://example.org/11111111-2222-3333-4444-777777777777",
+      "create": "http://example.org/11111111-2222-3333-4444-777777777777",
+      "update": "http://example.org/11111111-2222-3333-4444-777777777777",
+      "delete": "http://example.org/11111111-2222-3333-4444-777777777777"
+    },
+    "uuid": "11111111-2222-3333-4444-777777777777",
+    "process": "DNA & RNA extraction",
+    "aliquotType": "NA+P",
+    "expires": "2013-05-01",
+    "amount": 10
+  }
+]}
+EOD
+
+example_json = { "steps" => [search_step, result_step] }
+%>
+<%= example_json.to_json %>
