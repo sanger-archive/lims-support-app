@@ -1,5 +1,5 @@
 require "integrations/requests/apiary/3_barcode_resource/spec_helper"
-describe "read_a_0_padded_barcode_object" do
+describe "read_a_0_padded_barcode_object", :barcode => true do
   include_context "use core context service"
   it "read_a_0_padded_barcode_object" do
   # **Create a barcode for an asset.**
@@ -20,9 +20,35 @@ describe "read_a_0_padded_barcode_object" do
     header('Accept', 'application/json')
     header('Content-Type', 'application/json')
 
-    response = post "/barcodes", "{ \"barcode\": {\n    \"labware\": \"null\",\n    \"role\": \"stock\",\n    \"contents\": \"DNA\"\n}}\n"
+    response = post "/barcodes", <<-EOD
+    {
+    "barcode": {
+        "labware": "null",
+        "role": "stock",
+        "contents": "DNA"
+    }
+}
+    EOD
     response.status.should == 200
-    response.body.should match_json "{ \"barcode\": {\n    \"actions\": {\n        \"read\": \"http://example.org/11111111-2222-3333-4444-555555555555\",\n        \"update\": \"http://example.org/11111111-2222-3333-4444-555555555555\",\n        \"delete\": \"http://example.org/11111111-2222-3333-4444-555555555555\",\n        \"create\": \"http://example.org/11111111-2222-3333-4444-555555555555\"\n    },\n    \"uuid\": \"11111111-2222-3333-4444-555555555555\",\n    \"ean13\": \"3820462804773\",\n    \"sanger\": {\n      \"prefix\": \"ND\",\n      \"number\": \"0462804\",\n      \"suffix\": \"M\"\n    }\n}}\n"
+    response.body.should match_json <<-EOD
+    {
+    "barcode": {
+        "actions": {
+            "read": "http://example.org/11111111-2222-3333-4444-555555555555",
+            "update": "http://example.org/11111111-2222-3333-4444-555555555555",
+            "delete": "http://example.org/11111111-2222-3333-4444-555555555555",
+            "create": "http://example.org/11111111-2222-3333-4444-555555555555"
+        },
+        "uuid": "11111111-2222-3333-4444-555555555555",
+        "ean13": "3820462804773",
+        "sanger": {
+            "prefix": "ND",
+            "number": "0462804",
+            "suffix": "M"
+        }
+    }
+}
+    EOD
 
   end
 end

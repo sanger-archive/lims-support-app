@@ -19,9 +19,7 @@ h[:response_header] << 'Content-Type: application/json'
 h[:response]=<<EOD
  {
          "actions": {
-           "actions": {
-             "create": "http://example.org/actions/action"
-           }
+           "read": "http://example.org/"
          },
          "uuid_resources": {
            "actions": {
@@ -39,9 +37,40 @@ h[:response]=<<EOD
              "last": "http://example.org/barcodes/page=-1"
            }
          },
+         "searches": {
+           "actions": {
+             "create": "http://example.org/searches",
+             "read": "http://example.org/searches",
+             "first": "http://example.org/searches/page=1",
+             "last": "http://example.org/searches/page=-1"
+           }
+         },
+         "kits": {
+           "actions": {
+             "create": "http://example.org/kits",
+             "read": "http://example.org/kits",
+             "first": "http://example.org/kits/page=1",
+             "last": "http://example.org/kits/page=-1"
+           }
+         },
          "create_barcodes": {
            "actions": {
              "create": "http://example.org/actions/create_barcode"
+           }
+         },
+         "create_searches": {
+           "actions": {
+             "create": "http://example.org/actions/create_search"
+           }
+         },
+         "create_labels": {
+           "actions": {
+             "create": "http://example.org/actions/create_label"
+           }
+         },
+         "create_kits": {
+           "actions": {
+             "create": "http://example.org/actions/create_kit"
            }
          },
          "revision": 3
