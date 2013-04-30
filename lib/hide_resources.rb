@@ -148,3 +148,13 @@ require 'lims-core/labels/labellable/label_filter'
 class Lims::Core::Persistence::LabelFilter
   NOT_IN_ROOT = 1
 end
+
+require 'lims-core/organization/batch/batch_filter'
+class Lims::Core::Persistence::BatchFilter
+  NOT_IN_ROOT = 1
+end
+
+require 'lims-core/organization/order/order_filter'
+class Lims::Core::Persistence::OrderFilter
+  NOT_IN_ROOT = 1
+end
