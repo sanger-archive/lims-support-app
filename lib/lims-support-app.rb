@@ -15,6 +15,7 @@ require 'lims-core/persistence/sequel'
 require 'lims-core/persistence/sequel/session'
 
 require 'lims-core/labels/all'
+require 'lims-core/persistence/search/all'
 
 require 'lims-api/server'
 require 'lims-api/context_service'
