@@ -26,9 +26,9 @@ describe "search_for_valid_kit_by_barcode", :kit => true do
       :aliquot_type => "NA+P",
       :expires => "2013-03-01",
       :amount => 10)
-    labellable1 = Lims::Core::Labels::Labellable.new(:name => "11111111-2222-3333-4444-666666666666",
+    labellable1 = Lims::LaboratoryApp::Labels::Labellable.new(:name => "11111111-2222-3333-4444-666666666666",
                                                         :type => "resource")
-    label1 = Lims::Core::Labels::Labellable::Label.new(:type => "ean13-barcode",
+    label1 = Lims::LaboratoryApp::Labels::Labellable::Label.new(:type => "ean13-barcode",
                                                           :value => "1234567890123")
     labellable1["front barcode"] = label1
     
@@ -36,9 +36,9 @@ describe "search_for_valid_kit_by_barcode", :kit => true do
       :aliquot_type => "NA+P",
       :expires => "2013-05-01",
       :amount => 10)
-    labellable2 = Lims::Core::Labels::Labellable.new(:name => "11111111-2222-3333-4444-777777777777",
+    labellable2 = Lims::LaboratoryApp::Labels::Labellable.new(:name => "11111111-2222-3333-4444-777777777777",
                                                         :type => "resource")
-    label2 = Lims::Core::Labels::Labellable::Label.new(:type => "ean13-barcode",
+    label2 = Lims::LaboratoryApp::Labels::Labellable::Label.new(:type => "ean13-barcode",
                                                           :value => "1234567890123")
     labellable2["front barcode"] = label2
     
@@ -46,9 +46,9 @@ describe "search_for_valid_kit_by_barcode", :kit => true do
       :aliquot_type => "NA+P",
       :expires => "2013-05-01",
       :amount => 15)
-    labellable3 = Lims::Core::Labels::Labellable.new(:name => "11111111-2222-3333-4444-888888888888",
+    labellable3 = Lims::LaboratoryApp::Labels::Labellable.new(:name => "11111111-2222-3333-4444-888888888888",
                                                         :type => "resource")
-    label3 = Lims::Core::Labels::Labellable::Label.new(:type => "ean13-barcode",
+    label3 = Lims::LaboratoryApp::Labels::Labellable::Label.new(:type => "ean13-barcode",
                                                           :value => "1234567890123")
     labellable3["front barcode"] = label3
     

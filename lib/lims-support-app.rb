@@ -14,8 +14,11 @@ require 'lims-support-app/kit/kit_resource'
 require 'lims-core/persistence/sequel'
 require 'lims-core/persistence/sequel/session'
 
-require 'lims-core/labels/all'
+require 'lims-laboratory-app/labels/all'
+
+require 'lims-core/persistence/search'
 require 'lims-core/persistence/search/all'
+require 'lims-api/persistence/search_resource'
 
 require 'lims-api/server'
 require 'lims-api/context_service'
