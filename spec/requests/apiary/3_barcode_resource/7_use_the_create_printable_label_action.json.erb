@@ -1,0 +1,67 @@
+<%
+require 'json'
+require 'yaml'
+
+print_config = YAML.load_file(File.join("config", "print.yml"))
+label_to_print = File.open(File.join('spec', 'config', 'print', print_config["tube"])) { |f| f.read }
+h = {:header => [], :response_header => [] }
+h[:description] = <<EOD
+**Use the create printable label action.**
+* `template` the specific template to use to prin this label
+* `ean13` the ean13 barcode to print
+* `label_text` contains a list of labels with thear position to print
+EOD
+h[:method] = "POST"
+h[:url] = '/actions/create_printable_label'
+h[:header] << 'Accept: application/json'
+h[:setup]=<<EOD
+EOD
+h[:parameters] = <<EOD
+{ "create_printable_label": {
+    "labels": [
+        {
+            "template": "tube",
+            "main": {
+                "ean13": "2748670880727",
+                "label_text": {
+                    "txt_1": "pos1",
+                    "txt_3": "pos3"
+                }
+            }
+        }
+    ]
+}}
+EOD
+h[:status]=200
+h[:response_header] << 'Content-Type: application/json'
+h[:response]=<<EOD
+{ "create_printable_label": {
+    "actions": {
+    },
+    "user": "user",
+    "application": "application",
+    "result": [
+        {
+            "template": "tube",
+            "to_print": "label___to___print"
+        }
+    ],
+    "labels": [
+        {
+            "template": "tube",
+            "main": {
+                "ean13": "2748670880727",
+                "label_text": {
+                    "txt_1": "pos1",
+                    "txt_3": "pos3"
+                }
+            }
+        }
+    ]
+}}
+EOD
+%>
+<%= 
+h[:response].gsub!("label___to___print", label_to_print.chop.gsub(/\n/, "<new_line>"))
+h.to_json
+%>

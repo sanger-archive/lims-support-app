@@ -73,6 +73,11 @@ describe "root" do
             "create": "http://example.org/actions/create_kit"
         }
     },
+    "create_printable_labels": {
+        "actions": {
+            "create": "http://example.org/actions/create_printable_label"
+        }
+    },
     "revision": 3
 }
     EOD

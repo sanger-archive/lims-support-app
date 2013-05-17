@@ -11,6 +11,8 @@ require 'lims-support-app/kit/kit_persistor'
 require 'lims-support-app/kit/kit_sequel_persistor'
 require 'lims-support-app/kit/kit_resource'
 
+require 'lims-support-app/barcode/create_printable_label'
+
 require 'lims-core/persistence/sequel'
 require 'lims-core/persistence/sequel/session'
 
