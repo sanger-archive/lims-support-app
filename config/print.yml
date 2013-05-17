@@ -1,0 +1,14 @@
+tube: print_tube_template.txt
+spin_column: print_spin_column_template.txt
+rack: print_rack_template.txt
+plate: print_plate_template.txt
+gel: print_gel_template.txt
+
+label_printers:
+  - e367bc:
+    label_type: tube labels with dot for top
+    valid_templates: [tube, spin_column]
+# TODO: ke4 It is just a dummy printer, we have to modify it later
+  - e123pl:
+    label_type: plate labels
+    valid_templates: [plate]
