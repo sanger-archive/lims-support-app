@@ -10,17 +10,21 @@ module Lims::SupportApp
 
       attribute :labels, Array, :required => true, :writer => :private, :initializable => true
 
+      attr_reader :invalid_ean13_barcodes
+
       def _call_in_session(session)
         print_config = YAML.load_file(File.join("config", "print.yml"))
 
         templates_to_print = []
+        @invalid_ean13_barcodes = []
         labels.each do |label|
           # validate the ean13_barcode(s)
           valid_main_ean13 = validate_ean13_barcode(label["main"]["ean13"])
           valid_dot_ean13 = label["dot"] && label["dot"]["ean13"] ? validate_ean13_barcode(label["dot"]["ean13"]) : true
           unless (valid_main_ean13 && valid_dot_ean13)
-            # TODO ke4 to send a HTTP 400 ERROR RESPONSE (invalid parameter)
-
+            # sends a HTTP 400 ERROR RESPONSE (invalid parameter) if the barcode(s) is/are invalid
+            @invalid_ean13_barcodes << label["main"]["ean13"] unless valid_main_ean13
+            @invalid_ean13_barcodes << label["dot"]["ean13"] if label["dot"] && label["dot"]["ean13"] && !valid_dot_ean13
           else
             template = label["template"]
             label_template = load_template(print_config, template)

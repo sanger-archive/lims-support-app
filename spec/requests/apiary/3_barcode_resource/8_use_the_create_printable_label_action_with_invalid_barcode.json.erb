@@ -1,0 +1,43 @@
+<%
+require 'json'
+
+h = {:header => [], :response_header => [] }
+h[:description] = <<EOD
+**Use the create printable label action.**
+* `template` the specific template to use to prin this label
+* `ean13` the ean13 barcode to print
+* `label_text` contains a list of labels with thear position to print
+EOD
+h[:method] = "POST"
+h[:url] = '/actions/create_printable_label'
+h[:header] << 'Accept: application/json'
+h[:setup]=<<EOD
+EOD
+h[:parameters] = <<EOD
+{ "create_printable_label": {
+    "labels": [
+        {
+            "template": "tube",
+            "main": {
+                "ean13": "274867088071",
+                "label_text": {
+                    "txt_1": "pos1",
+                    "txt_3": "pos3"
+                }
+            }
+        }
+    ]
+}}
+EOD
+h[:status]=400
+h[:response_header] << 'Content-Type: application/json'
+h[:response]=<<EOD
+{ "general": [
+    "The request cannot be fulfilled due to bad parameter/syntax."
+  ]
+}
+EOD
+%>
+<%=
+h.to_json
+%>
