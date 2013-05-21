@@ -36,7 +36,7 @@ shared_context 'use core context service' do
   # This code is cleaning up the DB after each test case execution
   after(:each) do
     # list of all the tables in our DB
-    %w{barcodes kits labels labellables uuid_resources}.each do |table|
+    %w{templates label_printers barcodes kits labels labellables uuid_resources}.each do |table|
       db[table.to_sym].delete
     end
     db.disconnect

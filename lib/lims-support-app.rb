@@ -1,18 +1,13 @@
 require 'lims-support-app/version'
 
-require 'lims-support-app/barcode/barcode'
-require 'lims-support-app/barcode/create_barcode'
-require 'lims-support-app/barcode/barcode_persistor'
-require 'lims-support-app/barcode/barcode_resource'
+require 'lims-support-app/barcode/all'
 
-require 'lims-support-app/kit/kit'
-require 'lims-support-app/kit/create_kit'
-require 'lims-support-app/kit/kit_persistor'
-require 'lims-support-app/kit/kit_sequel_persistor'
-require 'lims-support-app/kit/kit_resource'
+require 'lims-support-app/kit/all'
 
-require 'lims-support-app/barcode/create_printable_label'
-require 'lims-support-app/barcode/create_printable_label_resource'
+#require 'lims-support-app/barcode/create_printable_label'
+#require 'lims-support-app/barcode/create_printable_label_resource'
+
+require 'lims-support-app/label_printer/all'
 
 require 'lims-core/persistence/sequel'
 require 'lims-core/persistence/sequel/session'
