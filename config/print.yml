@@ -1,0 +1,5 @@
+tube: print_tube_template.txt
+spin_column: print_spin_column_template.txt
+rack: print_rack_template.txt
+plate: print_plate_template.txt
+gel: print_gel_template.txt

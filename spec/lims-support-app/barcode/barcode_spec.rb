@@ -116,7 +116,7 @@ module Lims::SupportApp
 
       context "test checksum calculating" do
         let(:code) { "7351353" }
-        it { subject.calculate_ean13_checksum(code).should == 7 }
+        it { Barcode::calculate_ean13_checksum(code).should == 7 }
       end
 
       context "test calculate sanger barcode method" do
