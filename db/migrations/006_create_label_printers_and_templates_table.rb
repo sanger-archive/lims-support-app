@@ -11,7 +11,7 @@
       foreign_key :label_printer_id, :label_printers, :key => :id
       String :name
       String :description
-      String :content
+      File :content
     end
   end
 

@@ -11,7 +11,7 @@ module Lims::SupportApp
 
       attribute :name, String, :required => true, :writer => :private, :initializable => true
       attribute :description, String, :required => true, :writer => :private, :initializable => true
-      attribute :content, String, :required => true, :writer => :private, :initializable => true
+      attribute :content, File, :required => true, :writer => :private, :initializable => true
 
     end
   end
