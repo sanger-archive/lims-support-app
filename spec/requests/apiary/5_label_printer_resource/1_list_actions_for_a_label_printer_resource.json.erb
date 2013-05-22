@@ -1,0 +1,28 @@
+<%
+require 'json'
+h={:header => [], :response_header => [] }
+h[:description]=<<EOD
+**List actions for a label printer resource.**
+
+* `create` creates a new label printer via HTTP POST request
+* `read` currently returns the list of actions for a label printer resource via HTTP GET request
+* `first` lists the first label printer resources in a page browsing system
+* `last` lists the last label printer resources in a page browsing system
+EOD
+h[:method] = "GET"
+h[:url]='/label_printers'
+h[:header] << 'Accept: application/json'
+h[:status]=200
+h[:response_header] << 'Content-Type: application/json'
+h[:response]=<<EOD
+{ "label_printers": {
+    "actions": {
+        "create": "/label_printers",
+        "read": "/label_printers",
+        "first": "/label_printers/page=1",
+        "last": "/label_printers/page=-1"
+    }
+} }
+EOD
+%>
+<%= h.to_json %>

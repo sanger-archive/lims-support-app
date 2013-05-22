@@ -8,6 +8,11 @@ module Lims::SupportApp
     class LabelPrinterPersistor < Lims::Core::Persistence::Persistor
       Model = LabelPrinter
 
+      def filter_attributes_on_save(attributes)
+        attributes.delete(:templates)
+        attributes
+      end
+
       def save_children(id, label_printer)
         label_printer["templates"].each do |template|
           @session.save(template, id)
@@ -15,8 +20,9 @@ module Lims::SupportApp
       end
 
       def load_children(id, label_printer)
-        debugger
-        puts 3111636
+        template.loads(id).each do |template|
+          label_printer.templates << template
+        end
       end
 
       def template
@@ -33,11 +39,6 @@ module Lims::SupportApp
         def filter_attributes_on_save(attributes, label_printer_id=nil)
           attributes[:label_printer_id] = label_printer_id if label_printer_id
           attributes
-        end
-
-        def filter_attributes_on_load(attributes)
-          debugger
-          puts 38378
         end
       end
     end

@@ -94,6 +94,11 @@ describe "root" do
             "create": "http://example.org/actions/create_label_printer"
         }
     },
+    "print_labels": {
+        "actions": {
+            "create": "http://example.org/actions/print_label"
+        }
+    },
     "revision": 3
 }
     EOD

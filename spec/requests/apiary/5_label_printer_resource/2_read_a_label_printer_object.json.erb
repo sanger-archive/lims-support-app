@@ -1,0 +1,58 @@
+<%
+require 'json'
+require 'base64'
+
+template = File.open(File.join('spec', 'lims-support-app', 'label_printer', 'test_tube_template.txt')) { |f| f.read }
+content = Base64.encode64(template).gsub(/\n/, '') # encodes then strips new line
+
+h = {:header => [], :response_header => [] }
+h[:description] = <<EOD
+**Use the create label printer action.**
+
+* `name` the name of the label printer to use
+* `templates` the list of templates to use with this printer
+* `label_type` the type of the label in the printer
+EOD
+h[:method] = "POST"
+h[:url] = '/label_printers'
+h[:header] << 'Accept: application/json'
+h[:setup]=<<EOD
+
+EOD
+h[:parameters] = <<EOD
+{ "label_printer": {
+    "name": "e367bc",
+    "templates": [
+        {
+            "name": "tube",
+            "description": "normal tube template",
+            "content": "#{content}"
+        }
+    ],
+    "label_type": "tube labels"
+}}
+EOD
+h[:status]=200
+h[:response_header] << 'Content-Type: application/json'
+h[:response]=<<EOD
+{ "label_printer": {
+    "actions": {
+        "read": "http://example.org/11111111-2222-3333-4444-555555555555",
+        "update": "http://example.org/11111111-2222-3333-4444-555555555555",
+        "delete": "http://example.org/11111111-2222-3333-4444-555555555555",
+        "create": "http://example.org/11111111-2222-3333-4444-555555555555"
+    },
+    "uuid": "11111111-2222-3333-4444-555555555555",
+    "name": "e367bc",
+    "templates": [
+        {
+            "name": "tube",
+            "description": "normal tube template",
+            "content": "#{content}"
+        }
+    ],
+    "label_type": "tube labels"
+}}
+EOD
+%>
+<%= h.to_json %>
