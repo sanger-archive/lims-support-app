@@ -75,7 +75,7 @@ EOD
 
 print_step = {:header => [], :response_header => [] }
 print_step[:description] = <<EOD
-**Reads the previously created barcode.**
+**Call the print action on the label printer.**
 EOD
 print_step[:method] = "POST"
 print_step[:url] = '/actions/print_label'
@@ -83,7 +83,7 @@ print_step[:header] << 'Accept: application/json'
 print_step[:setup]=<<EOD
 # I have to stub the printing, because the string to print
 # contains a null byte.
-Lims::SupportApp::LabelPrinter::PrintLabel.any_instance.stub(:print_label) do
+Lims::SupportApp::LabelPrinter::PrintLabel.any_instance.stub(:print_labels) do
   # TODO ke4
 end
 EOD

@@ -70,10 +70,10 @@ describe "create_a_label_printer_and_print_a_label_with_it", :label_printer => t
 }
     EOD
 
-  # **Reads the previously created barcode.**
+  # **Call the print action on the label printer.**
     # I have to stub the printing, because the string to print
-    # contains a null byte.
-    Lims::SupportApp::LabelPrinter::PrintLabel.any_instance.stub(:print_label) do
+    # contains null bytes.
+    Lims::SupportApp::LabelPrinter::PrintLabel.any_instance.stub(:print_labels) do
       # TODO ke4
     end
 

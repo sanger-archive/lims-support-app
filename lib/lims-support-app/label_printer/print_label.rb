@@ -4,6 +4,7 @@ require 'lims-support-app/label_printer/label_printer'
 require 'lims-support-app/barcode/barcode'
 
 require 'base64'
+require 'tempfile'
 
 module Lims::SupportApp
   class LabelPrinter
@@ -35,6 +36,7 @@ module Lims::SupportApp
         # do the printing if everything is valid
         if @invalid_templates.empty? && @invalid_ean13_barcodes.empty?
           # process the labels
+          labels_to_print = []
           labels.each do |label|
             # first load the proper template
             template_name = label["template"]
@@ -43,11 +45,37 @@ module Lims::SupportApp
             # fill in the template
             label_to_print = fill_the_templates(label_template, label)
 
-            # print the label(s)
-            print_labels(label_to_print)
+            # add the specific escape characters for printing to the label
+            labels_to_print << add_escape_characters(label_to_print)
           end
+
+          # print the label(s)
+          print_labels(labels_to_print)
         end
         {:labels => labels}
+      end
+
+      # physically prints to the printer using the underlying print system
+      def print_labels(labels_to_print)
+        temp_file = Tempfile.new('labels')
+        begin
+          temp_file.write(labels_to_print.join)
+          temp_file.close
+
+          `lpr -l -P#{@label_printer.name} < #{temp_file.path}`
+        ensure
+          temp_file.unlink # deletes the temp_file
+        end
+      end
+
+      private
+      def add_escape_characters(label_to_print)
+        # add specific escape characters to the label to print
+        label_to_print = ESC_CHARACTER + label_to_print.chop!
+        label_to_print.gsub!(
+          NEW_LINE_CHARACTER,
+          NEW_LINE_CHARACTER + NULL_CHARACTER + ESC_CHARACTER)
+        label_to_print.chop! + NEW_LINE_CHARACTER
       end
 
       def validation
@@ -86,7 +114,6 @@ module Lims::SupportApp
       def validate_ean13_barcode(ean13)
         ean13.size == 13 && Barcode::calculate_ean13_checksum(ean13.chop) == ean13[ean13.size-1].to_i
       end
-      private :validate_ean13_barcode
 
       def template_to_fill(name)
         @label_printer.templates.each do |template|
@@ -111,26 +138,6 @@ module Lims::SupportApp
           replace = label_text[key.to_s]
         label_template.gsub!("<#{key}>", replace == nil ? "" : replace)
         end
-      end
-
-      def print_labels(label_to_print)
-        label_to_print = add_escape_characters(label_to_print)
-        print_label(label_to_print)
-      end
-  
-      # physically prints to the printer using the underlying print system
-      def print_label(label_to_print)
-        `lpr -l -P#{@label_printer.name} < #{label_to_print}`
-      end
-  
-      private
-      def add_escape_characters(label_to_print)
-        # add specific escape characters to the label to print
-        label_to_print = ESC_CHARACTER + label_to_print.chop!
-        label_to_print.gsub!(
-          NEW_LINE_CHARACTER,
-          NEW_LINE_CHARACTER + NULL_CHARACTER + ESC_CHARACTER)
-        label_to_print.chop! + NEW_LINE_CHARACTER
       end
     end
   end
