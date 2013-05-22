@@ -24,16 +24,34 @@ module Lims::SupportApp
           end
   
           def error_stream(s)
+            error_message = "The request cannot be fulfilled due to bad parameter/syntax."
+            unless object.action.invalid_ean13_barcodes.empty?
+              error_message += " The following barcode(s) are invalid: "
+              error_message = add_faulty_parameters_to_message(object.action.invalid_ean13_barcodes, error_message)
+            else
+              if !object.action.invalid_templates.empty?
+                error_message += " The following template(s) are invalid: "
+                error_message = add_faulty_parameters_to_message(object.action.invalid_templates, error_message)
+              end
+            end
             s.with_hash do
               s.add_key "general"
               s.with_array do
-                s.add_value "The request cannot be fulfilled due to bad parameter/syntax."
+                s.add_value error_message
               end
             end
           end
+
+          def add_faulty_parameters_to_message(faults, error_message)
+            faults.each do |fault|
+              error_message += fault.to_s + ","
+            end
+            error_message.chop!
+            error_message += "."
+          end
   
         end
-  
+
         Encoders = [
           class JsonEncoder
             include Encoder

@@ -103,7 +103,7 @@ describe "create_a_label_printer_and_print_a_label_with_invalid_template", :labe
     response.body.should match_json <<-EOD
     {
     "general": [
-        "The request cannot be fulfilled due to bad parameter/syntax."
+        "The request cannot be fulfilled due to bad parameter/syntax. The following template(s) are invalid: plate."
     ]
 }
     EOD

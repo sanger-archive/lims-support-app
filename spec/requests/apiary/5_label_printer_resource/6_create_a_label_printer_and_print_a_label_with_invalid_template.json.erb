@@ -108,7 +108,7 @@ print_step[:status]=400
 print_step[:response_header] << 'Content-Type: application/json'
 print_step[:response]=<<EOD
 { "general": [
-    "The request cannot be fulfilled due to bad parameter/syntax."
+    "The request cannot be fulfilled due to bad parameter/syntax. The following template(s) are invalid: plate."
   ]
 }
 EOD

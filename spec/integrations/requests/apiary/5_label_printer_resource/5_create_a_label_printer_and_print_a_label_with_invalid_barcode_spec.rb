@@ -103,7 +103,7 @@ describe "create_a_label_printer_and_print_a_label_with_invalid_barcode", :label
     response.body.should match_json <<-EOD
     {
     "general": [
-        "The request cannot be fulfilled due to bad parameter/syntax."
+        "The request cannot be fulfilled due to bad parameter/syntax. The following barcode(s) are invalid: 274867088011."
     ]
 }
     EOD
