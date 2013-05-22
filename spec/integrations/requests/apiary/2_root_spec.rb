@@ -53,6 +53,22 @@ describe "root" do
             "last": "http://example.org/kits/page=-1"
         }
     },
+    "label_printers": {
+        "actions": {
+            "create": "http://example.org/label_printers",
+            "read": "http://example.org/label_printers",
+            "first": "http://example.org/label_printers/page=1",
+            "last": "http://example.org/label_printers/page=-1"
+        }
+    },
+    "templates": {
+        "actions": {
+            "create": "http://example.org/templates",
+            "read": "http://example.org/templates",
+            "first": "http://example.org/templates/page=1",
+            "last": "http://example.org/templates/page=-1"
+        }
+    },
     "create_barcodes": {
         "actions": {
             "create": "http://example.org/actions/create_barcode"
@@ -71,6 +87,16 @@ describe "root" do
     "create_kits": {
         "actions": {
             "create": "http://example.org/actions/create_kit"
+        }
+    },
+    "create_label_printers": {
+        "actions": {
+            "create": "http://example.org/actions/create_label_printer"
+        }
+    },
+    "print_labels": {
+        "actions": {
+            "create": "http://example.org/actions/print_label"
         }
     },
     "revision": 3
