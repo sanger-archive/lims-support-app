@@ -3,6 +3,7 @@ source "http://rubygems.org"
 # Specify your gem's dependencies in lims-support-app.gemspec
 gemspec
 
+gem "mustache", "~> 0.99.4", :git => 'https://github.com/defunkt/mustache'
 gem 'sinatra', :git => 'http://github.com/sinatra/sinatra.git', :branch => '459369eb66224836f72e21bbece58c007f3422fa'
 gem 'lims-core', '~>2.0.0', :git => 'http://github.com/sanger/lims-core.git', :branch => 'version-2'
 # gem 'lims-core', '~>2.0.0', :path => '../lims-core'

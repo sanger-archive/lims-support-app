@@ -2,7 +2,7 @@
 require 'json'
 require 'base64'
 
-template = File.open(File.join('spec', 'lims-support-app', 'label_printer', 'test_tube_template.txt')) { |f| f.read }
+template = File.open(File.join('label_templates', 'tube_label_template.txt')) { |f| f.read }
 content = Base64.encode64(template).gsub(/\n/, '') # encodes then strips new line
 
 h = {:header => [], :response_header => [] }
