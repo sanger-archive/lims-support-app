@@ -43,10 +43,7 @@ module Lims::SupportApp
           end
 
           def add_faulty_parameters_to_message(faults, error_message)
-            faults.each do |fault|
-              error_message += fault.to_s + ","
-            end
-            error_message.chop!
+            error_message += faults.join(', ')
             error_message += "."
           end
   
