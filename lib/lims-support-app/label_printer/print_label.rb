@@ -103,12 +103,10 @@ module Lims::SupportApp
       def validate_barcodes
         labels.each do |label|
           # validate the ean13_barcode(s)
-          valid_main_ean13 = validate_ean13_barcode(label["main"]["ean13"])
-          valid_dot_ean13 = label["dot"] && label["dot"]["ean13"] ? validate_ean13_barcode(label["dot"]["ean13"]) : true
-
-          # gathering the invalid barcodes
-          @invalid_ean13_barcodes << label["main"]["ean13"] unless valid_main_ean13
-          @invalid_ean13_barcodes << label["dot"]["ean13"] if label["dot"] && label["dot"]["ean13"] && !valid_dot_ean13
+          ean13_barcodes = label.deep_fetch_all("ean13")
+          ean13_barcodes.each do |ean13|
+            @invalid_ean13_barcodes << ean13 unless validate_ean13_barcode(ean13)
+          end
         end
       end
 
