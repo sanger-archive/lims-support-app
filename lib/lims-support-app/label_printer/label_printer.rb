@@ -11,6 +11,8 @@ module Lims::SupportApp
     attribute :name, String, :required => true, :writer => :private, :initializable => true
     attribute :templates, Array, :default => [], :required => true, :writer => :private, :initializable => true
     attribute :label_type, String, :required => true, :writer => :private, :initializable => true
+    attribute :header, String, :required => true, :writer => :private, :initializable => true
+    attribute :footer, String, :required => true, :writer => :private, :initializable => true
 
   end
 end
