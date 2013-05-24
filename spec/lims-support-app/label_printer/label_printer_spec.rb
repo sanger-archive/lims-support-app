@@ -7,7 +7,15 @@ module Lims::SupportApp
     let(:template_type_tube) { "tube" }
     let(:template_description_tube) { "normal tube template" }
     let(:template_content_tube) {
-      template = File.open(File.join('spec', 'lims-support-app', 'label_printer', 'test_tube_template.txt')) { |f| f.read }
+      template = File.open(File.join('label_templates', 'tube_label_template.txt')) { |f| f.read }
+      Base64.encode64(template).gsub(/\n/, '') # encodes then strips new line
+    }
+    let(:header) {
+      template = File.open(File.join('label_templates', 'tube_header_template.txt')) { |f| f.read }
+      Base64.encode64(template).gsub(/\n/, '') # encodes then strips new line
+    }
+    let(:footer) {
+      template = File.open(File.join('label_templates', 'tube_footer_template.txt')) { |f| f.read }
       Base64.encode64(template).gsub(/\n/, '') # encodes then strips new line
     }
     let(:template_type_spin_column) { "spin_column" }
@@ -25,7 +33,9 @@ module Lims::SupportApp
             "content" => template_content_tube
           }
         ],
-        "label_type" => label_type
+        "label_type" => label_type,
+        "header" => header,
+        "footer" => footer
       }
     }
 
@@ -52,6 +62,14 @@ module Lims::SupportApp
 
       it "requires the labels type" do
         described_class.new(parameters - [:label_type]).valid?.should == false
+      end
+
+      it "requires a header" do
+        described_class.new(parameters - [:header]).valid?.should == false
+      end
+
+      it "requires a footer" do
+        described_class.new(parameters - [:footer]).valid?.should == false
       end
     end
   end

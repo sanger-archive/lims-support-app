@@ -6,6 +6,14 @@ require 'base64'
 template = File.open(File.join('label_templates', 'tube_label_template.txt')) { |f| f.read }
 content = Base64.encode64(template).gsub(/\n/, '') # encodes then strips new line
 
+template_header = File.open(File.join('label_templates', 'tube_header_template.txt')) { |f| f.read }
+header = Base64.encode64(template_header).gsub(/\n/, '') # encodes then strips new line
+
+template_footer = File.open(File.join('label_templates', 'tube_footer_template.txt')) { |f| f.read }
+footer = Base64.encode64(template_footer).gsub(/\n/, '') # encodes then strips new line
+
+now = Time.new.strftime("%Y-%m-%d %H:%M:%S")
+
 create_label_printer_step = {:header => [], :response_header => [] }
 create_label_printer_step[:description] = <<EOD
 **Use the create label printer action.**
@@ -13,6 +21,8 @@ create_label_printer_step[:description] = <<EOD
 * `name` the name of the label printer to use
 * `templates` the list of templates to use with this printer
 * `label_type` the type of the label in the printer
+* `header` the header of the labels
+* `footer` the footer of the labels
 EOD
 create_label_printer_step[:method] = "POST"
 create_label_printer_step[:url] = '/actions/create_label_printer'
@@ -29,7 +39,9 @@ create_label_printer_step[:parameters] = <<EOD
             "content": "#{content}"
         }
     ],
-    "label_type": "tube labels"
+    "label_type": "tube labels",
+    "header": "#{header}",
+    "footer": "#{footer}"
 }}
 EOD
 create_label_printer_step[:status]=200
@@ -57,7 +69,9 @@ create_label_printer_step[:response]=<<EOD
                     "content": "#{content}"
                 }
             ],
-            "label_type": "tube labels"
+            "label_type": "tube labels",
+            "header": "#{header}",
+            "footer": "#{footer}"
         },
         "uuid": "11111111-2222-3333-4444-555555555555"
     },
@@ -69,7 +83,9 @@ create_label_printer_step[:response]=<<EOD
             "content": "#{content}"
         }
     ],
-    "label_type": "tube labels"
+    "label_type": "tube labels",
+    "header": "#{header}",
+    "footer": "#{footer}"
 }}
 EOD
 
@@ -101,7 +117,15 @@ print_step[:parameters] = <<EOD
                 }
             }
         }
-    ]
+    ],
+    "header_text": {
+        "header_text1": "header by ke4",
+        "header_text2": "#{now}"
+    },
+    "footer_text": {
+        "footer_text1": "footer by ke4",
+        "footer_text2": "#{now}"
+    }
 }}
 EOD
 print_step[:status]=200
@@ -125,7 +149,15 @@ print_step[:response]=<<EOD
                         }
                     }
                 }
-            ]
+            ],
+            "header_text": {
+                "header_text1": "header by ke4",
+                "header_text2": "#{now}"
+            },
+            "footer_text": {
+                "footer_text1": "footer by ke4",
+                "footer_text2": "#{now}"
+            }
     },
     "labels": [
         {
@@ -138,8 +170,15 @@ print_step[:response]=<<EOD
                 }
             }
         }
-    ]
-}}
+    ],
+    "header_text": {
+        "header_text1": "header by ke4",
+        "header_text2": "#{now}"
+    },
+    "footer_text": {
+        "footer_text1": "footer by ke4",
+        "footer_text2": "#{now}"
+    }}}
 EOD
 
 example_json = { "steps" => [create_label_printer_step, print_step] }
