@@ -21,7 +21,7 @@ describe "create_a_label_printer_and_print_a_label_with_invalid_template", :labe
             {
                 "name": "tube",
                 "description": "normal tube template",
-                "content": "RDA0MzAsMDMwMCwwNDAwCkFZOyswOCwwCkFYOyswMjIsKzAwMCwrMDAKVDIwQzMyClBDMDAxOzAxMTIsMDIwMCwwNSwwNSxILCswMiwxMSxCClBDMDAyOzAwNjIsMDIwMCwwNSwwNSxILCswMiwxMSxCCkMKUkMwMDE7ClJDMDAyOwpYUztJLDAwMDEsMDAwMkM1MjAxCkMKUEMwMDE7MDAzOCwwMjEwLDA1LDA1LEgsKzAzLDExLEIKUEMwMDI7MDEyMCwwMjEwLDA1LDA1LEgsKzAyLDExLEIKUEMwMDM7MDA3MCwwMjEwLDA1LDA1LEgsKzAyLDExLEIKUEMwMDU7MDI0MCwwMTY1LDA1LDEsRywrMDAsMDAsQgpQQzAwNjswMjIwLDAxOTMsMDUsMSxHLCswMCwwMCxCClBDMDA3OzAyMjUsMDIxNywwNSwxLEcsKzAxLDAwLEIKUEMwMDg7MDE1MCwwMjEwLDA1LDEsRywrMDEsMTEsQgpYQjAxOzAwNDMsMDEwMCw1LDMsMDEsMCwwMTAwLCswMDAwMDAwMDAwLDAwMiwwLDAwCkMKUkMwMDE7PHR4dF8xPgpSQzAwMjs8dHh0XzI+ClJDMDAzOzx0eHRfMz4KUkMwMDU7PHR4dF81PgpSQzAwNjs8dHh0XzY+ClJDMDA3Ozx0eHRfNz4KUkMwMDg7PHR4dF84PgpSQjAxOzxtYWluX2JhcmNvZGU+ClhTO0ksMDAwMSwwMDAyQzMyMDEKCg=="
+                "content": "QwpQQzAwMTswMDM4LDAyMTAsMDUsMDUsSCwrMDMsMTEsQgpQQzAwMjswMTIwLDAyMTAsMDUsMDUsSCwrMDIsMTEsQgpQQzAwMzswMDcwLDAyMTAsMDUsMDUsSCwrMDIsMTEsQgpQQzAwNTswMjQwLDAxNjUsMDUsMSxHLCswMCwwMCxCClBDMDA2OzAyMjAsMDE5MywwNSwxLEcsKzAwLDAwLEIKUEMwMDc7MDIyNSwwMjE3LDA1LDEsRywrMDEsMDAsQgpQQzAwODswMTUwLDAyMTAsMDUsMSxHLCswMSwxMSxCClhCMDE7MDA0MywwMTAwLDUsMywwMSwwLDAxMDAsKzAwMDAwMDAwMDAsMDAyLDAsMDAKQwpSQzAwMTt7e3RleHQxfX0KUkMwMDI7e3t0ZXh0Mn19ClJDMDAzO3t7dGV4dDN9fQpSQzAwNTt7e3RleHQ1fX0KUkMwMDY7e3t0ZXh0Nn19ClJDMDA3O3t7dGV4dDd9fQpSQzAwODt7e3RleHQ4fX0KUkIwMTt7e2VhbjEzfX0KWFM7SSwwMDAxLDAwMDJDMzIwMQo="
             }
         ],
         "label_type": "tube labels"
@@ -50,7 +50,7 @@ describe "create_a_label_printer_and_print_a_label_with_invalid_template", :labe
                     {
                         "name": "tube",
                         "description": "normal tube template",
-                        "content": "RDA0MzAsMDMwMCwwNDAwCkFZOyswOCwwCkFYOyswMjIsKzAwMCwrMDAKVDIwQzMyClBDMDAxOzAxMTIsMDIwMCwwNSwwNSxILCswMiwxMSxCClBDMDAyOzAwNjIsMDIwMCwwNSwwNSxILCswMiwxMSxCCkMKUkMwMDE7ClJDMDAyOwpYUztJLDAwMDEsMDAwMkM1MjAxCkMKUEMwMDE7MDAzOCwwMjEwLDA1LDA1LEgsKzAzLDExLEIKUEMwMDI7MDEyMCwwMjEwLDA1LDA1LEgsKzAyLDExLEIKUEMwMDM7MDA3MCwwMjEwLDA1LDA1LEgsKzAyLDExLEIKUEMwMDU7MDI0MCwwMTY1LDA1LDEsRywrMDAsMDAsQgpQQzAwNjswMjIwLDAxOTMsMDUsMSxHLCswMCwwMCxCClBDMDA3OzAyMjUsMDIxNywwNSwxLEcsKzAxLDAwLEIKUEMwMDg7MDE1MCwwMjEwLDA1LDEsRywrMDEsMTEsQgpYQjAxOzAwNDMsMDEwMCw1LDMsMDEsMCwwMTAwLCswMDAwMDAwMDAwLDAwMiwwLDAwCkMKUkMwMDE7PHR4dF8xPgpSQzAwMjs8dHh0XzI+ClJDMDAzOzx0eHRfMz4KUkMwMDU7PHR4dF81PgpSQzAwNjs8dHh0XzY+ClJDMDA3Ozx0eHRfNz4KUkMwMDg7PHR4dF84PgpSQjAxOzxtYWluX2JhcmNvZGU+ClhTO0ksMDAwMSwwMDAyQzMyMDEKCg=="
+                        "content": "QwpQQzAwMTswMDM4LDAyMTAsMDUsMDUsSCwrMDMsMTEsQgpQQzAwMjswMTIwLDAyMTAsMDUsMDUsSCwrMDIsMTEsQgpQQzAwMzswMDcwLDAyMTAsMDUsMDUsSCwrMDIsMTEsQgpQQzAwNTswMjQwLDAxNjUsMDUsMSxHLCswMCwwMCxCClBDMDA2OzAyMjAsMDE5MywwNSwxLEcsKzAwLDAwLEIKUEMwMDc7MDIyNSwwMjE3LDA1LDEsRywrMDEsMDAsQgpQQzAwODswMTUwLDAyMTAsMDUsMSxHLCswMSwxMSxCClhCMDE7MDA0MywwMTAwLDUsMywwMSwwLDAxMDAsKzAwMDAwMDAwMDAsMDAyLDAsMDAKQwpSQzAwMTt7e3RleHQxfX0KUkMwMDI7e3t0ZXh0Mn19ClJDMDAzO3t7dGV4dDN9fQpSQzAwNTt7e3RleHQ1fX0KUkMwMDY7e3t0ZXh0Nn19ClJDMDA3O3t7dGV4dDd9fQpSQzAwODt7e3RleHQ4fX0KUkIwMTt7e2VhbjEzfX0KWFM7SSwwMDAxLDAwMDJDMzIwMQo="
                     }
                 ],
                 "label_type": "tube labels"
@@ -62,7 +62,7 @@ describe "create_a_label_printer_and_print_a_label_with_invalid_template", :labe
             {
                 "name": "tube",
                 "description": "normal tube template",
-                "content": "RDA0MzAsMDMwMCwwNDAwCkFZOyswOCwwCkFYOyswMjIsKzAwMCwrMDAKVDIwQzMyClBDMDAxOzAxMTIsMDIwMCwwNSwwNSxILCswMiwxMSxCClBDMDAyOzAwNjIsMDIwMCwwNSwwNSxILCswMiwxMSxCCkMKUkMwMDE7ClJDMDAyOwpYUztJLDAwMDEsMDAwMkM1MjAxCkMKUEMwMDE7MDAzOCwwMjEwLDA1LDA1LEgsKzAzLDExLEIKUEMwMDI7MDEyMCwwMjEwLDA1LDA1LEgsKzAyLDExLEIKUEMwMDM7MDA3MCwwMjEwLDA1LDA1LEgsKzAyLDExLEIKUEMwMDU7MDI0MCwwMTY1LDA1LDEsRywrMDAsMDAsQgpQQzAwNjswMjIwLDAxOTMsMDUsMSxHLCswMCwwMCxCClBDMDA3OzAyMjUsMDIxNywwNSwxLEcsKzAxLDAwLEIKUEMwMDg7MDE1MCwwMjEwLDA1LDEsRywrMDEsMTEsQgpYQjAxOzAwNDMsMDEwMCw1LDMsMDEsMCwwMTAwLCswMDAwMDAwMDAwLDAwMiwwLDAwCkMKUkMwMDE7PHR4dF8xPgpSQzAwMjs8dHh0XzI+ClJDMDAzOzx0eHRfMz4KUkMwMDU7PHR4dF81PgpSQzAwNjs8dHh0XzY+ClJDMDA3Ozx0eHRfNz4KUkMwMDg7PHR4dF84PgpSQjAxOzxtYWluX2JhcmNvZGU+ClhTO0ksMDAwMSwwMDAyQzMyMDEKCg=="
+                "content": "QwpQQzAwMTswMDM4LDAyMTAsMDUsMDUsSCwrMDMsMTEsQgpQQzAwMjswMTIwLDAyMTAsMDUsMDUsSCwrMDIsMTEsQgpQQzAwMzswMDcwLDAyMTAsMDUsMDUsSCwrMDIsMTEsQgpQQzAwNTswMjQwLDAxNjUsMDUsMSxHLCswMCwwMCxCClBDMDA2OzAyMjAsMDE5MywwNSwxLEcsKzAwLDAwLEIKUEMwMDc7MDIyNSwwMjE3LDA1LDEsRywrMDEsMDAsQgpQQzAwODswMTUwLDAyMTAsMDUsMSxHLCswMSwxMSxCClhCMDE7MDA0MywwMTAwLDUsMywwMSwwLDAxMDAsKzAwMDAwMDAwMDAsMDAyLDAsMDAKQwpSQzAwMTt7e3RleHQxfX0KUkMwMDI7e3t0ZXh0Mn19ClJDMDAzO3t7dGV4dDN9fQpSQzAwNTt7e3RleHQ1fX0KUkMwMDY7e3t0ZXh0Nn19ClJDMDA3O3t7dGV4dDd9fQpSQzAwODt7e3RleHQ4fX0KUkIwMTt7e2VhbjEzfX0KWFM7SSwwMDAxLDAwMDJDMzIwMQo="
             }
         ],
         "label_type": "tube labels"
@@ -90,8 +90,8 @@ describe "create_a_label_printer_and_print_a_label_with_invalid_template", :labe
                 "main": {
                     "ean13": "2748670880727",
                     "label_text": {
-                        "txt_1": "pos1",
-                        "txt_3": "pos3"
+                        "text1": "pos1",
+                        "text3": "pos3"
                     }
                 }
             }

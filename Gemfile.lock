@@ -48,6 +48,12 @@ GIT
       rack-protection (~> 1.3)
       tilt (~> 1.3, >= 1.3.3)
 
+GIT
+  remote: https://github.com/defunkt/mustache
+  revision: 5fa960715c4122857478bd3808eb135bacf325d7
+  specs:
+    mustache (0.99.4)
+
 PATH
   remote: .
   specs:
@@ -147,6 +153,7 @@ DEPENDENCIES
   lims-core (~> 2.0.0)!
   lims-laboratory-app (~> 1.0)!
   lims-support-app!
+  mustache (~> 0.99.4)!
   pry
   psd_logger!
   rack-test (~> 0.6.1)

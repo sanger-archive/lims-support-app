@@ -5,6 +5,7 @@ require 'lims-support-app/barcode/barcode'
 
 require 'base64'
 require 'tempfile'
+require 'mustache'
 
 module Lims::SupportApp
   class LabelPrinter
@@ -43,7 +44,7 @@ module Lims::SupportApp
             label_template = template_to_fill(template_name)
 
             # fill in the template
-            label_to_print = fill_the_templates(label_template, label)
+            label_to_print = fill_the_template(label_template, label)
 
             # add the specific escape characters for printing to the label
             labels_to_print << add_escape_characters(label_to_print)
@@ -102,12 +103,10 @@ module Lims::SupportApp
       def validate_barcodes
         labels.each do |label|
           # validate the ean13_barcode(s)
-          valid_main_ean13 = validate_ean13_barcode(label["main"]["ean13"])
-          valid_dot_ean13 = label["dot"] && label["dot"]["ean13"] ? validate_ean13_barcode(label["dot"]["ean13"]) : true
-
-          # gathering the invalid barcodes
-          @invalid_ean13_barcodes << label["main"]["ean13"] unless valid_main_ean13
-          @invalid_ean13_barcodes << label["dot"]["ean13"] if label["dot"] && label["dot"]["ean13"] && !valid_dot_ean13
+          ean13_barcodes = label.deep_fetch_all("ean13")
+          ean13_barcodes.each do |ean13|
+            @invalid_ean13_barcodes << ean13 unless validate_ean13_barcode(ean13)
+          end
         end
       end
 
@@ -116,28 +115,19 @@ module Lims::SupportApp
       end
 
       def template_to_fill(name)
-        @label_printer.templates.each do |template|
-          return template["content"] if template["name"] == name
-        end
+        selected_template = @label_printer.templates.detect { |template| template["name"] == name }
+        selected_template["content"] if selected_template
       end
 
-      def fill_the_templates(label_template, label)
+      def fill_the_template(label_template, label_data)
         label_template = Base64.decode64(label_template)
-        # replaces placeholders with barcode(s) 
-        label_template.gsub!('<main_barcode>', label["main"]["ean13"].chop)
-        label_template.gsub!('<dot_barcode>', label["dot"]["ean13"].chop) if label["dot"] && label["dot"]["ean13"]
-
-        add_text_to_template(label_template, label["main"]["label_text"]) unless label["main"]["label_text"].empty?
-        label_template
+        label_template = Mustache.render(label_template, replace_values(label_data))
       end
 
-      # Replaces the placeholders with the labels in the template.
-      def add_text_to_template(label_template, label_text)
-        (1...10).each do |i|
-          key = "txt_#{i}"
-          replace = label_text[key.to_s]
-        label_template.gsub!("<#{key}>", replace == nil ? "" : replace)
-        end
+      def replace_values(label_data)
+        values = {}
+        values["ean13"] = label_data.deep_fetch("ean13").chop
+        values.merge!(label_data.deep_fetch("label_text"))
       end
     end
   end
