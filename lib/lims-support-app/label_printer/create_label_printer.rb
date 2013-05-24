@@ -10,6 +10,8 @@ module Lims::SupportApp
       attribute :name, String, :required => true, :writer => :private, :initializable => true
       attribute :templates, Array, :required => true, :writer => :private, :initializable => true
       attribute :label_type, String, :required => true, :writer => :private, :initializable => true
+      attribute :header, String, :required => true, :writer => :private, :initializable => true
+      attribute :footer, String, :required => true, :writer => :private, :initializable => true
 
       def _call_in_session(session)
         label_printer_templates = []
@@ -22,7 +24,9 @@ module Lims::SupportApp
 
         label_printer = LabelPrinter.new(:name => name,
           :templates  => label_printer_templates,
-          :label_type => label_type)
+          :label_type => label_type,
+          :header     => header,
+          :footer     => footer)
 
         session << label_printer
 

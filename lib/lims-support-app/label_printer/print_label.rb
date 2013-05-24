@@ -16,6 +16,8 @@ module Lims::SupportApp
 
       attribute :uuid, String, :required => true, :writer => :private, :initializable => true
       attribute :labels, Array, :required => true, :writer => :private, :initializable => true
+      attribute :header_text, String, :required => true, :writer => :private, :initializable => true
+      attribute :footer_text, String, :required => true, :writer => :private, :initializable => true
 
       attr_reader :label_printer
       attr_reader :invalid_ean13_barcodes
@@ -44,7 +46,7 @@ module Lims::SupportApp
             label_template = template_to_fill(template_name)
 
             # fill in the template
-            label_to_print = fill_the_template(label_template, label)
+            label_to_print = fill_the_template(label_template, replace_values(label))
 
             # add the specific escape characters for printing to the label
             labels_to_print << add_escape_characters(label_to_print)
@@ -53,11 +55,13 @@ module Lims::SupportApp
           # print the label(s)
           print_labels(labels_to_print)
         end
-        {:labels => labels}
+        {:labels => labels, :header_text => header_text, :footer_text => footer_text}
       end
 
       # physically prints to the printer using the underlying print system
       def print_labels(labels_to_print)
+        add_header_and_footer(labels_to_print)
+
         temp_file = Tempfile.new('labels')
         begin
           temp_file.write(labels_to_print.join)
@@ -69,14 +73,19 @@ module Lims::SupportApp
         end
       end
 
+      def add_header_and_footer(labels_to_print)
+        labels_to_print.unshift(add_escape_characters(fill_the_template(@label_printer.header, header_text)))
+        labels_to_print.push(add_escape_characters(fill_the_template(@label_printer.footer, footer_text)))
+      end
+
       private
       def add_escape_characters(label_to_print)
         # add specific escape characters to the label to print
-        label_to_print = ESC_CHARACTER + label_to_print.chop!
+        label_to_print = ESC_CHARACTER + label_to_print
         label_to_print.gsub!(
           NEW_LINE_CHARACTER,
           NEW_LINE_CHARACTER + NULL_CHARACTER + ESC_CHARACTER)
-        label_to_print.chop! + NEW_LINE_CHARACTER
+        label_to_print + NEW_LINE_CHARACTER + NULL_CHARACTER
       end
 
       def validation
@@ -101,13 +110,10 @@ module Lims::SupportApp
       end
 
       def validate_barcodes
-        labels.each do |label|
-          # validate the ean13_barcode(s)
-          ean13_barcodes = label.deep_fetch_all("ean13")
-          ean13_barcodes.each do |ean13|
-            @invalid_ean13_barcodes << ean13 unless validate_ean13_barcode(ean13)
-          end
-        end
+        @invalid_ean13_barcodes = labels.map {
+          |label| label.deep_fetch_all("ean13") }.flatten.reject{ |ean13|
+            send(:validate_ean13_barcode, ean13)
+          }
       end
 
       def validate_ean13_barcode(ean13)
@@ -121,7 +127,7 @@ module Lims::SupportApp
 
       def fill_the_template(label_template, label_data)
         label_template = Base64.decode64(label_template)
-        label_template = Mustache.render(label_template, replace_values(label_data))
+        label_template = Mustache.render(label_template, label_data)
       end
 
       def replace_values(label_data)

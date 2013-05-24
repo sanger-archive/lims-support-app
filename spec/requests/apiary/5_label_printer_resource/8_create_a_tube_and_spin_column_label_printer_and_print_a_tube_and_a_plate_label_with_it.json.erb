@@ -4,7 +4,10 @@ require 'base64'
 
 # This step (request) is creating a label printer
 template = File.open(File.join('label_templates', 'tube_label_template.txt')) { |f| f.read }
-content = Base64.encode64(template).gsub(/\n/, '') # encodes then strips new line
+content_tube = Base64.encode64(template).gsub(/\n/, '') # encodes then strips new line
+
+template = File.open(File.join('label_templates', 'spin_column_label_template.txt')) { |f| f.read }
+content_spin_column = Base64.encode64(template).gsub(/\n/, '') # encodes then strips new line
 
 template_header = File.open(File.join('label_templates', 'tube_header_template.txt')) { |f| f.read }
 header = Base64.encode64(template_header).gsub(/\n/, '') # encodes then strips new line
@@ -36,10 +39,15 @@ create_label_printer_step[:parameters] = <<EOD
         {
             "name": "tube",
             "description": "normal tube template",
-            "content": "#{content}"
+            "content": "#{content_tube}"
+        },
+        {
+            "name": "spin_column",
+            "description": "normal spin column template",
+            "content": "#{content_spin_column}"
         }
     ],
-    "label_type": "tube labels",
+    "label_type": "tube and spin column labels",
     "header": "#{header}",
     "footer": "#{footer}"
 }}
@@ -66,10 +74,15 @@ create_label_printer_step[:response]=<<EOD
                 {
                     "name": "tube",
                     "description": "normal tube template",
-                    "content": "#{content}"
+                    "content": "#{content_tube}"
+                },
+                {
+                    "name": "spin_column",
+                    "description": "normal spin column template",
+                    "content": "#{content_spin_column}"
                 }
             ],
-            "label_type": "tube labels",
+            "label_type": "tube and spin column labels",
             "header": "#{header}",
             "footer": "#{footer}"
         },
@@ -80,10 +93,15 @@ create_label_printer_step[:response]=<<EOD
         {
             "name": "tube",
             "description": "normal tube template",
-            "content": "#{content}"
+            "content": "#{content_tube}"
+        },
+        {
+            "name": "spin_column",
+            "description": "normal spin column template",
+            "content": "#{content_spin_column}"
         }
     ],
-    "label_type": "tube labels",
+    "label_type": "tube and spin column labels",
     "header": "#{header}",
     "footer": "#{footer}"
 }}
@@ -98,7 +116,7 @@ print_step[:url] = '/actions/print_label'
 print_step[:header] << 'Accept: application/json'
 print_step[:setup]=<<EOD
 # I have to stub the printing, because the string to print
-# contains a null byte.
+# contains null bytes.
 Lims::SupportApp::LabelPrinter::PrintLabel.any_instance.stub(:print_labels) do
   # TODO ke4
 end
@@ -108,12 +126,22 @@ print_step[:parameters] = <<EOD
     "uuid": "11111111-2222-3333-4444-555555555555",
     "labels": [
         {
-            "template": "plate",
+            "template": "tube",
             "main": {
                 "ean13": "2748670880727",
                 "label_text": {
                     "text1": "pos1",
                     "text3": "pos3"
+                }
+            }
+        },
+        {
+            "template": "plate",
+            "main": {
+                "ean13": "2741854757853",
+                "label_text": {
+                    "text1": "sp1",
+                    "text3": "sp2"
                 }
             }
         }
@@ -131,9 +159,9 @@ EOD
 print_step[:status]=400
 print_step[:response_header] << 'Content-Type: application/json'
 print_step[:response]=<<EOD
-{ "general": [
+{"general": [
     "The request cannot be fulfilled due to bad parameter/syntax. The following template(s) are invalid: plate."
-  ]
+]
 }
 EOD
 
