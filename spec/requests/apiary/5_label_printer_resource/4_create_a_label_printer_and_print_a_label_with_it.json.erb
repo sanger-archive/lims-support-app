@@ -1,0 +1,186 @@
+<%
+require 'json'
+require 'base64'
+
+# This step (request) is creating a label printer
+template = File.open(File.join('label_templates', 'tube_label_template.txt')) { |f| f.read }
+content = Base64.encode64(template).gsub(/\n/, '') # encodes then strips new line
+
+template_header = File.open(File.join('label_templates', 'tube_header_template.txt')) { |f| f.read }
+header = Base64.encode64(template_header).gsub(/\n/, '') # encodes then strips new line
+
+template_footer = File.open(File.join('label_templates', 'tube_footer_template.txt')) { |f| f.read }
+footer = Base64.encode64(template_footer).gsub(/\n/, '') # encodes then strips new line
+
+now = Time.new.strftime("%Y-%m-%d %H:%M:%S")
+
+create_label_printer_step = {:header => [], :response_header => [] }
+create_label_printer_step[:description] = <<EOD
+**Use the create label printer action.**
+
+* `name` the name of the label printer to use
+* `templates` the list of templates to use with this printer
+* `label_type` the type of the label in the printer
+* `header` the header of the labels
+* `footer` the footer of the labels
+EOD
+create_label_printer_step[:method] = "POST"
+create_label_printer_step[:url] = '/actions/create_label_printer'
+create_label_printer_step[:header] << 'Accept: application/json'
+create_label_printer_step[:setup]=<<EOD
+EOD
+create_label_printer_step[:parameters] = <<EOD
+{ "create_label_printer": {
+    "name": "e367bc",
+    "templates": [
+        {
+            "name": "tube",
+            "description": "normal tube template",
+            "content": "#{content}"
+        }
+    ],
+    "label_type": "tube labels",
+    "header": "#{header}",
+    "footer": "#{footer}"
+}}
+EOD
+create_label_printer_step[:status]=200
+create_label_printer_step[:response_header] << 'Content-Type: application/json'
+create_label_printer_step[:response]=<<EOD
+{ "create_label_printer": {
+    "actions": {
+    },
+    "user": "user",
+    "application": "application",
+    "result": {
+        "label_printer": {
+            "actions": {
+                "read": "http://example.org/11111111-2222-3333-4444-555555555555",
+                "update": "http://example.org/11111111-2222-3333-4444-555555555555",
+                "delete": "http://example.org/11111111-2222-3333-4444-555555555555",
+                "create": "http://example.org/11111111-2222-3333-4444-555555555555"
+            },
+            "uuid": "11111111-2222-3333-4444-555555555555",
+            "name": "e367bc",
+            "templates": [
+                {
+                    "name": "tube",
+                    "description": "normal tube template",
+                    "content": "#{content}"
+                }
+            ],
+            "label_type": "tube labels",
+            "header": "#{header}",
+            "footer": "#{footer}"
+        },
+        "uuid": "11111111-2222-3333-4444-555555555555"
+    },
+    "name": "e367bc",
+    "templates": [
+        {
+            "name": "tube",
+            "description": "normal tube template",
+            "content": "#{content}"
+        }
+    ],
+    "label_type": "tube labels",
+    "header": "#{header}",
+    "footer": "#{footer}"
+}}
+EOD
+
+print_step = {:header => [], :response_header => [] }
+print_step[:description] = <<EOD
+**Call the print action on the label printer.**
+EOD
+print_step[:method] = "POST"
+print_step[:url] = '/actions/print_label'
+print_step[:header] << 'Accept: application/json'
+print_step[:setup]=<<EOD
+# I have to stub the printing, because the string to print
+# contains null bytes.
+Lims::SupportApp::LabelPrinter::PrintLabel.any_instance.stub(:print_labels) do
+  # TODO ke4
+end
+EOD
+print_step[:parameters] = <<EOD
+{ "print_label": {
+    "uuid": "11111111-2222-3333-4444-555555555555",
+    "labels": [
+        {
+            "template": "tube",
+            "main": {
+                "ean13": "2748670880727",
+                "label_text": {
+                    "text1": "pos1",
+                    "text3": "pos3"
+                }
+            }
+        }
+    ],
+    "header_text": {
+        "header_text1": "header by ke4",
+        "header_text2": "#{now}"
+    },
+    "footer_text": {
+        "footer_text1": "footer by ke4",
+        "footer_text2": "#{now}"
+    }
+}}
+EOD
+print_step[:status]=200
+print_step[:response_header] << 'Content-Type: application/json'
+print_step[:response]=<<EOD
+{ "print_label": {
+    "actions": {
+    },
+    "user": "user",
+    "application": "application",
+    "uuid": "11111111-2222-3333-4444-555555555555",
+    "result": {
+            "labels": [
+                {
+                    "template": "tube",
+                    "main": {
+                        "ean13": "2748670880727",
+                        "label_text": {
+                            "text1": "pos1",
+                            "text3": "pos3"
+                        }
+                    }
+                }
+            ],
+            "header_text": {
+                "header_text1": "header by ke4",
+                "header_text2": "#{now}"
+            },
+            "footer_text": {
+                "footer_text1": "footer by ke4",
+                "footer_text2": "#{now}"
+            }
+    },
+    "labels": [
+        {
+            "template": "tube",
+            "main": {
+                "ean13": "2748670880727",
+                "label_text": {
+                    "text1": "pos1",
+                    "text3": "pos3"
+                }
+            }
+        }
+    ],
+    "header_text": {
+        "header_text1": "header by ke4",
+        "header_text2": "#{now}"
+    },
+    "footer_text": {
+        "footer_text1": "footer by ke4",
+        "footer_text2": "#{now}"
+    }}}
+EOD
+
+example_json = { "steps" => [create_label_printer_step, print_step] }
+%>
+<%= example_json.to_json %>

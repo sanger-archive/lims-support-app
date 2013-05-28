@@ -1,0 +1,53 @@
+[
+{ "labware": "tube", "role": "stock", "contents": "DNA", "prefix": "JD"},
+{ "labware": "tube", "role": "stock", "contents": "PDNA", "prefix": "JP"},
+{ "labware": "tube", "role": "stock", "contents": "RNA", "prefix": "JR"},
+
+{ "labware": null, "role": "stock", "contents": "DNA", "prefix": "ND"},
+{ "labware": null, "role": "stock", "contents": "PDNA", "prefix": "NP"},
+{ "labware": null, "role": "stock", "contents": "RNA", "prefix": "NR"},
+
+{ "labware": "plate", "role": "working dilution", "contents": "DNA", "prefix": "WD"},
+{ "labware": "plate", "role": "working dilution", "contents": "PDNA", "prefix": "WQ"},
+{ "labware": "plate", "role": "working dilution", "contents": "RNA", "prefix": "WR"},
+
+{ "labware": "plate", "role": "pico dilution", "contents": "DNA", "prefix": "QD"},
+{ "labware": "plate", "role": "pico dilution", "contents": "PDNA", "prefix": "QP"},
+
+{ "labware": "plate", "role": "pico assay_a", "contents": "DNA", "prefix": "PA"},
+{ "labware": "plate", "role": "pico assay_a", "contents": "PDNA", "prefix": "PD"},
+
+{ "labware": "plate", "role": "pico assay_b", "contents": "DNA", "prefix": "PB"},
+{ "labware": "plate", "role": "pico assay_b", "contents": "PDNA", "prefix": "PE"},
+
+{ "labware": "plate", "role": "ribo dilution", "contents": "RNA", "prefix": "QR"},
+
+{ "labware": "plate", "role": "ribo assay_a", "contents": "RNA", "prefix": "RH"},
+
+{ "labware": "plate", "role": "ribo assay_b", "contents": "RNA", "prefix": "RI"},
+
+{ "labware": "gel", "role": "gel plate", "contents": "DNA", "prefix": "GD"},
+{ "labware": "gel", "role": "gel plate", "contents": "PDNA", "prefix": "GQ"},
+{ "labware": "gel", "role": "gel plate", "contents": "RNA", "prefix": "GR"},
+
+{ "labware": "plate", "role": "standard", "contents": "DNA", "prefix": "YD"},
+{ "labware": "plate", "role": "standard", "contents": "PDNA", "prefix": "YP"},
+{ "labware": "plate", "role": "standard", "contents": "RNA", "prefix": "YR"},
+
+{ "labware": "plate", "role": "control", "contents": "DNA", "prefix": "XD"},
+{ "labware": "plate", "role": "control", "contents": "PDNA", "prefix": "XP"},
+{ "labware": "plate", "role": "control", "contents": "RNA", "prefix": "XR"},
+
+{ "labware": "spin column", "role": null, "contents": "DNA", "prefix": "KD"},
+{ "labware": "spin column", "role": null, "contents": "PDNA", "prefix": "KP"},
+{ "labware": "spin column", "role": null, "contents": "RNA", "prefix": "KR"},
+
+{ "labware": null, "role": "stock", "contents": "blood", "prefix": "BL"},
+{ "labware": null, "role": "stock", "contents": "tumour tissue", "prefix": "TS"},
+{ "labware": null, "role": "stock", "contents": "non-tumour tissue", "prefix": "TN"},
+{ "labware": null, "role": "stock", "contents": "saliva", "prefix": "SV"},
+{ "labware": null, "role": "stock", "contents": "pathogen", "prefix": "PT"},
+
+{ "labware": null, "role": null, "contents": null, "prefix": "??"}
+
+]

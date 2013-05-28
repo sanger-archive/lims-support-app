@@ -1,0 +1,40 @@
+<%
+require 'json'
+h = {:header => [], :response_header => [] }
+h[:description] = <<EOD
+**Use the create barcode action to create a barcode with invalid parameters.**
+* `labware` the specific labware the barcode relates to (tube, plate etc..)
+* `role` the role of the labware (like 'stock')
+* `contents` the type of the aliquot the labware contains (DNA, RNA etc...)
+EOD
+h[:method] = "POST"
+h[:url] = '/barcodes'
+h[:header] << 'Accept: application/json'
+h[:setup]=<<EOD
+# This is class is generating a fake barcode
+# We will use it when we are generating a new sanger barcode.
+module Lims::SupportApp
+    class FakeBarcode
+        def self.new_fake_barcode
+            "1233334"
+        end
+    end
+end
+EOD
+h[:parameters] = <<EOD
+{ "barcode": {
+    "labware": "plate",
+    "role": "gel plate",
+    "contents": "blood"
+}}
+EOD
+h[:status]=400
+h[:response_header] << 'Content-Type: application/json'
+h[:response]=<<EOD
+{ "general": [
+    "The request cannot be fulfilled due to bad parameter/syntax."
+  ]
+}
+EOD
+%>
+<%= h.to_json %>
