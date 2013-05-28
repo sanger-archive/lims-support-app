@@ -40,13 +40,14 @@ module Lims::SupportApp
         if @invalid_templates.empty? && @invalid_ean13_barcodes.empty?
           # process the labels
           labels_to_print = []
-          labels.each do |label|
+          labels_to_process = Marshal.load( Marshal.dump(labels))
+          labels_to_process.each do |label|
             # first load the proper template
             template_name = label["template"]
             label_template = template_to_fill(template_name)
 
             # fill in the template
-            label_to_print = fill_the_template(label_template, replace_values(label))
+            label_to_print = fill_the_template(label_template, label)
 
             # add the specific escape characters for printing to the label
             labels_to_print << add_escape_characters(label_to_print)
@@ -127,13 +128,18 @@ module Lims::SupportApp
 
       def fill_the_template(label_template, label_data)
         label_template = Base64.decode64(label_template)
-        label_template = Mustache.render(label_template, label_data)
+        label_template = Mustache.render(label_template, chop_checksum_digit_from_barcodes(label_data))
       end
 
-      def replace_values(label_data)
-        values = {}
-        values["ean13"] = label_data.deep_fetch("ean13").chop
-        values.merge!(label_data.deep_fetch("label_text"))
+      def chop_checksum_digit_from_barcodes(label_data)
+        label_data.each do |element_key, element_value|
+          if element_key == "ean13"
+            label_data[element_key] = element_value.chop
+          elsif element_value.is_a?(Hash)
+            chop_checksum_digit_from_barcodes(element_value)
+          end
+        end
+        label_data
       end
     end
   end

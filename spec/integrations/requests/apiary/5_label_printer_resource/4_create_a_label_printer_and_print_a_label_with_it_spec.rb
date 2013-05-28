@@ -23,7 +23,7 @@ describe "create_a_label_printer_and_print_a_label_with_it", :label_printer => t
             {
                 "name": "tube",
                 "description": "normal tube template",
-                "content": "QwpQQzAwMTswMDM4LDAyMTAsMDUsMDUsSCwrMDMsMTEsQgpQQzAwMjswMTIwLDAyMTAsMDUsMDUsSCwrMDIsMTEsQgpQQzAwMzswMDcwLDAyMTAsMDUsMDUsSCwrMDIsMTEsQgpQQzAwNTswMjQwLDAxNjUsMDUsMSxHLCswMCwwMCxCClBDMDA2OzAyMjAsMDE5MywwNSwxLEcsKzAwLDAwLEIKUEMwMDc7MDIyNSwwMjE3LDA1LDEsRywrMDEsMDAsQgpQQzAwODswMTUwLDAyMTAsMDUsMSxHLCswMSwxMSxCClhCMDE7MDA0MywwMTAwLDUsMywwMSwwLDAxMDAsKzAwMDAwMDAwMDAsMDAyLDAsMDAKQwpSQzAwMTt7e3RleHQxfX0KUkMwMDI7e3t0ZXh0Mn19ClJDMDAzO3t7dGV4dDN9fQpSQzAwNTt7e3RleHQ1fX0KUkMwMDY7e3t0ZXh0Nn19ClJDMDA3O3t7dGV4dDd9fQpSQzAwODt7e3RleHQ4fX0KUkIwMTt7e2VhbjEzfX0KWFM7SSwwMDAxLDAwMDJDMzIwMQ=="
+                "content": "QwpQQzAwMTswMDM4LDAyMTAsMDUsMDUsSCwrMDMsMTEsQgpQQzAwMjswMTIwLDAyMTAsMDUsMDUsSCwrMDIsMTEsQgpQQzAwMzswMDcwLDAyMTAsMDUsMDUsSCwrMDIsMTEsQgpQQzAwNTswMjQwLDAxNjUsMDUsMSxHLCswMCwwMCxCClBDMDA2OzAyMjAsMDE5MywwNSwxLEcsKzAwLDAwLEIKUEMwMDc7MDIyNSwwMjE3LDA1LDEsRywrMDEsMDAsQgpQQzAwODswMTUwLDAyMTAsMDUsMSxHLCswMSwxMSxCClhCMDE7MDA0MywwMTAwLDUsMywwMSwwLDAxMDAsKzAwMDAwMDAwMDAsMDAyLDAsMDAKQwpSQzAwMTt7e21haW4ubGFiZWxfdGV4dC50ZXh0MX19ClJDMDAyO3t7bWFpbi5sYWJlbF90ZXh0LnRleHQyfX0KUkMwMDM7e3ttYWluLmxhYmVsX3RleHQudGV4dDN9fQpSQzAwNTt7e21haW4ubGFiZWxfdGV4dC50ZXh0NX19ClJDMDA2O3t7bWFpbi5sYWJlbF90ZXh0LnRleHQ2fX0KUkMwMDc7e3ttYWluLmxhYmVsX3RleHQudGV4dDd9fQpSQzAwODt7e21haW4ubGFiZWxfdGV4dC50ZXh0OH19ClJCMDE7e3ttYWluLmVhbjEzfX0KWFM7SSwwMDAxLDAwMDJDMzIwMQ=="
             }
         ],
         "label_type": "tube labels",
@@ -54,7 +54,7 @@ describe "create_a_label_printer_and_print_a_label_with_it", :label_printer => t
                     {
                         "name": "tube",
                         "description": "normal tube template",
-                        "content": "QwpQQzAwMTswMDM4LDAyMTAsMDUsMDUsSCwrMDMsMTEsQgpQQzAwMjswMTIwLDAyMTAsMDUsMDUsSCwrMDIsMTEsQgpQQzAwMzswMDcwLDAyMTAsMDUsMDUsSCwrMDIsMTEsQgpQQzAwNTswMjQwLDAxNjUsMDUsMSxHLCswMCwwMCxCClBDMDA2OzAyMjAsMDE5MywwNSwxLEcsKzAwLDAwLEIKUEMwMDc7MDIyNSwwMjE3LDA1LDEsRywrMDEsMDAsQgpQQzAwODswMTUwLDAyMTAsMDUsMSxHLCswMSwxMSxCClhCMDE7MDA0MywwMTAwLDUsMywwMSwwLDAxMDAsKzAwMDAwMDAwMDAsMDAyLDAsMDAKQwpSQzAwMTt7e3RleHQxfX0KUkMwMDI7e3t0ZXh0Mn19ClJDMDAzO3t7dGV4dDN9fQpSQzAwNTt7e3RleHQ1fX0KUkMwMDY7e3t0ZXh0Nn19ClJDMDA3O3t7dGV4dDd9fQpSQzAwODt7e3RleHQ4fX0KUkIwMTt7e2VhbjEzfX0KWFM7SSwwMDAxLDAwMDJDMzIwMQ=="
+                        "content": "QwpQQzAwMTswMDM4LDAyMTAsMDUsMDUsSCwrMDMsMTEsQgpQQzAwMjswMTIwLDAyMTAsMDUsMDUsSCwrMDIsMTEsQgpQQzAwMzswMDcwLDAyMTAsMDUsMDUsSCwrMDIsMTEsQgpQQzAwNTswMjQwLDAxNjUsMDUsMSxHLCswMCwwMCxCClBDMDA2OzAyMjAsMDE5MywwNSwxLEcsKzAwLDAwLEIKUEMwMDc7MDIyNSwwMjE3LDA1LDEsRywrMDEsMDAsQgpQQzAwODswMTUwLDAyMTAsMDUsMSxHLCswMSwxMSxCClhCMDE7MDA0MywwMTAwLDUsMywwMSwwLDAxMDAsKzAwMDAwMDAwMDAsMDAyLDAsMDAKQwpSQzAwMTt7e21haW4ubGFiZWxfdGV4dC50ZXh0MX19ClJDMDAyO3t7bWFpbi5sYWJlbF90ZXh0LnRleHQyfX0KUkMwMDM7e3ttYWluLmxhYmVsX3RleHQudGV4dDN9fQpSQzAwNTt7e21haW4ubGFiZWxfdGV4dC50ZXh0NX19ClJDMDA2O3t7bWFpbi5sYWJlbF90ZXh0LnRleHQ2fX0KUkMwMDc7e3ttYWluLmxhYmVsX3RleHQudGV4dDd9fQpSQzAwODt7e21haW4ubGFiZWxfdGV4dC50ZXh0OH19ClJCMDE7e3ttYWluLmVhbjEzfX0KWFM7SSwwMDAxLDAwMDJDMzIwMQ=="
                     }
                 ],
                 "label_type": "tube labels",
@@ -68,7 +68,7 @@ describe "create_a_label_printer_and_print_a_label_with_it", :label_printer => t
             {
                 "name": "tube",
                 "description": "normal tube template",
-                "content": "QwpQQzAwMTswMDM4LDAyMTAsMDUsMDUsSCwrMDMsMTEsQgpQQzAwMjswMTIwLDAyMTAsMDUsMDUsSCwrMDIsMTEsQgpQQzAwMzswMDcwLDAyMTAsMDUsMDUsSCwrMDIsMTEsQgpQQzAwNTswMjQwLDAxNjUsMDUsMSxHLCswMCwwMCxCClBDMDA2OzAyMjAsMDE5MywwNSwxLEcsKzAwLDAwLEIKUEMwMDc7MDIyNSwwMjE3LDA1LDEsRywrMDEsMDAsQgpQQzAwODswMTUwLDAyMTAsMDUsMSxHLCswMSwxMSxCClhCMDE7MDA0MywwMTAwLDUsMywwMSwwLDAxMDAsKzAwMDAwMDAwMDAsMDAyLDAsMDAKQwpSQzAwMTt7e3RleHQxfX0KUkMwMDI7e3t0ZXh0Mn19ClJDMDAzO3t7dGV4dDN9fQpSQzAwNTt7e3RleHQ1fX0KUkMwMDY7e3t0ZXh0Nn19ClJDMDA3O3t7dGV4dDd9fQpSQzAwODt7e3RleHQ4fX0KUkIwMTt7e2VhbjEzfX0KWFM7SSwwMDAxLDAwMDJDMzIwMQ=="
+                "content": "QwpQQzAwMTswMDM4LDAyMTAsMDUsMDUsSCwrMDMsMTEsQgpQQzAwMjswMTIwLDAyMTAsMDUsMDUsSCwrMDIsMTEsQgpQQzAwMzswMDcwLDAyMTAsMDUsMDUsSCwrMDIsMTEsQgpQQzAwNTswMjQwLDAxNjUsMDUsMSxHLCswMCwwMCxCClBDMDA2OzAyMjAsMDE5MywwNSwxLEcsKzAwLDAwLEIKUEMwMDc7MDIyNSwwMjE3LDA1LDEsRywrMDEsMDAsQgpQQzAwODswMTUwLDAyMTAsMDUsMSxHLCswMSwxMSxCClhCMDE7MDA0MywwMTAwLDUsMywwMSwwLDAxMDAsKzAwMDAwMDAwMDAsMDAyLDAsMDAKQwpSQzAwMTt7e21haW4ubGFiZWxfdGV4dC50ZXh0MX19ClJDMDAyO3t7bWFpbi5sYWJlbF90ZXh0LnRleHQyfX0KUkMwMDM7e3ttYWluLmxhYmVsX3RleHQudGV4dDN9fQpSQzAwNTt7e21haW4ubGFiZWxfdGV4dC50ZXh0NX19ClJDMDA2O3t7bWFpbi5sYWJlbF90ZXh0LnRleHQ2fX0KUkMwMDc7e3ttYWluLmxhYmVsX3RleHQudGV4dDd9fQpSQzAwODt7e21haW4ubGFiZWxfdGV4dC50ZXh0OH19ClJCMDE7e3ttYWluLmVhbjEzfX0KWFM7SSwwMDAxLDAwMDJDMzIwMQ=="
             }
         ],
         "label_type": "tube labels",
@@ -106,11 +106,11 @@ describe "create_a_label_printer_and_print_a_label_with_it", :label_printer => t
         ],
         "header_text": {
             "header_text1": "header by ke4",
-            "header_text2": "2013-05-24 13:17:46"
+            "header_text2": "2013-05-28 15:09:10"
         },
         "footer_text": {
             "footer_text1": "footer by ke4",
-            "footer_text2": "2013-05-24 13:17:46"
+            "footer_text2": "2013-05-28 15:09:10"
         }
     }
 }
@@ -139,11 +139,11 @@ describe "create_a_label_printer_and_print_a_label_with_it", :label_printer => t
             ],
             "header_text": {
                 "header_text1": "header by ke4",
-                "header_text2": "2013-05-24 13:17:46"
+                "header_text2": "2013-05-28 15:09:10"
             },
             "footer_text": {
                 "footer_text1": "footer by ke4",
-                "footer_text2": "2013-05-24 13:17:46"
+                "footer_text2": "2013-05-28 15:09:10"
             }
         },
         "labels": [
@@ -160,11 +160,11 @@ describe "create_a_label_printer_and_print_a_label_with_it", :label_printer => t
         ],
         "header_text": {
             "header_text1": "header by ke4",
-            "header_text2": "2013-05-24 13:17:46"
+            "header_text2": "2013-05-28 15:09:10"
         },
         "footer_text": {
             "footer_text1": "footer by ke4",
-            "footer_text2": "2013-05-24 13:17:46"
+            "footer_text2": "2013-05-28 15:09:10"
         }
     }
 }
