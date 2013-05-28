@@ -1,0 +1,54 @@
+<%
+require 'json'
+h = {:header => [], :response_header => [] }
+h[:description] = <<EOD
+**Use the create kit action.**
+
+* `process` the title of the specific process the kit relates to
+* `aliquotType` the type of the aliquot the kit relates to
+* `expires` the expiry date of the kit
+* `amount` the amount of the kit
+EOD
+h[:method] = "POST"
+h[:url] = '/actions/create_kit'
+h[:header] << 'Accept: application/json'
+h[:parameters] = <<EOD
+{ "create_kit": {
+    "process": "DNA & RNA extraction",
+    "aliquot_type": "NA+P",
+    "expires": "2013-05-01",
+    "amount": 10
+}}
+EOD
+h[:status]=200
+h[:response_header] << 'Content-Type: application/json'
+h[:response]=<<EOD
+{ "create_kit": {
+    "actions": {
+    },
+    "user": "user",
+    "application": "application",
+    "result": {
+        "kit": {
+            "actions": {
+                "read": "http://example.org/11111111-2222-3333-4444-555555555555",
+                "update": "http://example.org/11111111-2222-3333-4444-555555555555",
+                "delete": "http://example.org/11111111-2222-3333-4444-555555555555",
+                "create": "http://example.org/11111111-2222-3333-4444-555555555555"
+            },
+            "uuid": "11111111-2222-3333-4444-555555555555",
+            "process": "DNA & RNA extraction",
+            "aliquotType": "NA+P",
+            "expires": "2013-05-01",
+            "amount": 10
+        },
+        "uuid": "11111111-2222-3333-4444-555555555555"
+    },
+    "process": "DNA & RNA extraction",
+    "aliquot_type": "NA+P",
+    "expires": "2013-05-01",
+    "amount": 10
+}}
+EOD
+%>
+<%= h.to_json %>

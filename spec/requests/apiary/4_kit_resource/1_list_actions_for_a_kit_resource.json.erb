@@ -1,0 +1,28 @@
+<%
+require 'json'
+h={:header => [], :response_header => [] }
+h[:description]=<<EOD
+**List actions for a kit resource.**
+
+* `create` creates a new kit via HTTP POST request
+* `read` currently returns the list of actions for a kit resource via HTTP GET request
+* `first` lists the first kit resources in a page browsing system
+* `last` lists the last kit resources in a page browsing system
+EOD
+h[:method] = "GET"
+h[:url]='/kits'
+h[:header] << 'Accept: application/json'
+h[:status]=200
+h[:response_header] << 'Content-Type: application/json'
+h[:response]=<<EOD
+{ "kits": {
+    "actions": {
+        "create": "/kits",
+        "read": "/kits",
+        "first": "/kits/page=1",
+        "last": "/kits/page=-1"
+    }
+} }
+EOD
+%>
+<%= h.to_json %>
