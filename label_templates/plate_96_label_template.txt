@@ -21,5 +21,5 @@ RC004;{{#plate.label_text}}{{plate.label_text.text4}}{{/plate.label_text}}
 RC005;{{#plate.label_text}}{{plate.label_text.text5}}{{/plate.label_text}}
 RC006;{{#plate.label_text}}{{plate.label_text.text6}}{{/plate.label_text}}
 RC011;{{#plate.label_text}}{{plate.label_text.text11}}{{/plate.label_text}}
-RB01;{{plate.ean13}}
+RB01;{{plate.ean13_without_checksum}}
 XS;I,0001,0002C3201

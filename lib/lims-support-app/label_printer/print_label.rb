@@ -131,12 +131,16 @@ module Lims::SupportApp
         label_template = Mustache.render(label_template, chop_checksum_digit_from_barcodes(label_data))
       end
 
-      def chop_checksum_digit_from_barcodes(label_data)
-        label_data.each do |element_key, element_value|
+      def chop_checksum_digit_from_barcodes(label_data_to_process)
+        label_data = {}
+        label_data_to_process.each do |element_key, element_value|
           if element_key == "ean13"
-            label_data[element_key] = element_value.chop
+            label_data["ean13_without_checksum"] = element_value.chop
+            label_data[element_key] = element_value
           elsif element_value.is_a?(Hash)
-            chop_checksum_digit_from_barcodes(element_value)
+            label_data[element_key] = chop_checksum_digit_from_barcodes(element_value)
+          else
+            label_data[element_key] = element_value
           end
         end
         label_data

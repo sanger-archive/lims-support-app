@@ -9,5 +9,5 @@ RC001;{{#main.label_text}}{{main.label_text.text1}}{{/main.label_text}}
 RC002;{{#main.label_text}}{{main.label_text.text2}}{{/main.label_text}}
 RC003;{{#main.label_text}}{{main.label_text.text3}}{{/main.label_text}}
 RC004;{{#main.label_text}}{{main.label_text.text4}}{{/main.label_text}}
-RB01;{{main.ean13}}
+RB01;{{main.ean13_without_checksum}}
 XS;I,0001,0002C3201
