@@ -28,6 +28,14 @@ module Lims::SupportApp
           end
         end
       end
+
+      def creator(attributes)
+        attributes[model_name]["uuid"] = uuid
+        resource = Lims::SupportApp::LabelPrinter::PrintLabel::PrintLabelResource.new(@context, Lims::SupportApp::LabelPrinter::Print, model_name)
+        lambda do
+          resource.creator(attributes).call
+        end
+      end
     end
   end
 end

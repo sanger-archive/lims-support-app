@@ -1,7 +1,7 @@
 require "integrations/requests/apiary/5_label_printer_resource/spec_helper"
-describe "create_a_label_printer_and_print_a_label_with_invalid_barcode", :label_printer => true do
+describe "create_a_label_printer_and_post_a_label_to_it", :label_printer => true do
   include_context "use core context service"
-  it "create_a_label_printer_and_print_a_label_with_invalid_barcode" do
+  it "create_a_label_printer_and_post_a_label_to_it" do
 
 
   # **Use the create label printer action.**
@@ -80,7 +80,7 @@ describe "create_a_label_printer_and_print_a_label_with_invalid_barcode", :label
 
   # **Call the print action on the label printer.**
     # I have to stub the printing, because the string to print
-    # contains a null byte.
+    # contains null bytes.
     Lims::SupportApp::LabelPrinter::PrintLabel.any_instance.stub(:print_labels) do
       # TODO ke4
     end
@@ -88,15 +88,14 @@ describe "create_a_label_printer_and_print_a_label_with_invalid_barcode", :label
     header('Accept', 'application/json')
     header('Content-Type', 'application/json')
 
-    response = post "/actions/print_label", <<-EOD
+    response = post "/11111111-2222-3333-4444-555555555555", <<-EOD
     {
-    "print_label": {
-        "uuid": "11111111-2222-3333-4444-555555555555",
+    "label_printer": {
         "labels": [
             {
                 "template": "tube",
                 "main": {
-                    "ean13": "274867088011",
+                    "ean13": "2748670880727",
                     "label_text": {
                         "text1": "pos1",
                         "text3": "pos3"
@@ -106,21 +105,67 @@ describe "create_a_label_printer_and_print_a_label_with_invalid_barcode", :label
         ],
         "header_text": {
             "header_text1": "header by ke4",
-            "header_text2": "2013-05-29 13:51:26"
+            "header_text2": "2013-05-29 13:51:28"
         },
         "footer_text": {
             "footer_text1": "footer by ke4",
-            "footer_text2": "2013-05-29 13:51:26"
+            "footer_text2": "2013-05-29 13:51:28"
         }
     }
 }
     EOD
-    response.status.should == 400
+    response.status.should == 200
     response.body.should match_json <<-EOD
     {
-    "general": [
-        "The request cannot be fulfilled due to bad parameter/syntax. The following barcode(s) are invalid: 274867088011."
-    ]
+    "label_printer": {
+        "actions": {
+        },
+        "user": "user",
+        "application": "application",
+        "uuid": "11111111-2222-3333-4444-555555555555",
+        "result": {
+            "labels": [
+                {
+                    "template": "tube",
+                    "main": {
+                        "ean13": "2748670880727",
+                        "label_text": {
+                            "text1": "pos1",
+                            "text3": "pos3"
+                        }
+                    }
+                }
+            ],
+            "header_text": {
+                "header_text1": "header by ke4",
+                "header_text2": "2013-05-29 13:51:28"
+            },
+            "footer_text": {
+                "footer_text1": "footer by ke4",
+                "footer_text2": "2013-05-29 13:51:28"
+            }
+        },
+        "labels": [
+            {
+                "template": "tube",
+                "main": {
+                    "ean13": "2748670880727",
+                    "label_text": {
+                        "text1": "pos1",
+                        "text3": "pos3"
+                    }
+                }
+            }
+        ],
+        "header_text": {
+            "header_text1": "header by ke4",
+            "header_text2": "2013-05-29 13:51:28"
+        },
+        "footer_text": {
+            "footer_text1": "footer by ke4",
+            "footer_text2": "2013-05-29 13:51:28"
+        }
+    }
 }
     EOD
 
