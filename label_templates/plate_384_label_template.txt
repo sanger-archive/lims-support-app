@@ -5,9 +5,9 @@ PC003;0510,0025,05,1,G,+00,00,B
 PC004;0510,0060,05,1,G,+00,00,B
 XB01;0230,0000,5,3,02,0,0070,+0000000000,002,0,00
 C
-RC001;{{text1}}
-RC002;{{text2}}
-RC003;{{text3}}
-RC004;{{text4}}
-RB01;{{ean13}}
+RC001;{{#plate.label_text}}{{plate.label_text.text1}}{{/plate.label_text}}
+RC002;{{#plate.label_text}}{{plate.label_text.text2}}{{/plate.label_text}}
+RC003;{{#plate.label_text}}{{plate.label_text.text3}}{{/plate.label_text}}
+RC004;{{#plate.label_text}}{{plate.label_text.text4}}{{/plate.label_text}}
+RB01;{{plate.ean13_without_checksum}}
 XS;I,0001,0002C3201

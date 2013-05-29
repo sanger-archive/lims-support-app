@@ -94,21 +94,20 @@ print_step[:description] = <<EOD
 **Call the print action on the label printer.**
 EOD
 print_step[:method] = "POST"
-print_step[:url] = '/actions/print_label'
+print_step[:url] = '/11111111-2222-3333-4444-555555555555'
 print_step[:header] << 'Accept: application/json'
 print_step[:setup]=<<EOD
 # I have to stub the printing, because the string to print
-# contains a null byte.
+# contains null bytes.
 Lims::SupportApp::LabelPrinter::PrintLabel.any_instance.stub(:print_labels) do
   # TODO ke4
 end
 EOD
 print_step[:parameters] = <<EOD
-{ "print_label": {
-    "uuid": "11111111-2222-3333-4444-555555555555",
+{ "label_printer": {
     "labels": [
         {
-            "template": "plate",
+            "template": "tube",
             "main": {
                 "ean13": "2748670880727",
                 "label_text": {
@@ -128,13 +127,57 @@ print_step[:parameters] = <<EOD
     }
 }}
 EOD
-print_step[:status]=400
+print_step[:status]=200
 print_step[:response_header] << 'Content-Type: application/json'
 print_step[:response]=<<EOD
-{ "general": [
-    "The request cannot be fulfilled due to bad parameter/syntax. The following template(s) are invalid: plate."
-  ]
-}
+{ "label_printer": {
+    "actions": {
+    },
+    "user": "user",
+    "application": "application",
+    "uuid": "11111111-2222-3333-4444-555555555555",
+    "result": {
+            "labels": [
+                {
+                    "template": "tube",
+                    "main": {
+                        "ean13": "2748670880727",
+                        "label_text": {
+                            "text1": "pos1",
+                            "text3": "pos3"
+                        }
+                    }
+                }
+            ],
+            "header_text": {
+                "header_text1": "header by ke4",
+                "header_text2": "#{now}"
+            },
+            "footer_text": {
+                "footer_text1": "footer by ke4",
+                "footer_text2": "#{now}"
+            }
+    },
+    "labels": [
+        {
+            "template": "tube",
+            "main": {
+                "ean13": "2748670880727",
+                "label_text": {
+                    "text1": "pos1",
+                    "text3": "pos3"
+                }
+            }
+        }
+    ],
+    "header_text": {
+        "header_text1": "header by ke4",
+        "header_text2": "#{now}"
+    },
+    "footer_text": {
+        "footer_text1": "footer by ke4",
+        "footer_text2": "#{now}"
+    }}}
 EOD
 
 example_json = { "steps" => [create_label_printer_step, print_step] }

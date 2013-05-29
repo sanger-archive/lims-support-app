@@ -1,7 +1,7 @@
 require "integrations/requests/apiary/5_label_printer_resource/spec_helper"
-describe "create_a_label_printer_and_print_a_label_with_it", :label_printer => true do
+describe "create_a_label_printer_and_print_a_label_with_it_with_non_matching_hash_structure", :label_printer => true do
   include_context "use core context service"
-  it "create_a_label_printer_and_print_a_label_with_it" do
+  it "create_a_label_printer_and_print_a_label_with_it_with_non_matching_hash_structure" do
 
 
   # **Use the create label printer action.**
@@ -95,9 +95,9 @@ describe "create_a_label_printer_and_print_a_label_with_it", :label_printer => t
         "labels": [
             {
                 "template": "tube",
-                "main": {
+                "tube": {
                     "ean13": "2748670880727",
-                    "label_text": {
+                    "labels_text": {
                         "text1": "pos1",
                         "text3": "pos3"
                     }
@@ -106,11 +106,11 @@ describe "create_a_label_printer_and_print_a_label_with_it", :label_printer => t
         ],
         "header_text": {
             "header_text1": "header by ke4",
-            "header_text2": "2013-05-29 15:06:01"
+            "header_text2": "2013-05-29 15:22:01"
         },
         "footer_text": {
             "footer_text1": "footer by ke4",
-            "footer_text2": "2013-05-29 15:06:01"
+            "footer_text2": "2013-05-29 15:22:01"
         }
     }
 }
@@ -128,9 +128,9 @@ describe "create_a_label_printer_and_print_a_label_with_it", :label_printer => t
             "labels": [
                 {
                     "template": "tube",
-                    "main": {
+                    "tube": {
                         "ean13": "2748670880727",
-                        "label_text": {
+                        "labels_text": {
                             "text1": "pos1",
                             "text3": "pos3"
                         }
@@ -139,19 +139,19 @@ describe "create_a_label_printer_and_print_a_label_with_it", :label_printer => t
             ],
             "header_text": {
                 "header_text1": "header by ke4",
-                "header_text2": "2013-05-29 15:06:01"
+                "header_text2": "2013-05-29 15:22:01"
             },
             "footer_text": {
                 "footer_text1": "footer by ke4",
-                "footer_text2": "2013-05-29 15:06:01"
+                "footer_text2": "2013-05-29 15:22:01"
             }
         },
         "labels": [
             {
                 "template": "tube",
-                "main": {
+                "tube": {
                     "ean13": "2748670880727",
-                    "label_text": {
+                    "labels_text": {
                         "text1": "pos1",
                         "text3": "pos3"
                     }
@@ -160,11 +160,11 @@ describe "create_a_label_printer_and_print_a_label_with_it", :label_printer => t
         ],
         "header_text": {
             "header_text1": "header by ke4",
-            "header_text2": "2013-05-29 15:06:01"
+            "header_text2": "2013-05-29 15:22:01"
         },
         "footer_text": {
             "footer_text1": "footer by ke4",
-            "footer_text2": "2013-05-29 15:06:01"
+            "footer_text2": "2013-05-29 15:22:01"
         }
     }
 }
