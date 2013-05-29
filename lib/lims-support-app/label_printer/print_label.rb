@@ -142,5 +142,7 @@ module Lims::SupportApp
         label_data
       end
     end
+
+    Print = PrintLabel
   end
 end
