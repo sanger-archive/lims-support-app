@@ -15,5 +15,5 @@ RC005;{{#tube.label_text}}{{tube.label_text.text5}}{{/tube.label_text}}
 RC006;{{#tube.label_text}}{{tube.label_text.text6}}{{/tube.label_text}}
 RC007;{{#tube.label_text}}{{tube.label_text.text7}}{{/tube.label_text}}
 RC008;{{#tube.label_text}}{{tube.label_text.text8}}{{/tube.label_text}}
-RB01;{{tube.ean13}}
+RB01;{{tube.ean13_without_checksum}}
 XS;I,0001,0002C3201
