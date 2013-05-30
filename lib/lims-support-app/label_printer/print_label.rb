@@ -132,6 +132,8 @@ module Lims::SupportApp
       end
 
       def chop_checksum_digit_from_barcodes(label_data_to_process)
+        return label_data_to_process unless label_data_to_process.is_a?(Hash)
+
         label_data = {}
         label_data_to_process.each do |element_key, element_value|
           if element_key == "ean13"
@@ -139,6 +141,8 @@ module Lims::SupportApp
             label_data[element_key] = element_value
           elsif element_value.is_a?(Hash)
             label_data[element_key] = chop_checksum_digit_from_barcodes(element_value)
+          elsif element_value.is_a?(Array)
+            label_data[element_key] = element_value.map(&method(:chop_checksum_digit_from_barcodes))
           else
             label_data[element_key] = element_value
           end
