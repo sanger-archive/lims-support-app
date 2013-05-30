@@ -3,16 +3,16 @@ require 'json'
 require 'base64'
 
 # This step (request) is creating a label printer
-template = File.open(File.join('label_templates', 'tube_label_template.txt')) { |f| f.read }
+template = File.open(File.join('spec', 'label_templates', 'tube_label_template.txt')) { |f| f.read }
 content_tube = Base64.encode64(template).gsub(/\n/, '') # encodes then strips new line
 
-template = File.open(File.join('label_templates', 'spin_column_label_template.txt')) { |f| f.read }
+template = File.open(File.join('spec', 'label_templates', 'spin_column_label_template.txt')) { |f| f.read }
 content_spin_column = Base64.encode64(template).gsub(/\n/, '') # encodes then strips new line
 
-template_header = File.open(File.join('label_templates', 'tube_header_template.txt')) { |f| f.read }
+template_header = File.open(File.join('spec', 'label_templates', 'tube_header_template.txt')) { |f| f.read }
 header = Base64.encode64(template_header).gsub(/\n/, '') # encodes then strips new line
 
-template_footer = File.open(File.join('label_templates', 'tube_footer_template.txt')) { |f| f.read }
+template_footer = File.open(File.join('spec', 'label_templates', 'tube_footer_template.txt')) { |f| f.read }
 footer = Base64.encode64(template_footer).gsub(/\n/, '') # encodes then strips new line
 
 now = Time.new.strftime("%Y-%m-%d %H:%M:%S")
@@ -143,6 +143,9 @@ print_step[:parameters] = <<EOD
                     "text1": "sp1",
                     "text3": "sp2"
                 }
+            },
+            "dot": {
+                "ean13": "2747595068692"
             }
         }
     ],
@@ -185,6 +188,9 @@ print_step[:response]=<<EOD
                             "text1": "sp1",
                             "text3": "sp2"
                         }
+                    },
+                    "dot": {
+                        "ean13": "2747595068692"
                     }
                 }
             ],
@@ -216,6 +222,9 @@ print_step[:response]=<<EOD
                     "text1": "sp1",
                     "text3": "sp2"
                 }
+            },
+            "dot": {
+                "ean13": "2747595068692"
             }
         }
     ],

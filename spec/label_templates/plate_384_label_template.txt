@@ -1,0 +1,13 @@
+C
+PC001;0040,0025,05,1,G,+03,00,B
+PC002;0040,0060,05,1,G,+03,00,B
+PC003;0510,0025,05,1,G,+00,00,B
+PC004;0510,0060,05,1,G,+00,00,B
+XB01;0230,0000,5,3,02,0,0070,+0000000000,002,0,00
+C
+RC001;{{#main.label_text}}{{main.label_text.text1}}{{/main.label_text}}
+RC002;{{#main.label_text}}{{main.label_text.text2}}{{/main.label_text}}
+RC003;{{#main.label_text}}{{main.label_text.text3}}{{/main.label_text}}
+RC004;{{#main.label_text}}{{main.label_text.text4}}{{/main.label_text}}
+RB01;{{main.ean13_without_checksum}}
+XS;I,0001,0002C3201
