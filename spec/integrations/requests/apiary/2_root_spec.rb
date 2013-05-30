@@ -74,6 +74,11 @@ describe "root" do
             "create": "http://example.org/actions/create_barcode"
         }
     },
+    "bulk_create_barcodes": {
+        "actions": {
+            "create": "http://example.org/actions/bulk_create_barcode"
+        }
+    },
     "create_searches": {
         "actions": {
             "create": "http://example.org/actions/create_search"
