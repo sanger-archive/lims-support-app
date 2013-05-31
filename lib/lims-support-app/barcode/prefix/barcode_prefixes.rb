@@ -1,5 +1,6 @@
 require 'lims-support-app/barcode/prefix/barcode_prefix_rule'
 require 'singleton'
+require 'json'
 
 module Lims::SupportApp
   module BarcodePrefix
