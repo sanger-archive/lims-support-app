@@ -28,7 +28,7 @@ describe "create_a_label_printer_and_print_a_tube_and_a_spin_column_label_with_i
             {
                 "name": "spin_column",
                 "description": "normal spin column template",
-                "content": "QwpQQzAwMTswMDM4LDAyMTAsMDUsMDUsSCwrMDMsMTEsQgpQQzAwMjswMTIwLDAyMTAsMDUsMDUsSCwrMDIsMTEsQgpQQzAwMzswMDcwLDAyMTAsMDUsMDUsSCwrMDIsMTEsQgpQQzAwNTswMjQwLDAxNjUsMDUsMSxHLCswMCwwMCxCClBDMDA2OzAyMjAsMDE5MywwNSwxLEcsKzAwLDAwLEIKUEMwMDc7MDIyNSwwMjE3LDA1LDEsRywrMDEsMDAsQgpQQzAwODswMTUwLDAyMTAsMDUsMSxHLCswMSwxMSxCClhCMDE7MDA0MywwMTAwLDUsMywwMSwwLDAxMDAsKzAwMDAwMDAwMDAsMDAyLDAsMDAKWEIwMjswMzAwLDAxNjUsUSwyMCwwMywwNSwxCkMKUkMwMDE7e3sjbWFpbi5sYWJlbF90ZXh0fX17e21haW4ubGFiZWxfdGV4dC50ZXh0MX19e3svbWFpbi5sYWJlbF90ZXh0fX0KUkMwMDI7e3sjbWFpbi5sYWJlbF90ZXh0fX17e21haW4ubGFiZWxfdGV4dC50ZXh0Mn19e3svbWFpbi5sYWJlbF90ZXh0fX0KUkMwMDM7e3sjbWFpbi5sYWJlbF90ZXh0fX17e21haW4ubGFiZWxfdGV4dC50ZXh0M319e3svbWFpbi5sYWJlbF90ZXh0fX0KUkMwMDU7e3sjbWFpbi5sYWJlbF90ZXh0fX17e21haW4ubGFiZWxfdGV4dC50ZXh0NX19e3svbWFpbi5sYWJlbF90ZXh0fX0KUkMwMDY7e3sjbWFpbi5sYWJlbF90ZXh0fX17e21haW4ubGFiZWxfdGV4dC50ZXh0Nn19e3svbWFpbi5sYWJlbF90ZXh0fX0KUkMwMDc7e3sjbWFpbi5sYWJlbF90ZXh0fX17e21haW4ubGFiZWxfdGV4dC50ZXh0N319e3svbWFpbi5sYWJlbF90ZXh0fX0KUkMwMDg7e3sjbWFpbi5sYWJlbF90ZXh0fX17e21haW4ubGFiZWxfdGV4dC50ZXh0OH19e3svbWFpbi5sYWJlbF90ZXh0fX0KUkIwMTt7e21haW4uZWFuMTNfd2l0aG91dF9jaGVja3N1bX19ClJCMDI7e3tkb3QuZWFuMTN9fQpYUztJLDAwMDEsMDAwMkMzMjAxCg=="
+                "content": "QwpQQzAwMTswMDM4LDAyMTAsMDUsMDUsSCwrMDMsMTEsQgpQQzAwMjswMTIwLDAyMTAsMDUsMDUsSCwrMDIsMTEsQgpQQzAwMzswMDcwLDAyMTAsMDUsMDUsSCwrMDIsMTEsQgpQQzAwNTswMjQwLDAxNjUsMDUsMSxHLCswMCwwMCxCClBDMDA2OzAyMjAsMDE5MywwNSwxLEcsKzAwLDAwLEIKUEMwMDc7MDIyNSwwMjE3LDA1LDEsRywrMDEsMDAsQgpQQzAwODswMTUwLDAyMTAsMDUsMSxHLCswMSwxMSxCClhCMDE7MDA0MywwMTAwLDUsMywwMSwwLDAxMDAsKzAwMDAwMDAwMDAsMDAyLDAsMDAKWEIwMjswMzAwLDAxNDUsUSwyMCwwMywwNSwxCkMKUkMwMDE7e3sjbWFpbi5sYWJlbF90ZXh0fX17e21haW4ubGFiZWxfdGV4dC50ZXh0MX19e3svbWFpbi5sYWJlbF90ZXh0fX0KUkMwMDI7e3sjbWFpbi5sYWJlbF90ZXh0fX17e21haW4ubGFiZWxfdGV4dC50ZXh0Mn19e3svbWFpbi5sYWJlbF90ZXh0fX0KUkMwMDM7e3sjbWFpbi5sYWJlbF90ZXh0fX17e21haW4ubGFiZWxfdGV4dC50ZXh0M319e3svbWFpbi5sYWJlbF90ZXh0fX0KUkMwMDU7e3sjbWFpbi5sYWJlbF90ZXh0fX17e21haW4ubGFiZWxfdGV4dC50ZXh0NX19e3svbWFpbi5sYWJlbF90ZXh0fX0KUkMwMDY7e3sjbWFpbi5sYWJlbF90ZXh0fX17e21haW4ubGFiZWxfdGV4dC50ZXh0Nn19e3svbWFpbi5sYWJlbF90ZXh0fX0KUkMwMDc7e3sjbWFpbi5sYWJlbF90ZXh0fX17e21haW4ubGFiZWxfdGV4dC50ZXh0N319e3svbWFpbi5sYWJlbF90ZXh0fX0KUkMwMDg7e3sjbWFpbi5sYWJlbF90ZXh0fX17e21haW4ubGFiZWxfdGV4dC50ZXh0OH19e3svbWFpbi5sYWJlbF90ZXh0fX0KUkIwMTt7e21haW4uZWFuMTNfd2l0aG91dF9jaGVja3N1bX19ClJCMDI7e3tkb3QuZWFuMTN9fQpYUztJLDAwMDEsMDAwMkMzMjAxCg=="
             }
         ],
         "label_type": "tube and spin column labels",
@@ -64,7 +64,7 @@ describe "create_a_label_printer_and_print_a_tube_and_a_spin_column_label_with_i
                     {
                         "name": "spin_column",
                         "description": "normal spin column template",
-                        "content": "QwpQQzAwMTswMDM4LDAyMTAsMDUsMDUsSCwrMDMsMTEsQgpQQzAwMjswMTIwLDAyMTAsMDUsMDUsSCwrMDIsMTEsQgpQQzAwMzswMDcwLDAyMTAsMDUsMDUsSCwrMDIsMTEsQgpQQzAwNTswMjQwLDAxNjUsMDUsMSxHLCswMCwwMCxCClBDMDA2OzAyMjAsMDE5MywwNSwxLEcsKzAwLDAwLEIKUEMwMDc7MDIyNSwwMjE3LDA1LDEsRywrMDEsMDAsQgpQQzAwODswMTUwLDAyMTAsMDUsMSxHLCswMSwxMSxCClhCMDE7MDA0MywwMTAwLDUsMywwMSwwLDAxMDAsKzAwMDAwMDAwMDAsMDAyLDAsMDAKWEIwMjswMzAwLDAxNjUsUSwyMCwwMywwNSwxCkMKUkMwMDE7e3sjbWFpbi5sYWJlbF90ZXh0fX17e21haW4ubGFiZWxfdGV4dC50ZXh0MX19e3svbWFpbi5sYWJlbF90ZXh0fX0KUkMwMDI7e3sjbWFpbi5sYWJlbF90ZXh0fX17e21haW4ubGFiZWxfdGV4dC50ZXh0Mn19e3svbWFpbi5sYWJlbF90ZXh0fX0KUkMwMDM7e3sjbWFpbi5sYWJlbF90ZXh0fX17e21haW4ubGFiZWxfdGV4dC50ZXh0M319e3svbWFpbi5sYWJlbF90ZXh0fX0KUkMwMDU7e3sjbWFpbi5sYWJlbF90ZXh0fX17e21haW4ubGFiZWxfdGV4dC50ZXh0NX19e3svbWFpbi5sYWJlbF90ZXh0fX0KUkMwMDY7e3sjbWFpbi5sYWJlbF90ZXh0fX17e21haW4ubGFiZWxfdGV4dC50ZXh0Nn19e3svbWFpbi5sYWJlbF90ZXh0fX0KUkMwMDc7e3sjbWFpbi5sYWJlbF90ZXh0fX17e21haW4ubGFiZWxfdGV4dC50ZXh0N319e3svbWFpbi5sYWJlbF90ZXh0fX0KUkMwMDg7e3sjbWFpbi5sYWJlbF90ZXh0fX17e21haW4ubGFiZWxfdGV4dC50ZXh0OH19e3svbWFpbi5sYWJlbF90ZXh0fX0KUkIwMTt7e21haW4uZWFuMTNfd2l0aG91dF9jaGVja3N1bX19ClJCMDI7e3tkb3QuZWFuMTN9fQpYUztJLDAwMDEsMDAwMkMzMjAxCg=="
+                        "content": "QwpQQzAwMTswMDM4LDAyMTAsMDUsMDUsSCwrMDMsMTEsQgpQQzAwMjswMTIwLDAyMTAsMDUsMDUsSCwrMDIsMTEsQgpQQzAwMzswMDcwLDAyMTAsMDUsMDUsSCwrMDIsMTEsQgpQQzAwNTswMjQwLDAxNjUsMDUsMSxHLCswMCwwMCxCClBDMDA2OzAyMjAsMDE5MywwNSwxLEcsKzAwLDAwLEIKUEMwMDc7MDIyNSwwMjE3LDA1LDEsRywrMDEsMDAsQgpQQzAwODswMTUwLDAyMTAsMDUsMSxHLCswMSwxMSxCClhCMDE7MDA0MywwMTAwLDUsMywwMSwwLDAxMDAsKzAwMDAwMDAwMDAsMDAyLDAsMDAKWEIwMjswMzAwLDAxNDUsUSwyMCwwMywwNSwxCkMKUkMwMDE7e3sjbWFpbi5sYWJlbF90ZXh0fX17e21haW4ubGFiZWxfdGV4dC50ZXh0MX19e3svbWFpbi5sYWJlbF90ZXh0fX0KUkMwMDI7e3sjbWFpbi5sYWJlbF90ZXh0fX17e21haW4ubGFiZWxfdGV4dC50ZXh0Mn19e3svbWFpbi5sYWJlbF90ZXh0fX0KUkMwMDM7e3sjbWFpbi5sYWJlbF90ZXh0fX17e21haW4ubGFiZWxfdGV4dC50ZXh0M319e3svbWFpbi5sYWJlbF90ZXh0fX0KUkMwMDU7e3sjbWFpbi5sYWJlbF90ZXh0fX17e21haW4ubGFiZWxfdGV4dC50ZXh0NX19e3svbWFpbi5sYWJlbF90ZXh0fX0KUkMwMDY7e3sjbWFpbi5sYWJlbF90ZXh0fX17e21haW4ubGFiZWxfdGV4dC50ZXh0Nn19e3svbWFpbi5sYWJlbF90ZXh0fX0KUkMwMDc7e3sjbWFpbi5sYWJlbF90ZXh0fX17e21haW4ubGFiZWxfdGV4dC50ZXh0N319e3svbWFpbi5sYWJlbF90ZXh0fX0KUkMwMDg7e3sjbWFpbi5sYWJlbF90ZXh0fX17e21haW4ubGFiZWxfdGV4dC50ZXh0OH19e3svbWFpbi5sYWJlbF90ZXh0fX0KUkIwMTt7e21haW4uZWFuMTNfd2l0aG91dF9jaGVja3N1bX19ClJCMDI7e3tkb3QuZWFuMTN9fQpYUztJLDAwMDEsMDAwMkMzMjAxCg=="
                     }
                 ],
                 "label_type": "tube and spin column labels",
@@ -83,7 +83,7 @@ describe "create_a_label_printer_and_print_a_tube_and_a_spin_column_label_with_i
             {
                 "name": "spin_column",
                 "description": "normal spin column template",
-                "content": "QwpQQzAwMTswMDM4LDAyMTAsMDUsMDUsSCwrMDMsMTEsQgpQQzAwMjswMTIwLDAyMTAsMDUsMDUsSCwrMDIsMTEsQgpQQzAwMzswMDcwLDAyMTAsMDUsMDUsSCwrMDIsMTEsQgpQQzAwNTswMjQwLDAxNjUsMDUsMSxHLCswMCwwMCxCClBDMDA2OzAyMjAsMDE5MywwNSwxLEcsKzAwLDAwLEIKUEMwMDc7MDIyNSwwMjE3LDA1LDEsRywrMDEsMDAsQgpQQzAwODswMTUwLDAyMTAsMDUsMSxHLCswMSwxMSxCClhCMDE7MDA0MywwMTAwLDUsMywwMSwwLDAxMDAsKzAwMDAwMDAwMDAsMDAyLDAsMDAKWEIwMjswMzAwLDAxNjUsUSwyMCwwMywwNSwxCkMKUkMwMDE7e3sjbWFpbi5sYWJlbF90ZXh0fX17e21haW4ubGFiZWxfdGV4dC50ZXh0MX19e3svbWFpbi5sYWJlbF90ZXh0fX0KUkMwMDI7e3sjbWFpbi5sYWJlbF90ZXh0fX17e21haW4ubGFiZWxfdGV4dC50ZXh0Mn19e3svbWFpbi5sYWJlbF90ZXh0fX0KUkMwMDM7e3sjbWFpbi5sYWJlbF90ZXh0fX17e21haW4ubGFiZWxfdGV4dC50ZXh0M319e3svbWFpbi5sYWJlbF90ZXh0fX0KUkMwMDU7e3sjbWFpbi5sYWJlbF90ZXh0fX17e21haW4ubGFiZWxfdGV4dC50ZXh0NX19e3svbWFpbi5sYWJlbF90ZXh0fX0KUkMwMDY7e3sjbWFpbi5sYWJlbF90ZXh0fX17e21haW4ubGFiZWxfdGV4dC50ZXh0Nn19e3svbWFpbi5sYWJlbF90ZXh0fX0KUkMwMDc7e3sjbWFpbi5sYWJlbF90ZXh0fX17e21haW4ubGFiZWxfdGV4dC50ZXh0N319e3svbWFpbi5sYWJlbF90ZXh0fX0KUkMwMDg7e3sjbWFpbi5sYWJlbF90ZXh0fX17e21haW4ubGFiZWxfdGV4dC50ZXh0OH19e3svbWFpbi5sYWJlbF90ZXh0fX0KUkIwMTt7e21haW4uZWFuMTNfd2l0aG91dF9jaGVja3N1bX19ClJCMDI7e3tkb3QuZWFuMTN9fQpYUztJLDAwMDEsMDAwMkMzMjAxCg=="
+                "content": "QwpQQzAwMTswMDM4LDAyMTAsMDUsMDUsSCwrMDMsMTEsQgpQQzAwMjswMTIwLDAyMTAsMDUsMDUsSCwrMDIsMTEsQgpQQzAwMzswMDcwLDAyMTAsMDUsMDUsSCwrMDIsMTEsQgpQQzAwNTswMjQwLDAxNjUsMDUsMSxHLCswMCwwMCxCClBDMDA2OzAyMjAsMDE5MywwNSwxLEcsKzAwLDAwLEIKUEMwMDc7MDIyNSwwMjE3LDA1LDEsRywrMDEsMDAsQgpQQzAwODswMTUwLDAyMTAsMDUsMSxHLCswMSwxMSxCClhCMDE7MDA0MywwMTAwLDUsMywwMSwwLDAxMDAsKzAwMDAwMDAwMDAsMDAyLDAsMDAKWEIwMjswMzAwLDAxNDUsUSwyMCwwMywwNSwxCkMKUkMwMDE7e3sjbWFpbi5sYWJlbF90ZXh0fX17e21haW4ubGFiZWxfdGV4dC50ZXh0MX19e3svbWFpbi5sYWJlbF90ZXh0fX0KUkMwMDI7e3sjbWFpbi5sYWJlbF90ZXh0fX17e21haW4ubGFiZWxfdGV4dC50ZXh0Mn19e3svbWFpbi5sYWJlbF90ZXh0fX0KUkMwMDM7e3sjbWFpbi5sYWJlbF90ZXh0fX17e21haW4ubGFiZWxfdGV4dC50ZXh0M319e3svbWFpbi5sYWJlbF90ZXh0fX0KUkMwMDU7e3sjbWFpbi5sYWJlbF90ZXh0fX17e21haW4ubGFiZWxfdGV4dC50ZXh0NX19e3svbWFpbi5sYWJlbF90ZXh0fX0KUkMwMDY7e3sjbWFpbi5sYWJlbF90ZXh0fX17e21haW4ubGFiZWxfdGV4dC50ZXh0Nn19e3svbWFpbi5sYWJlbF90ZXh0fX0KUkMwMDc7e3sjbWFpbi5sYWJlbF90ZXh0fX17e21haW4ubGFiZWxfdGV4dC50ZXh0N319e3svbWFpbi5sYWJlbF90ZXh0fX0KUkMwMDg7e3sjbWFpbi5sYWJlbF90ZXh0fX17e21haW4ubGFiZWxfdGV4dC50ZXh0OH19e3svbWFpbi5sYWJlbF90ZXh0fX0KUkIwMTt7e21haW4uZWFuMTNfd2l0aG91dF9jaGVja3N1bX19ClJCMDI7e3tkb3QuZWFuMTN9fQpYUztJLDAwMDEsMDAwMkMzMjAxCg=="
             }
         ],
         "label_type": "tube and spin column labels",
@@ -96,9 +96,9 @@ describe "create_a_label_printer_and_print_a_tube_and_a_spin_column_label_with_i
   # **Call the print action on the label printer.**
     # I have to stub the printing, because the string to print
     # contains null bytes.
-    Lims::SupportApp::LabelPrinter::PrintLabel.any_instance.stub(:print_labels) do
-      # TODO ke4
-    end
+#    Lims::SupportApp::LabelPrinter::PrintLabel.any_instance.stub(:print_labels) do
+#      # TODO ke4
+#    end
 
     header('Accept', 'application/json')
     header('Content-Type', 'application/json')
@@ -134,11 +134,11 @@ describe "create_a_label_printer_and_print_a_tube_and_a_spin_column_label_with_i
         ],
         "header_text": {
             "header_text1": "header by ke4",
-            "header_text2": "2013-05-29 15:38:54"
+            "header_text2": "2013-06-04 15:35:25"
         },
         "footer_text": {
             "footer_text1": "footer by ke4",
-            "footer_text2": "2013-05-29 15:38:54"
+            "footer_text2": "2013-06-04 15:35:25"
         }
     }
 }
@@ -180,11 +180,11 @@ describe "create_a_label_printer_and_print_a_tube_and_a_spin_column_label_with_i
             ],
             "header_text": {
                 "header_text1": "header by ke4",
-                "header_text2": "2013-05-29 15:38:54"
+                "header_text2": "2013-06-04 15:35:25"
             },
             "footer_text": {
                 "footer_text1": "footer by ke4",
-                "footer_text2": "2013-05-29 15:38:54"
+                "footer_text2": "2013-06-04 15:35:25"
             }
         },
         "labels": [
@@ -214,11 +214,11 @@ describe "create_a_label_printer_and_print_a_tube_and_a_spin_column_label_with_i
         ],
         "header_text": {
             "header_text1": "header by ke4",
-            "header_text2": "2013-05-29 15:38:54"
+            "header_text2": "2013-06-04 15:35:25"
         },
         "footer_text": {
             "footer_text1": "footer by ke4",
-            "footer_text2": "2013-05-29 15:38:54"
+            "footer_text2": "2013-06-04 15:35:25"
         }
     }
 }
