@@ -1,9 +1,9 @@
 GIT
   remote: http://github.com/sanger/lims-api.git
-  revision: 008d9932309aea26eb11a075cb0a732ecceaac5d
+  revision: 5b088669de818f0702e777c8e5b2fc9692955aee
   branch: development
   specs:
-    lims-api (2.1.0.1.0)
+    lims-api (2.2.0.0.1)
       active_support
       bunny (= 0.9.0.pre10)
       json
@@ -28,10 +28,10 @@ GIT
 
 GIT
   remote: http://github.com/sanger/lims-laboratory-app.git
-  revision: ca7023b79da6800c0ad65d6699cbce2fe00ae1c1
+  revision: 77229b0865f59963836e0acdb38ee4796203a1a7
   branch: development
   specs:
-    lims-laboratory-app (1.0.4)
+    lims-laboratory-app (1.2.0)
 
 GIT
   remote: http://github.com/sanger/psd_logger.git
@@ -58,7 +58,7 @@ GIT
 PATH
   remote: .
   specs:
-    lims-support-app (0.1.0.1.1)
+    lims-support-app (0.1.0.1.2)
       bunny (= 0.9.0.pre10)
       json
 
@@ -155,9 +155,9 @@ DEPENDENCIES
   github-markup (~> 0.7.1)
   hashdiff
   jdbc-mysql
-  lims-api (~> 2.1)!
+  lims-api (~> 2.2)!
   lims-core (~> 2.1)!
-  lims-laboratory-app (~> 1.0)!
+  lims-laboratory-app (~> 1.2)!
   lims-support-app!
   mustache (~> 0.99.4)!
   pry

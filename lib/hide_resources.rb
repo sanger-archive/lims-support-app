@@ -22,6 +22,10 @@ class Lims::LaboratoryApp::Labels::Labellable::CreateLabellable
   NOT_IN_ROOT = 1
 end
 
+class Lims::LaboratoryApp::Labels::Labellable::BulkCreateLabellable
+  NOT_IN_ROOT = 1
+end
+
 # Persistence
 class Lims::Core::Persistence::MultiCriteriaFilter
   NOT_IN_ROOT = 1
