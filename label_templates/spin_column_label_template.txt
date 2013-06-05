@@ -7,7 +7,7 @@ PC006;0220,0193,05,1,G,+00,00,B
 PC007;0225,0217,05,1,G,+01,00,B
 PC008;0150,0210,05,1,G,+01,11,B
 XB01;0043,0100,5,3,01,0,0100,+0000000000,002,0,00
-XB02;0300,0165,Q,20,03,05,1
+XB02;0300,0145,Q,20,03,05,1
 C
 RC001;{{#tube.label_text}}{{tube.label_text.text1}}{{/tube.label_text}}
 RC002;{{#tube.label_text}}{{tube.label_text.text2}}{{/tube.label_text}}
