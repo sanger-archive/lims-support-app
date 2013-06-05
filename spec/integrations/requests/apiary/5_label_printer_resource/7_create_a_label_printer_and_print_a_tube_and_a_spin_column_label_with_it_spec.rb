@@ -96,9 +96,9 @@ describe "create_a_label_printer_and_print_a_tube_and_a_spin_column_label_with_i
   # **Call the print action on the label printer.**
     # I have to stub the printing, because the string to print
     # contains null bytes.
-#    Lims::SupportApp::LabelPrinter::PrintLabel.any_instance.stub(:print_labels) do
-#      # TODO ke4
-#    end
+    Lims::SupportApp::LabelPrinter::PrintLabel.any_instance.stub(:print_labels) do
+      # TODO ke4
+    end
 
     header('Accept', 'application/json')
     header('Content-Type', 'application/json')
