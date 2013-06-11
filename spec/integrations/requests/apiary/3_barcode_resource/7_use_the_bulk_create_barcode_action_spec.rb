@@ -41,37 +41,33 @@ describe "use_the_bulk_create_barcode_action", :barcode => true do
         "result": {
             "barcodes": [
                 {
-                    "barcode": {
-                        "actions": {
-                            "read": "http://example.org/11111111-2222-3333-4444-555555555555",
-                            "update": "http://example.org/11111111-2222-3333-4444-555555555555",
-                            "delete": "http://example.org/11111111-2222-3333-4444-555555555555",
-                            "create": "http://example.org/11111111-2222-3333-4444-555555555555"
-                        },
-                        "uuid": "11111111-2222-3333-4444-555555555555",
-                        "ean13": "2741233334859",
-                        "sanger": {
-                            "prefix": "JD",
-                            "number": "1233334",
-                            "suffix": "U"
-                        }
+                    "actions": {
+                        "read": "http://example.org/11111111-2222-3333-4444-555555555555",
+                        "update": "http://example.org/11111111-2222-3333-4444-555555555555",
+                        "delete": "http://example.org/11111111-2222-3333-4444-555555555555",
+                        "create": "http://example.org/11111111-2222-3333-4444-555555555555"
+                    },
+                    "uuid": "11111111-2222-3333-4444-555555555555",
+                    "ean13": "2741233334859",
+                    "sanger": {
+                        "prefix": "JD",
+                        "number": "1233334",
+                        "suffix": "U"
                     }
                 },
                 {
-                    "barcode": {
-                        "actions": {
-                            "read": "http://example.org/11111111-2222-3333-4444-666666666666",
-                            "update": "http://example.org/11111111-2222-3333-4444-666666666666",
-                            "delete": "http://example.org/11111111-2222-3333-4444-666666666666",
-                            "create": "http://example.org/11111111-2222-3333-4444-666666666666"
-                        },
-                        "uuid": "11111111-2222-3333-4444-666666666666",
-                        "ean13": "2741233334859",
-                        "sanger": {
-                            "prefix": "JD",
-                            "number": "1233334",
-                            "suffix": "U"
-                        }
+                    "actions": {
+                        "read": "http://example.org/11111111-2222-3333-4444-666666666666",
+                        "update": "http://example.org/11111111-2222-3333-4444-666666666666",
+                        "delete": "http://example.org/11111111-2222-3333-4444-666666666666",
+                        "create": "http://example.org/11111111-2222-3333-4444-666666666666"
+                    },
+                    "uuid": "11111111-2222-3333-4444-666666666666",
+                    "ean13": "2741233334859",
+                    "sanger": {
+                        "prefix": "JD",
+                        "number": "1233334",
+                        "suffix": "U"
                     }
                 }
             ]
