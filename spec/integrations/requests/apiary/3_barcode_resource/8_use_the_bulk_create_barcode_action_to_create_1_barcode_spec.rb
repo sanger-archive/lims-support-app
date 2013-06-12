@@ -1,7 +1,7 @@
 require "integrations/requests/apiary/3_barcode_resource/spec_helper"
-describe "use_the_bulk_create_barcode_action", :barcode => true do
+describe "use_the_bulk_create_barcode_action_to_create_1_barcode", :barcode => true do
   include_context "use core context service"
-  it "use_the_bulk_create_barcode_action" do
+  it "use_the_bulk_create_barcode_action_to_create_1_barcode" do
   # **Use the bulk create barcode action.**
   # * `labware` the specific labware the barcode relates to (tube, plate etc..)
   # * `role` the role of the labware (like 'stock')
@@ -26,7 +26,7 @@ describe "use_the_bulk_create_barcode_action", :barcode => true do
         "labware": "tube",
         "role": "stock",
         "contents": "DNA",
-        "number_of_barcodes": 2
+        "number_of_barcodes": 1
     }
 }
     EOD
@@ -54,28 +54,13 @@ describe "use_the_bulk_create_barcode_action", :barcode => true do
                         "number": "1233334",
                         "suffix": "U"
                     }
-                },
-                {
-                    "actions": {
-                        "read": "http://example.org/11111111-2222-3333-4444-666666666666",
-                        "update": "http://example.org/11111111-2222-3333-4444-666666666666",
-                        "delete": "http://example.org/11111111-2222-3333-4444-666666666666",
-                        "create": "http://example.org/11111111-2222-3333-4444-666666666666"
-                    },
-                    "uuid": "11111111-2222-3333-4444-666666666666",
-                    "ean13": "2741233334859",
-                    "sanger": {
-                        "prefix": "JD",
-                        "number": "1233334",
-                        "suffix": "U"
-                    }
                 }
             ]
         },
         "labware": "tube",
         "role": "stock",
         "contents": "DNA",
-        "number_of_barcodes": 2
+        "number_of_barcodes": 1
     }
 }
     EOD
