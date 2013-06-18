@@ -108,7 +108,8 @@ module Lims::SupportApp
     # (joining the sanger prefix, sanger code and sanger suffix in one string)
     # @return [String] an ean13 version of the sanger barcode
     def ean13_barcode(sanger_barcode_full)
-      sanger_barcode_full * 10 + Barcode::calculate_ean13_checksum(sanger_barcode_full.to_s)
+      ean13 = sanger_barcode_full * 10 + Barcode::calculate_ean13_checksum(sanger_barcode_full.to_s)
+      ("%013d" % ean13)
     end
 
     # The checksum is calculated taking a varying weight value times the value

@@ -192,6 +192,14 @@ module Lims::SupportApp
         it_behaves_like('a valid ean13_code', "0462804", "3820462804773")
       end
 
+      context "test ean13 calculation with CL9027006R", :focus => true do
+        let(:labware) { "tube" }
+        let(:role) { "stock" }
+        let(:contents) { "cell pellet" }
+
+        it_behaves_like('a valid ean13_code', "9027006", "0939027006828")
+      end
+
     end
   end
 end
