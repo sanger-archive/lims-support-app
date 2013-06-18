@@ -22,6 +22,9 @@ Gem::Specification.new do |s|
   # TODO: s.add_dependency('lims-core')  it is in Gemfile because on github
   # TODO: s.add_dependency('lims-api')  it is in Gemfile because on github
   s.add_dependency('json')
+  s.add_dependency('mysql2')
+  s.add_dependency('sequel')
+  s.add_dependency('ruby-oci8')
 
   s.add_development_dependency('rake', '~> 0.9.2')
   s.add_development_dependency('rspec', '~> 2.8.0')

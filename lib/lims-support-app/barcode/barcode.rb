@@ -2,6 +2,7 @@ require 'lims-core/resource'
 
 require 'lims-support-app/barcode/prefix/barcode_prefixes'
 require 'lims-support-app/barcode/prefix/labware_triple'
+require 'lims-support-app/util/db_handler'
 
 module Lims::SupportApp
 
@@ -97,8 +98,8 @@ module Lims::SupportApp
     # if its length is less, then we will pad it with '0' characters
     # It returns a String like '0056349'
     # @return [String] a generated number-like string with 7 digits
-    def self.new_barcode
-      ('%07d' % 7.times.map { Random.rand(10) }.join.to_i)
+    def self.new_barcode(labware)
+      Util::DBHandler.next_barcode(labware)
     end
 
     #=== EAN13 Barcode Calculation begins===

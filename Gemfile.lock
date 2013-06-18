@@ -58,9 +58,12 @@ GIT
 PATH
   remote: .
   specs:
-    lims-support-app (0.1.0.1.4)
+    lims-support-app (0.1.0.2.0)
       bunny (= 0.9.0.pre10)
       json
+      mysql2
+      ruby-oci8
+      sequel
 
 GEM
   remote: http://rubygems.org/
@@ -103,6 +106,7 @@ GEM
     macaddr (1.6.1)
       systemu (~> 2.5.0)
     method_source (0.8.1)
+    mysql2 (0.3.11)
     pry (0.9.12.2)
       coderay (~> 1.0.5)
       method_source (~> 0.8)
@@ -122,6 +126,7 @@ GEM
     rspec-expectations (2.8.0)
       diff-lcs (~> 1.1.2)
     rspec-mocks (2.8.0)
+    ruby-oci8 (2.1.5)
     sequel (3.48.0)
     shotgun (0.9)
       rack (>= 1.0)

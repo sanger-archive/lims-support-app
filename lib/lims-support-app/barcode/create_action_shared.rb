@@ -10,7 +10,7 @@ module Lims::SupportApp
           :role     => role,
           :contents => contents)
 
-        barcode.sanger_code(Barcode::new_barcode)
+        barcode.sanger_code(Barcode::new_barcode(labware))
 
         barcode.ean13_code = barcode.calculate_ean13
 

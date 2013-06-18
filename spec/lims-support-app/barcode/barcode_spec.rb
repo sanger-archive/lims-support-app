@@ -1,5 +1,6 @@
 # Model requirements
 require 'lims-support-app/barcode/barcode'
+require 'spec_helper'
 
 module Lims::SupportApp
 
@@ -9,6 +10,15 @@ module Lims::SupportApp
     it {
       subject.sanger_code(sanger_code)
       subject.calculate_ean13.should == ean13_code
+    }
+  end
+
+  shared_examples_for "using new_barcode method" do
+    subject { Barcode.new(
+      { :labware => labware, :role => role, :contents => contents }) }
+    it {
+      subject.sanger_code(Barcode::new_barcode(subject.labware))
+      subject.calculate_ean13.length.should == 13
     }
   end
 
@@ -176,7 +186,7 @@ module Lims::SupportApp
         it_behaves_like('a valid ean13_code', "6981041", "3966981041876")
       end
 
-      context "test ean13 calculation with prefix and sanger_code 310543", :focus => true do
+      context "test ean13 calculation with prefix and sanger_code 310543" do
         let(:labware) { nil }
         let(:role) { "stock" }
         let(:contents) { "DNA" }
@@ -184,7 +194,7 @@ module Lims::SupportApp
         it_behaves_like('a valid ean13_code', "0310543", "3820310543823")
       end
 
-      context "test ean13 calculation with prefix and sanger_code 462804", :focus => true do
+      context "test ean13 calculation with prefix and sanger_code 462804" do
         let(:labware) { nil }
         let(:role) { "stock" }
         let(:contents) { "DNA" }
@@ -192,6 +202,24 @@ module Lims::SupportApp
         it_behaves_like('a valid ean13_code', "0462804", "3820462804773")
       end
 
+      context "test new_barcode method with a tube", :focus => true do
+        it_behaves_like('using new_barcode method')
+      end
+
+      context "test new_barcode method with a spin column", :focus => true do
+        let(:labware) { "spin column" }
+        it_behaves_like('using new_barcode method')
+      end
+
+      context "test new_barcode method with a plate", :focus => true do
+        let(:labware) { "plate" }
+        it_behaves_like('using new_barcode method')
+      end
+
+      context "test new_barcode method with a rack", :focus => true do
+        let(:labware) { "tube rack" }
+        it_behaves_like('using new_barcode method')
+      end
     end
   end
 end
