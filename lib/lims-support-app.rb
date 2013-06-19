@@ -22,9 +22,13 @@ require 'lims-api/persistence/search_resource'
 require 'lims-api/server'
 require 'lims-api/context_service'
 
+require 'lims-support-app/util/db_handler'
+
 # TODO remove it later, if we have a proper solution for hiding resources
 # from lims-core project
 require 'hide_resources'
+
+ENV["LIMS_SUPPORTAPP_ENV"] = "test" unless ENV["LIMS_SUPPORTAPP_ENV"]
 
 class Hash
   def deep_fetch(key, default = nil)
