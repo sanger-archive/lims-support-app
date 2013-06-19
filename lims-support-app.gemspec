@@ -24,7 +24,6 @@ Gem::Specification.new do |s|
   s.add_dependency('json')
   s.add_dependency('mysql2')
   s.add_dependency('sequel')
-  s.add_dependency('ruby-oci8')
 
   s.add_development_dependency('rake', '~> 0.9.2')
   s.add_development_dependency('rspec', '~> 2.8.0')
