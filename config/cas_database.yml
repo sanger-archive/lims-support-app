@@ -10,6 +10,14 @@ test_ora:
   password: 'ke4'
   database: 'cend'
 
+development:
+  adapter: oracle
+  host: 'ocs22-scan'
+  port: 1521
+  username: 'dev_ke4'
+  password: 'ke4'
+  database: 'cend'
+
 production:
   adapter: oracle
   host: 'ocs23-scan'
