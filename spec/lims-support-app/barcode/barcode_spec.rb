@@ -22,6 +22,16 @@ module Lims::SupportApp
     }
   end
 
+  shared_examples_for "returns unsupported labware exception" do
+    subject { Barcode.new(
+      { :labware => labware, :role => role, :contents => contents }) }
+    it {
+      expect do
+        subject.sanger_code(Barcode::new_barcode(subject.labware)).should
+      end.to raise_error
+    }
+  end
+
   describe Barcode do
     #== Macro ====
     def self.it_has_a(attribute, type=nil)
@@ -202,7 +212,7 @@ module Lims::SupportApp
         it_behaves_like('a valid ean13_code', "0462804", "3820462804773")
       end
 
-      context "test ean13 calculation with CL9027006R", :focus => true do
+      context "test ean13 calculation with CL9027006R" do
         let(:labware) { "tube" }
         let(:role) { "stock" }
         let(:contents) { "cell pellet" }
@@ -210,24 +220,52 @@ module Lims::SupportApp
         it_behaves_like('a valid ean13_code', "9027006", "0939027006828")
       end
 
-      context "test new_barcode method with a tube", :focus => true do
+      context "test new_barcode method with a tube" do
         it_behaves_like('using new_barcode method')
       end
 
-      context "test new_barcode method with a spin column", :focus => true do
+      context "test new_barcode method with a spin column" do
         let(:labware) { "spin column" }
         it_behaves_like('using new_barcode method')
       end
 
-      context "test new_barcode method with a plate", :focus => true do
+      context "test new_barcode method with a plate" do
         let(:labware) { "plate" }
         it_behaves_like('using new_barcode method')
       end
 
-      context "test new_barcode method with a rack", :focus => true do
+      context "test new_barcode method with a tube rack" do
         let(:labware) { "tube rack" }
         it_behaves_like('using new_barcode method')
       end
+
+      context "test new_barcode method with a rack" do
+        let(:labware) { "tube_rack" }
+        let(:role) { "stock" }
+        let(:contents) { "RNA" }
+        it_behaves_like('using new_barcode method')
+      end
+
+      context "test new_barcode method with a spin column" do
+        let(:labware) { " spin_column " }
+        let(:role) { "stock" }
+        let(:contents) { "RNA" }
+        it_behaves_like('using new_barcode method')
+      end
+
+#      context "test new_barcode method with a rack", :focus => true do
+#        let(:labware) { "tub rack" }
+#        let(:role) { "stock" }
+#        let(:contents) { "RNA" }
+#        it_behaves_like('returns unsupported labware exception')
+#      end
+#
+#      context "test new_barcode method with a spi_column", :focus => true do
+#        let(:labware) { " spi_column " }
+#        let(:role) { "stock" }
+#        let(:contents) { "RNA" }
+#        it_behaves_like('returns unsupported labware exception')
+#      end
     end
   end
 end
