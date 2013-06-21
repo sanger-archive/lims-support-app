@@ -3,4 +3,4 @@ rvm:
 
 before_install: gem install bundler
 
-install: bundle install --without debugger pry
+install: bundle install --without oracle debugger pry
