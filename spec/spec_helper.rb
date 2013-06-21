@@ -11,7 +11,8 @@ set :logging, false
 env = ENV["LIMS_SUPPORTAPP_ENV"]
 cas_settings = YAML.load_file(File.join("config", "cas_database.yml"))[env]
 sequencescape_settings = YAML.load_file(File.join("config", "sequencescape_database.yml"))[env]
-Lims::SupportApp::Util::DBHandler.db_initialize(cas_settings, sequencescape_settings)
+labware_settings = YAML.load_file(File.join("config", "labware_db.yml"))
+Lims::SupportApp::Util::DBHandler.db_initialize(cas_settings, sequencescape_settings, labware_settings)
 
 # if env == "test" then fake self.barcode_from_cas method
 # of Lims::SupportApp::Util::DBHandler class
