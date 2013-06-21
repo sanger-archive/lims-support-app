@@ -14,7 +14,8 @@ ENV["LIMS_SUPPORT_ENV"] = "development" unless ENV["LIMS_SUPPORT_ENV"]
 env = ENV["LIMS_SUPPORT_ENV"]
 cas_settings = YAML.load_file(File.join("config", "cas_database.yml"))[env]
 sequencescape_settings = YAML.load_file(File.join("config", "sequencescape_database.yml"))[env]
-Lims::SupportApp::Util::DBHandler.db_initialize(cas_settings, sequencescape_settings)
+labware_settings = YAML.load_file(File.join("config", "labware_db.yml"))
+Lims::SupportApp::Util::DBHandler.db_initialize(cas_settings, sequencescape_settings, labware_settings)
 
 logger = Logger.new($stdout)
 
