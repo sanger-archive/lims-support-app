@@ -17,6 +17,10 @@ group :development do
   gem 'mysql2', :platforms => :mri
 end
 
+group :oracle do
+  gem 'ruby-oci8', :platforms => :mri
+end
+
 group :debugger do
   gem 'debugger', :platforms => :mri
   gem 'debugger-completion', :platforms => :mri
@@ -34,5 +38,4 @@ group :deployment do
   gem "trinidad_daemon_extension", :platforms => :jruby
   gem 'activesupport', '~> 3.0.0', :platforms => :jruby
   gem 'jdbc-mysql', :platforms => :jruby
-  gem 'ruby-oci8', :platforms => :mri
 end

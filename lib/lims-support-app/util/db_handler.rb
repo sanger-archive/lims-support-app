@@ -13,9 +13,11 @@ module Lims::SupportApp
       # Initilize the DBHandler class
       # @param [Hash] cas DB settings
       # @param [Hash] Sequencescape DB settings
-      def self.db_initialize(cas_settings, sequenscape_settings)
+      def self.db_initialize(cas_settings, sequenscape_settings, labware_settings)
         @db_cas = Sequel.connect(cas_settings) unless cas_settings.empty?
         @db_sequencescape = Sequel.connect(sequenscape_settings) unless sequenscape_settings.empty?
+        @cas_labware = labware_settings["cas"]
+        @sequencescape_labware = labware_settings["sequencescape"]
       end
 
       # Gets the value of the next barcode
@@ -25,11 +27,10 @@ module Lims::SupportApp
         raise "CAS DB is not initialized" unless @db_cas
         raise "Sequencescape DB is not initialized" unless @db_sequencescape
 
-        case labware.strip
-        when 'plate', 'tube rack', 'tube_rack'
+        if @cas_labware.include?(labware.strip.downcase)
           # gets the new barcode from CAS database
           barcode_from_cas
-        when 'tube', 'spin column', 'spin_column'
+        elsif @sequencescape_labware.include?(labware.strip.downcase)
           # gets the new barcode from Sequencescape DB
           barcode = create_barcode_asset
 
