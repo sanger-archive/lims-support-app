@@ -1,11 +1,12 @@
 require 'sequel'
 
 module Lims::SupportApp
+
   module Util
     class DBHandler
       include Virtus
       include Aequitas
-  
+
       attribute :db_cas, Sequel::Database, :required => true, :writer => :private, :reader => :private
       attribute :db_sequencescape, Sequel::Database, :required => true, :writer => :private, :reader => :private
   
@@ -24,11 +25,11 @@ module Lims::SupportApp
         raise "CAS DB is not initialized" unless @db_cas
         raise "Sequencescape DB is not initialized" unless @db_sequencescape
 
-        case labware
-        when 'plate', 'tube rack'
+        case labware.strip
+        when 'plate', 'tube rack', 'tube_rack'
           # gets the new barcode from CAS database
           barcode_from_cas
-        when 'tube', 'spin column'
+        when 'tube', 'spin column', 'spin_column'
           # gets the new barcode from Sequencescape DB
           barcode = create_barcode_asset
 
@@ -37,6 +38,8 @@ module Lims::SupportApp
           end
 
           (barcode).to_s
+        else
+          raise "The given labware is not supported: #{labware}"
         end
       end
 
