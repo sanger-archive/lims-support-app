@@ -36,13 +36,17 @@ module Lims::SupportApp
 
           while find_asset_by_barcode_in_sequencescape(barcode.to_s)
             # gets the next barcode value from asset_barcodes table
-            barcode = @db_sequencescape[:asset_barcodes].insert
+            barcode = create_barcode_asset
           end
 
           (barcode).to_s
         else
           raise "The given labware is not supported: #{labware}"
         end
+      end
+
+      def self.create_barcode_asset
+        @db_sequencescape[:asset_barcodes].insert
       end
 
       def self.barcode_from_cas
