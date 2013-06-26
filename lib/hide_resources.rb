@@ -8,6 +8,10 @@ class Lims::LaboratoryApp::Labels::EAN13Barcode
   NOT_IN_ROOT = 1
 end
 
+class Lims::LaboratoryApp::Labels::Code128CBarcode
+  NOT_IN_ROOT = 1
+end
+
 class Lims::LaboratoryApp::Labels::Labellable
   NOT_IN_ROOT = 1
 end
