@@ -35,7 +35,8 @@ module Lims::SupportApp
           barcode = create_barcode_asset
 
           while find_asset_by_barcode_in_sequencescape(barcode.to_s)
-            barcode = create_barcode_asset
+            # gets the next barcode value from asset_barcodes table
+            barcode = @db_sequencescape[:asset_barcodes].insert
           end
 
           (barcode).to_s
@@ -50,14 +51,6 @@ module Lims::SupportApp
       end
 
       private
-
-      # Gets the next barcode value from asset_barcodes table
-      def self.create_barcode_asset
-        offset = 200000
-        asset_barcode_ds = @db_sequencescape[:asset_barcodes]
-        asset_barcode_id = asset_barcode_ds.insert
-        barcode = asset_barcode_id + offset
-      end
 
       # Checks asset existence with the given barcode in SS's assets table
       def self.find_asset_by_barcode_in_sequencescape(barcode)
