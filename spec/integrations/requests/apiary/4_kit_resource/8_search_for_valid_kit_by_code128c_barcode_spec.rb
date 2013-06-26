@@ -17,7 +17,7 @@ describe "search_for_valid_kit_by_code128c_barcode", :kit => true do
   # - and amount of kit is equals 10.
   # - and has a label with the following attributes:
   #   - position: front barcode
-  #   - type: "code128_c_barcode",
+  #   - type: "code128-c-barcode",
   #   - value: "1234567890123"
   # 
   # To actually get the search results, you need to access the first page of result 
@@ -28,7 +28,7 @@ describe "search_for_valid_kit_by_code128c_barcode", :kit => true do
       :amount => 10)
     labellable1 = Lims::LaboratoryApp::Labels::Labellable.new(:name => "11111111-2222-3333-4444-666666666666",
                                                         :type => "resource")
-    label1 = Lims::LaboratoryApp::Labels::Labellable::Label.new(:type => "code128_c_barcode",
+    label1 = Lims::LaboratoryApp::Labels::Labellable::Label.new(:type => "code128-c-barcode",
                                                           :value => "1234567890123456789012")
     labellable1["front barcode"] = label1
     
@@ -38,7 +38,7 @@ describe "search_for_valid_kit_by_code128c_barcode", :kit => true do
       :amount => 10)
     labellable2 = Lims::LaboratoryApp::Labels::Labellable.new(:name => "11111111-2222-3333-4444-777777777777",
                                                         :type => "resource")
-    label2 = Lims::LaboratoryApp::Labels::Labellable::Label.new(:type => "code128_c_barcode",
+    label2 = Lims::LaboratoryApp::Labels::Labellable::Label.new(:type => "code128-c-barcode",
                                                           :value => "1234567890123456789012")
     labellable2["front barcode"] = label2
     
@@ -48,7 +48,7 @@ describe "search_for_valid_kit_by_code128c_barcode", :kit => true do
       :amount => 15)
     labellable3 = Lims::LaboratoryApp::Labels::Labellable.new(:name => "11111111-2222-3333-4444-888888888888",
                                                         :type => "resource")
-    label3 = Lims::LaboratoryApp::Labels::Labellable::Label.new(:type => "code128_c_barcode",
+    label3 = Lims::LaboratoryApp::Labels::Labellable::Label.new(:type => "code128-c-barcode",
                                                           :value => "1234567890123456789022")
     labellable3["front barcode"] = label3
     
@@ -74,7 +74,7 @@ describe "search_for_valid_kit_by_code128c_barcode", :kit => true do
             },
             "label": {
                 "position": "front barcode",
-                "type": "code128_c_barcode",
+                "type": "code128-c-barcode",
                 "value": "1234567890123456789012"
             }
         }
@@ -133,7 +133,7 @@ describe "search_for_valid_kit_by_code128c_barcode", :kit => true do
                 "uuid": "11111111-2222-3333-4444-222222222222",
                 "front barcode": {
                     "value": "1234567890123456789012",
-                    "type": "code128_c_barcode"
+                    "type": "code128-c-barcode"
                 }
             }
         }
