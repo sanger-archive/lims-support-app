@@ -139,6 +139,8 @@ module Lims::SupportApp
             label_data[element_key] = element_value
           elsif element_value.is_a?(Hash)
             label_data[element_key] = chop_checksum_digit_from_barcodes(element_value)
+          elsif element_value.is_a?(Array)
+            label_data[element_key] = element_value.map(&method(:chop_checksum_digit_from_barcodes))
           else
             label_data[element_key] = element_value
           end
