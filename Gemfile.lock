@@ -1,9 +1,9 @@
 GIT
   remote: http://github.com/sanger/lims-api.git
-  revision: 17f2568b22aa78fcd09ab7677843eabebf2a062e
+  revision: 2d3bd76c5a930d5d2f0645770dff837c344562b4
   branch: master
   specs:
-    lims-api (2.3.0)
+    lims-api (2.4.0)
       active_support
       bunny (= 0.9.0.pre10)
       json
@@ -28,10 +28,10 @@ GIT
 
 GIT
   remote: http://github.com/sanger/lims-laboratory-app.git
-  revision: 9ad23b013668906859e063c5ab2a65397535fe7a
+  revision: b1141948b8584de119e8634eff5ec23ccad024e2
   branch: master
   specs:
-    lims-laboratory-app (1.5.2)
+    lims-laboratory-app (1.5.3)
 
 GIT
   remote: http://github.com/sanger/psd_logger.git
@@ -69,7 +69,7 @@ GEM
     active_support (3.0.0)
       activesupport (= 3.0.0)
     activesupport (3.0.0)
-    addressable (2.3.4)
+    addressable (2.3.5)
     aequitas (0.0.2)
     amq-protocol (1.6.0)
     bond (0.4.3)
@@ -88,7 +88,7 @@ GEM
     debugger-pry (0.1.1)
       debugger (~> 1)
       pry (>= 0.9.9)
-    debugger-ruby_core_source (1.2.2)
+    debugger-ruby_core_source (1.2.3)
     diff-lcs (1.1.3)
     dm-core (1.2.1)
       addressable (~> 2.3)
@@ -142,7 +142,7 @@ GEM
     uuid (2.3.7)
       macaddr (~> 1.0)
     virtus (0.2.0)
-    yard (0.8.6.1)
+    yard (0.8.6.2)
     yard-rspec (0.1)
       yard
 
