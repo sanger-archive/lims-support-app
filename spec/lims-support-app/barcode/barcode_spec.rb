@@ -32,6 +32,20 @@ module Lims::SupportApp
     }
   end
 
+  shared_examples_for "correct ean13 barcode" do |sanger_code, ean13_code|
+    subject {
+      Barcode.any_instance.stub(:calculate_sanger_barcode_prefix).and_return("ND")
+      Barcode.new({ :labware => labware, :role => role, :contents => contents })
+    }
+
+    it {
+      subject.sanger_code(sanger_code)
+      subject.calculate_ean13.should == ean13_code
+      subject.ean13_code = subject.calculate_ean13
+      subject.sanger_barcode_suffix.should == sanger_cheksum
+    }
+  end
+
   describe Barcode do
     #== Macro ====
     def self.it_has_a(attribute, type=nil)
@@ -164,22 +178,6 @@ module Lims::SupportApp
         it_behaves_like('a valid ean13_code', "5539900", "3825539900846")
       end
 
-      context "test ean13 calculation with prefix and sanger_code 42852" do
-        let(:labware) { nil }
-        let(:role) { "stock" }
-        let(:contents) { "DNA" }
-
-        it_behaves_like('a valid ean13_code', "0042852", "3820042852743")
-      end
-
-      context "test ean13 calculation with prefix and sanger_code 564945" do
-        let(:labware) { nil }
-        let(:role) { "stock" }
-        let(:contents) { "RNA" }
-
-        it_behaves_like('a valid ean13_code', "0564945", "3960564945773")
-      end
-
       context "test ean13 calculation with prefix and sanger_code 6911450" do
         let(:labware) { nil }
         let(:role) { "stock" }
@@ -194,22 +192,6 @@ module Lims::SupportApp
         let(:contents) { "RNA" }
 
         it_behaves_like('a valid ean13_code', "6981041", "3966981041876")
-      end
-
-      context "test ean13 calculation with prefix and sanger_code 310543" do
-        let(:labware) { nil }
-        let(:role) { "stock" }
-        let(:contents) { "DNA" }
-
-        it_behaves_like('a valid ean13_code', "0310543", "3820310543823")
-      end
-
-      context "test ean13 calculation with prefix and sanger_code 462804" do
-        let(:labware) { nil }
-        let(:role) { "stock" }
-        let(:contents) { "DNA" }
-
-        it_behaves_like('a valid ean13_code', "0462804", "3820462804773")
       end
 
       context "test ean13 calculation with CL9027006R" do
@@ -251,6 +233,16 @@ module Lims::SupportApp
         let(:role) { "stock" }
         let(:contents) { "RNA" }
         it_behaves_like('using new_barcode method')
+      end
+
+      context "test ean13 code", :focus => true do
+        let(:sanger_cheksum) { "D" }
+        it_behaves_like('correct ean13 barcode', "0288261", "3820288261682" )
+      end
+
+      context "test ean13 code", :focus => true do
+        let(:sanger_cheksum) { "D" }
+        it_behaves_like('correct ean13 barcode', "288261", "3820288261682" )
       end
 
 #      context "test new_barcode method with a rack", :focus => true do
