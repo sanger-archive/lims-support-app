@@ -32,7 +32,7 @@ describe "create_a_label_printer_and_print_a_tube_and_a_spin_column_label_with_i
             }
         ],
         "label_type": "tube and spin column labels",
-        "header": "UEMwMDE7MDExMiwwMDIwLDA1LDA1LEgsKzAyLDExLEIKUEMwMDI7MDA2MiwwMDIwLDA1LDA1LEgsKzAyLDExLEIKQwpSQzAwMTt7e2hlYWRlcl90ZXh0MX19ClJDMDAyO3t7aGVhZGVyX3RleHQyfX0KWFM7SSwwMDAxLDAwMDJDNTIwMQ==",
+        "header": "RDA0MzAsMDMwMCwwNDAwCkFZOyswOCwwCkFYOyswMjIsKzAwMCwrMDAKVDIwQzMyClBDMDAxOzAxMTIsMDAyMCwwNSwwNSxILCswMiwxMSxCClBDMDAyOzAwNjIsMDAyMCwwNSwwNSxILCswMiwxMSxCCkMKUkMwMDE7e3toZWFkZXJfdGV4dDF9fQpSQzAwMjt7e2hlYWRlcl90ZXh0Mn19ClhTO0ksMDAwMSwwMDAyQzUyMDEK",
         "footer": "UEMwMDE7MDExMiwwMDIwLDA1LDA1LEgsKzAyLDExLEIKUEMwMDI7MDA2MiwwMDIwLDA1LDA1LEgsKzAyLDExLEIKQwpSQzAwMTt7e2Zvb3Rlcl90ZXh0MX19ClJDMDAyO3t7Zm9vdGVyX3RleHQyfX0KWFM7SSwwMDAxLDAwMDJDNTIwMQpD"
     }
 }
@@ -68,7 +68,7 @@ describe "create_a_label_printer_and_print_a_tube_and_a_spin_column_label_with_i
                     }
                 ],
                 "label_type": "tube and spin column labels",
-                "header": "UEMwMDE7MDExMiwwMDIwLDA1LDA1LEgsKzAyLDExLEIKUEMwMDI7MDA2MiwwMDIwLDA1LDA1LEgsKzAyLDExLEIKQwpSQzAwMTt7e2hlYWRlcl90ZXh0MX19ClJDMDAyO3t7aGVhZGVyX3RleHQyfX0KWFM7SSwwMDAxLDAwMDJDNTIwMQ==",
+                "header": "RDA0MzAsMDMwMCwwNDAwCkFZOyswOCwwCkFYOyswMjIsKzAwMCwrMDAKVDIwQzMyClBDMDAxOzAxMTIsMDAyMCwwNSwwNSxILCswMiwxMSxCClBDMDAyOzAwNjIsMDAyMCwwNSwwNSxILCswMiwxMSxCCkMKUkMwMDE7e3toZWFkZXJfdGV4dDF9fQpSQzAwMjt7e2hlYWRlcl90ZXh0Mn19ClhTO0ksMDAwMSwwMDAyQzUyMDEK",
                 "footer": "UEMwMDE7MDExMiwwMDIwLDA1LDA1LEgsKzAyLDExLEIKUEMwMDI7MDA2MiwwMDIwLDA1LDA1LEgsKzAyLDExLEIKQwpSQzAwMTt7e2Zvb3Rlcl90ZXh0MX19ClJDMDAyO3t7Zm9vdGVyX3RleHQyfX0KWFM7SSwwMDAxLDAwMDJDNTIwMQpD"
             },
             "uuid": "11111111-2222-3333-4444-555555555555"
@@ -87,7 +87,7 @@ describe "create_a_label_printer_and_print_a_tube_and_a_spin_column_label_with_i
             }
         ],
         "label_type": "tube and spin column labels",
-        "header": "UEMwMDE7MDExMiwwMDIwLDA1LDA1LEgsKzAyLDExLEIKUEMwMDI7MDA2MiwwMDIwLDA1LDA1LEgsKzAyLDExLEIKQwpSQzAwMTt7e2hlYWRlcl90ZXh0MX19ClJDMDAyO3t7aGVhZGVyX3RleHQyfX0KWFM7SSwwMDAxLDAwMDJDNTIwMQ==",
+        "header": "RDA0MzAsMDMwMCwwNDAwCkFZOyswOCwwCkFYOyswMjIsKzAwMCwrMDAKVDIwQzMyClBDMDAxOzAxMTIsMDAyMCwwNSwwNSxILCswMiwxMSxCClBDMDAyOzAwNjIsMDAyMCwwNSwwNSxILCswMiwxMSxCCkMKUkMwMDE7e3toZWFkZXJfdGV4dDF9fQpSQzAwMjt7e2hlYWRlcl90ZXh0Mn19ClhTO0ksMDAwMSwwMDAyQzUyMDEK",
         "footer": "UEMwMDE7MDExMiwwMDIwLDA1LDA1LEgsKzAyLDExLEIKUEMwMDI7MDA2MiwwMDIwLDA1LDA1LEgsKzAyLDExLEIKQwpSQzAwMTt7e2Zvb3Rlcl90ZXh0MX19ClJDMDAyO3t7Zm9vdGVyX3RleHQyfX0KWFM7SSwwMDAxLDAwMDJDNTIwMQpD"
     }
 }
@@ -134,11 +134,11 @@ describe "create_a_label_printer_and_print_a_tube_and_a_spin_column_label_with_i
         ],
         "header_text": {
             "header_text1": "header by ke4",
-            "header_text2": "2013-06-04 15:35:25"
+            "header_text2": "2013-07-09 11:40:55"
         },
         "footer_text": {
             "footer_text1": "footer by ke4",
-            "footer_text2": "2013-06-04 15:35:25"
+            "footer_text2": "2013-07-09 11:40:55"
         }
     }
 }
@@ -180,11 +180,11 @@ describe "create_a_label_printer_and_print_a_tube_and_a_spin_column_label_with_i
             ],
             "header_text": {
                 "header_text1": "header by ke4",
-                "header_text2": "2013-06-04 15:35:25"
+                "header_text2": "2013-07-09 11:40:55"
             },
             "footer_text": {
                 "footer_text1": "footer by ke4",
-                "footer_text2": "2013-06-04 15:35:25"
+                "footer_text2": "2013-07-09 11:40:55"
             }
         },
         "labels": [
@@ -214,11 +214,11 @@ describe "create_a_label_printer_and_print_a_tube_and_a_spin_column_label_with_i
         ],
         "header_text": {
             "header_text1": "header by ke4",
-            "header_text2": "2013-06-04 15:35:25"
+            "header_text2": "2013-07-09 11:40:55"
         },
         "footer_text": {
             "footer_text1": "footer by ke4",
-            "footer_text2": "2013-06-04 15:35:25"
+            "footer_text2": "2013-07-09 11:40:55"
         }
     }
 }
