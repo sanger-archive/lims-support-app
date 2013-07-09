@@ -25,7 +25,7 @@ describe "use_the_create_label_printer_action", :label_printer => true do
             }
         ],
         "label_type": "tube labels",
-        "header": "UEMwMDE7MDExMiwwMDIwLDA1LDA1LEgsKzAyLDExLEIKUEMwMDI7MDA2MiwwMDIwLDA1LDA1LEgsKzAyLDExLEIKQwpSQzAwMTt7e2hlYWRlcl90ZXh0MX19ClJDMDAyO3t7aGVhZGVyX3RleHQyfX0KWFM7SSwwMDAxLDAwMDJDNTIwMQ==",
+        "header": "G0QwNDMwLDAzMDAsMDQwMAoAG0FZOyswOCwwCgAbQVg7KzAyMiwrMDAwLCswMAoAG1QyMEMzMgpQQzAwMTswMTEyLDAwMjAsMDUsMDUsSCwrMDIsMTEsQgpQQzAwMjswMDYyLDAwMjAsMDUsMDUsSCwrMDIsMTEsQgpDClJDMDAxO3t7aGVhZGVyX3RleHQxfX0KUkMwMDI7e3toZWFkZXJfdGV4dDJ9fQpYUztJLDAwMDEsMDAwMkM1MjAx",
         "footer": "UEMwMDE7MDExMiwwMDIwLDA1LDA1LEgsKzAyLDExLEIKUEMwMDI7MDA2MiwwMDIwLDA1LDA1LEgsKzAyLDExLEIKQwpSQzAwMTt7e2Zvb3Rlcl90ZXh0MX19ClJDMDAyO3t7Zm9vdGVyX3RleHQyfX0KWFM7SSwwMDAxLDAwMDJDNTIwMQpD"
     }
 }
@@ -56,7 +56,7 @@ describe "use_the_create_label_printer_action", :label_printer => true do
                     }
                 ],
                 "label_type": "tube labels",
-                "header": "UEMwMDE7MDExMiwwMDIwLDA1LDA1LEgsKzAyLDExLEIKUEMwMDI7MDA2MiwwMDIwLDA1LDA1LEgsKzAyLDExLEIKQwpSQzAwMTt7e2hlYWRlcl90ZXh0MX19ClJDMDAyO3t7aGVhZGVyX3RleHQyfX0KWFM7SSwwMDAxLDAwMDJDNTIwMQ==",
+                "header": "G0QwNDMwLDAzMDAsMDQwMAoAG0FZOyswOCwwCgAbQVg7KzAyMiwrMDAwLCswMAoAG1QyMEMzMgpQQzAwMTswMTEyLDAwMjAsMDUsMDUsSCwrMDIsMTEsQgpQQzAwMjswMDYyLDAwMjAsMDUsMDUsSCwrMDIsMTEsQgpDClJDMDAxO3t7aGVhZGVyX3RleHQxfX0KUkMwMDI7e3toZWFkZXJfdGV4dDJ9fQpYUztJLDAwMDEsMDAwMkM1MjAx",
                 "footer": "UEMwMDE7MDExMiwwMDIwLDA1LDA1LEgsKzAyLDExLEIKUEMwMDI7MDA2MiwwMDIwLDA1LDA1LEgsKzAyLDExLEIKQwpSQzAwMTt7e2Zvb3Rlcl90ZXh0MX19ClJDMDAyO3t7Zm9vdGVyX3RleHQyfX0KWFM7SSwwMDAxLDAwMDJDNTIwMQpD"
             },
             "uuid": "11111111-2222-3333-4444-555555555555"
@@ -70,7 +70,7 @@ describe "use_the_create_label_printer_action", :label_printer => true do
             }
         ],
         "label_type": "tube labels",
-        "header": "UEMwMDE7MDExMiwwMDIwLDA1LDA1LEgsKzAyLDExLEIKUEMwMDI7MDA2MiwwMDIwLDA1LDA1LEgsKzAyLDExLEIKQwpSQzAwMTt7e2hlYWRlcl90ZXh0MX19ClJDMDAyO3t7aGVhZGVyX3RleHQyfX0KWFM7SSwwMDAxLDAwMDJDNTIwMQ==",
+        "header": "G0QwNDMwLDAzMDAsMDQwMAoAG0FZOyswOCwwCgAbQVg7KzAyMiwrMDAwLCswMAoAG1QyMEMzMgpQQzAwMTswMTEyLDAwMjAsMDUsMDUsSCwrMDIsMTEsQgpQQzAwMjswMDYyLDAwMjAsMDUsMDUsSCwrMDIsMTEsQgpDClJDMDAxO3t7aGVhZGVyX3RleHQxfX0KUkMwMDI7e3toZWFkZXJfdGV4dDJ9fQpYUztJLDAwMDEsMDAwMkM1MjAx",
         "footer": "UEMwMDE7MDExMiwwMDIwLDA1LDA1LEgsKzAyLDExLEIKUEMwMDI7MDA2MiwwMDIwLDA1LDA1LEgsKzAyLDExLEIKQwpSQzAwMTt7e2Zvb3Rlcl90ZXh0MX19ClJDMDAyO3t7Zm9vdGVyX3RleHQyfX0KWFM7SSwwMDAxLDAwMDJDNTIwMQpD"
     }
 }
