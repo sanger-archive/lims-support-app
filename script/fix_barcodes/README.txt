@@ -1,7 +1,7 @@
 This folder contains a script to fix the incorrect barcodes in the barcodes DB table.
-If it finds incorrect barcoddes in the DB, then it is also creates a file,
-which mappes the incorrect ean13 barcode with the coorect one. It also adds the
-correct sanger barcode to an entry.
+If it finds incorrect barcodes in the DB, then it is also creates a file,
+which contains a map between the incorrect ean13 barcode and the correct one.
+It also adds the correct sanger barcode to an entry.
 
 Here is an example of the outcome if you execute this script:
 
