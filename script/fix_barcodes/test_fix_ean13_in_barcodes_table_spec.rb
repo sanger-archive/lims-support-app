@@ -1,9 +1,6 @@
 require 'integrations/spec_helper'
 require 'fix_barcodes/fix_ean13_in_barcodes_table'
 
-require 'rubygems'
-require 'ruby-debug'
-
 module Lims::SupportApp
 
   shared_context "seed barcodes table" do

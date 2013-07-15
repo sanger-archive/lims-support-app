@@ -3,9 +3,6 @@ require 'logger'
 require 'lims-support-app/barcode/barcode'
 require 'fix_barcodes/barcode_mapper_constants'
 
-require 'rubygems'
-require 'ruby-debug'
-
 module Lims::SupportApp
 
   # Opens the Barcode class and override calculate_sanger_barcode_prefix
