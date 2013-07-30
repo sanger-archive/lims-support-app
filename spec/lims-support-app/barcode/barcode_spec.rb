@@ -127,6 +127,15 @@ module Lims::SupportApp
         it {subject.calculate_sanger_barcode_prefix.should == "BL" }
       end
 
+      context "test prefix for sanger barcode and parameters case" do
+        let(:labware) { nil }
+        let(:role) { "StoCk" }
+        let(:contents) { "dna" }
+        subject { Barcode.new(
+          { :labware => labware, :role => role, :contents => contents }) }
+        it {subject.calculate_sanger_barcode_prefix.should == "ND" }
+      end
+
       subject { Barcode.new(creation_parameters)}
 
       context "test sanger_barcode_prefix method - stock tube with DNA" do
