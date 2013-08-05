@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
-  s.require_paths = ["lib", "script"]
+  s.require_paths = ["lib"]
 
   # TODO: s.add_dependency('sinatra', '~> 1.3.2') # But need latest from github so in Gemfile!
   # TODO: s.add_dependency('lims-core')  it is in Gemfile because on github

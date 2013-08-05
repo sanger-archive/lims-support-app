@@ -1,7 +1,7 @@
 require 'sequel'
 require 'logger'
 require 'lims-support-app/barcode/barcode'
-require 'fix_barcodes/barcode_mapper_constants'
+require(File.expand_path("../barcode_mapper_constants", __FILE__))
 
 module Lims::SupportApp
 
@@ -43,7 +43,7 @@ module Lims::SupportApp
     end
 
     def init_db
-      connection_string = @options[:db] || "sqlite:///Users/ke4/projects/lims-support-app/test.db"
+      connection_string = @options[:db]
       @db = Sequel.connect(connection_string, :loggers => Loggers)
       @barcodes_table = @db[:barcodes]
     end

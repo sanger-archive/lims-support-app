@@ -1,5 +1,5 @@
 require 'integrations/spec_helper'
-require 'fix_barcodes/fix_ean13_in_barcodes_table'
+require(File.expand_path("../fix_ean13_in_barcodes_table", __FILE__))
 
 module Lims::SupportApp
 
