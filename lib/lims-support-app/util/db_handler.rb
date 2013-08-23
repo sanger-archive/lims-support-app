@@ -1,4 +1,6 @@
 require 'sequel'
+require 'virtus'
+require 'aequitas'
 
 module Lims::SupportApp
 
@@ -14,10 +16,11 @@ module Lims::SupportApp
       # @param [Hash] cas DB settings
       # @param [Hash] Sequencescape DB settings
       def self.db_initialize(cas_settings, sequenscape_settings, labware_settings)
-        @db_cas = Sequel.connect(cas_settings) unless cas_settings.empty?
-        @db_sequencescape = Sequel.connect(sequenscape_settings) unless sequenscape_settings.empty?
-        @cas_labware = labware_settings["cas"]
-        @sequencescape_labware = labware_settings["sequencescape"]
+        @db_cas                 = Sequel.connect(cas_settings) unless cas_settings.empty?
+        @db_sequencescape       = Sequel.connect(sequenscape_settings) unless sequenscape_settings.empty?
+        @cas_labware            = labware_settings["cas"]
+        @sequencescape_labware  = labware_settings["sequencescape"]
+        @retries                = labware_settings["number_of_retries"]
       end
 
       # Gets the value of the next barcode
@@ -50,8 +53,11 @@ module Lims::SupportApp
       end
 
       def self.barcode_from_cas
+        tries ||= @retries
         results = @db_cas.fetch("SELECT SEQ_DNAPLATE.NEXTVAL AS DNAPLATEID FROM DUAL").all
         results.first[:dnaplateid].to_i.to_s
+      rescue Sequel::DatabaseError
+        retry unless (tries -= 1).zero?
       end
 
       private

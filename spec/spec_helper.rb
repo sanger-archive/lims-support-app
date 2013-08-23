@@ -21,8 +21,11 @@ if env == "test"
     module Util
       class DBHandler
         def self.barcode_from_cas
+          tries ||= @retries
           results = @db_cas.fetch("SELECT SEQ_DNAPLATE.NEXTVAL AS DNAPLATEID FROM SEQ_DNAPLATE").all
           results.first[:DNAPLATEID].to_i.to_s
+        rescue Sequel::DatabaseError
+          retry unless (tries -= 1).zero?
         end
       end
     end
