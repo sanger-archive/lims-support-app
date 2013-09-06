@@ -1,9 +1,9 @@
 GIT
   remote: http://github.com/sanger/lims-api.git
-  revision: 2d3bd76c5a930d5d2f0645770dff837c344562b4
-  branch: master
+  revision: 67b18da64903077eb87c7080613ba815ef4e2ca5
+  branch: uat
   specs:
-    lims-api (2.4.0)
+    lims-api (2.5.0.pre)
       active_support
       bunny (= 0.9.0.pre10)
       json
@@ -12,10 +12,10 @@ GIT
 
 GIT
   remote: http://github.com/sanger/lims-core.git
-  revision: 4a0bb4e7a873552cd7655c3d54eaa1063cecb00f
-  branch: master
+  revision: c5eafa55e733b34be7ffcfd10662e3c766394809
+  branch: uat
   specs:
-    lims-core (2.3.0)
+    lims-core (2.5.0.pre)
       active_support
       aequitas
       bunny (= 0.9.0.pre10)
@@ -28,10 +28,10 @@ GIT
 
 GIT
   remote: http://github.com/sanger/lims-laboratory-app.git
-  revision: b1141948b8584de119e8634eff5ec23ccad024e2
-  branch: master
+  revision: 9f700ad637346bd95aa22cdb92e6842a64814efc
+  branch: uat
   specs:
-    lims-laboratory-app (1.5.3)
+    lims-laboratory-app (2.5.0.pre)
 
 GIT
   remote: http://github.com/sanger/psd_logger.git
@@ -58,7 +58,7 @@ GIT
 PATH
   remote: .
   specs:
-    lims-support-app (0.2.1)
+    lims-support-app (0.3.0.rc1)
       bunny (= 0.9.0.pre10)
       json
       sequel
@@ -125,7 +125,7 @@ GEM
       diff-lcs (~> 1.1.2)
     rspec-mocks (2.8.0)
     ruby-oci8 (2.1.5)
-    sequel (3.48.0)
+    sequel (4.1.1)
     shotgun (0.9)
       rack (>= 1.0)
     slop (3.4.5)
@@ -158,9 +158,9 @@ DEPENDENCIES
   github-markup (~> 0.7.1)
   hashdiff
   jdbc-mysql
-  lims-api (~> 2.4)!
-  lims-core (~> 2.2)!
-  lims-laboratory-app (~> 1.5)!
+  lims-api (~> 2.5.0.pre)!
+  lims-core (~> 2.5.0.pre)!
+  lims-laboratory-app (~> 2.5.0.pre)!
   lims-support-app!
   mustache (~> 0.99.4)!
   mysql2
