@@ -1,9 +1,9 @@
 GIT
   remote: http://github.com/sanger/lims-api.git
-  revision: 210d8826131a359a82a69bb69c1986a54d3cea82
-  branch: master
+  revision: bf74630d9788ce7e7ae797c1230009d8ccc9707b
+  branch: development
   specs:
-    lims-api (2.5.0)
+    lims-api (3.0.0.0.0)
       active_support
       bunny (= 0.9.0.pre10)
       json
@@ -12,15 +12,17 @@ GIT
 
 GIT
   remote: http://github.com/sanger/lims-core.git
-  revision: d5020c3c8bec8e835073894c4518d6ec4e358933
-  branch: master
+  revision: 7c8ba76021448d4ed25883df6851f3c833305f7d
+  branch: development
   specs:
-    lims-core (2.5.0)
+    lims-core (3.0.0.0.0)
       active_support
       aequitas
       bunny (= 0.9.0.pre10)
       dm-validations
       facets (= 2.9.3)
+      modularity
+      oj
       sequel
       state_machine
       uuid
@@ -28,10 +30,10 @@ GIT
 
 GIT
   remote: http://github.com/sanger/lims-laboratory-app.git
-  revision: 5150f37cc690d184df40a607b2d507365d41ea59
-  branch: master
+  revision: 2570843734abf375f8cae476461e20ba30fbd845
+  branch: development
   specs:
-    lims-laboratory-app (2.5.7)
+    lims-laboratory-app (3.0.0)
 
 GIT
   remote: http://github.com/sanger/psd_logger.git
@@ -58,7 +60,7 @@ GIT
 PATH
   remote: .
   specs:
-    lims-support-app (0.3.0)
+    lims-support-app (0.4.0)
       bunny (= 0.9.0.pre10)
       json
       sequel
@@ -104,7 +106,9 @@ GEM
     macaddr (1.6.1)
       systemu (~> 2.5.0)
     method_source (0.8.1)
+    modularity (0.6.1)
     mysql2 (0.3.11)
+    oj (2.1.4)
     pry (0.9.12.2)
       coderay (~> 1.0.5)
       method_source (~> 0.8)
@@ -158,9 +162,9 @@ DEPENDENCIES
   github-markup (~> 0.7.1)
   hashdiff
   jdbc-mysql
-  lims-api (~> 2.5.0)!
-  lims-core (~> 2.5.0)!
-  lims-laboratory-app (~> 2.5.0)!
+  lims-api (~> 3.0.0)!
+  lims-core (~> 3.0.0)!
+  lims-laboratory-app (~> 3.0.0)!
   lims-support-app!
   mustache (~> 0.99.4)!
   mysql2
