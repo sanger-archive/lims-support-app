@@ -1,5 +1,6 @@
 # Model requirements
 require 'lims-support-app/barcode/barcode'
+require 'spec_helper'
 
 module Lims::SupportApp
 
@@ -9,6 +10,39 @@ module Lims::SupportApp
     it {
       subject.sanger_code(sanger_code)
       subject.calculate_ean13.should == ean13_code
+    }
+  end
+
+  shared_examples_for "using new_barcode method" do
+    subject { Barcode.new(
+      { :labware => labware, :role => role, :contents => contents }) }
+    it {
+      subject.sanger_code(Barcode::new_barcode(subject.labware))
+      subject.calculate_ean13.length.should == 13
+    }
+  end
+
+  shared_examples_for "returns unsupported labware exception" do
+    subject { Barcode.new(
+      { :labware => labware, :role => role, :contents => contents }) }
+    it {
+      expect do
+        subject.sanger_code(Barcode::new_barcode(subject.labware)).should
+      end.to raise_error
+    }
+  end
+
+  shared_examples_for "correct ean13 barcode" do |sanger_code, ean13_code|
+    subject {
+      Barcode.any_instance.stub(:calculate_sanger_barcode_prefix).and_return("ND")
+      Barcode.new({ :labware => labware, :role => role, :contents => contents })
+    }
+
+    it {
+      subject.sanger_code(sanger_code)
+      subject.calculate_ean13.should == ean13_code
+      subject.ean13_code = subject.calculate_ean13
+      subject.sanger_barcode_suffix.should == sanger_cheksum
     }
   end
 
@@ -93,6 +127,15 @@ module Lims::SupportApp
         it {subject.calculate_sanger_barcode_prefix.should == "BL" }
       end
 
+      context "test prefix for sanger barcode and parameters case" do
+        let(:labware) { nil }
+        let(:role) { "StoCk" }
+        let(:contents) { "dna" }
+        subject { Barcode.new(
+          { :labware => labware, :role => role, :contents => contents }) }
+        it {subject.calculate_sanger_barcode_prefix.should == "ND" }
+      end
+
       subject { Barcode.new(creation_parameters)}
 
       context "test sanger_barcode_prefix method - stock tube with DNA" do
@@ -144,22 +187,6 @@ module Lims::SupportApp
         it_behaves_like('a valid ean13_code', "5539900", "3825539900846")
       end
 
-      context "test ean13 calculation with prefix and sanger_code 42852" do
-        let(:labware) { nil }
-        let(:role) { "stock" }
-        let(:contents) { "DNA" }
-
-        it_behaves_like('a valid ean13_code', "0042852", "3820042852743")
-      end
-
-      context "test ean13 calculation with prefix and sanger_code 564945" do
-        let(:labware) { nil }
-        let(:role) { "stock" }
-        let(:contents) { "RNA" }
-
-        it_behaves_like('a valid ean13_code', "0564945", "3960564945773")
-      end
-
       context "test ean13 calculation with prefix and sanger_code 6911450" do
         let(:labware) { nil }
         let(:role) { "stock" }
@@ -176,22 +203,70 @@ module Lims::SupportApp
         it_behaves_like('a valid ean13_code', "6981041", "3966981041876")
       end
 
-      context "test ean13 calculation with prefix and sanger_code 310543", :focus => true do
-        let(:labware) { nil }
+      context "test ean13 calculation with CL9027006R" do
+        let(:labware) { "tube" }
         let(:role) { "stock" }
-        let(:contents) { "DNA" }
+        let(:contents) { "cell pellet" }
 
-        it_behaves_like('a valid ean13_code', "0310543", "3820310543823")
+        it_behaves_like('a valid ean13_code', "9027006", "0939027006828")
       end
 
-      context "test ean13 calculation with prefix and sanger_code 462804", :focus => true do
-        let(:labware) { nil }
-        let(:role) { "stock" }
-        let(:contents) { "DNA" }
-
-        it_behaves_like('a valid ean13_code', "0462804", "3820462804773")
+      context "test new_barcode method with a tube" do
+        it_behaves_like('using new_barcode method')
       end
 
+      context "test new_barcode method with a spin column" do
+        let(:labware) { "spin column" }
+        it_behaves_like('using new_barcode method')
+      end
+
+      context "test new_barcode method with a plate" do
+        let(:labware) { "plate" }
+        it_behaves_like('using new_barcode method')
+      end
+
+      context "test new_barcode method with a tube rack" do
+        let(:labware) { "tube rack" }
+        it_behaves_like('using new_barcode method')
+      end
+
+      context "test new_barcode method with a rack" do
+        let(:labware) { "tube_rack" }
+        let(:role) { "stock" }
+        let(:contents) { "RNA" }
+        it_behaves_like('using new_barcode method')
+      end
+
+      context "test new_barcode method with a spin column" do
+        let(:labware) { " spin_column " }
+        let(:role) { "stock" }
+        let(:contents) { "RNA" }
+        it_behaves_like('using new_barcode method')
+      end
+
+      context "test ean13 code", :focus => true do
+        let(:sanger_cheksum) { "D" }
+        it_behaves_like('correct ean13 barcode', "0288261", "3820288261682" )
+      end
+
+      context "test ean13 code", :focus => true do
+        let(:sanger_cheksum) { "D" }
+        it_behaves_like('correct ean13 barcode', "288261", "3820288261682" )
+      end
+
+#      context "test new_barcode method with a rack", :focus => true do
+#        let(:labware) { "tub rack" }
+#        let(:role) { "stock" }
+#        let(:contents) { "RNA" }
+#        it_behaves_like('returns unsupported labware exception')
+#      end
+#
+#      context "test new_barcode method with a spi_column", :focus => true do
+#        let(:labware) { " spi_column " }
+#        let(:role) { "stock" }
+#        let(:contents) { "RNA" }
+#        it_behaves_like('returns unsupported labware exception')
+#      end
     end
   end
 end

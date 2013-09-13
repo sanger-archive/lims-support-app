@@ -40,11 +40,11 @@ describe "read_a_0_padded_barcode_object", :barcode => true do
             "create": "http://example.org/11111111-2222-3333-4444-555555555555"
         },
         "uuid": "11111111-2222-3333-4444-555555555555",
-        "ean13": "3820462804773",
+        "ean13": "3820462804780",
         "sanger": {
             "prefix": "ND",
             "number": "0462804",
-            "suffix": "M"
+            "suffix": "N"
         }
     }
 }

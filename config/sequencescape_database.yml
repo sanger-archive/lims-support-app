@@ -1,0 +1,22 @@
+mysql: &MYSQL
+  adapter: mysql2
+  user: 'root'
+  password: 
+  host: localhost
+  port: 3306
+
+development:
+  <<: *MYSQL
+  database: sequencescape_development
+
+test:
+  <<: *MYSQL
+  database: sequencescape_test
+
+test_ora:
+  <<: *MYSQL
+  database: sequencescape_test
+
+production:
+  <<: *MYSQL
+  database: sequencescape_development
