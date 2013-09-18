@@ -79,9 +79,9 @@ describe "search_for_valid_kit", :kit => true do
     response.body.should match_json <<-EOD
     {
     "actions": {
-        "read": "http://example.org/kits/page=1",
-        "first": "http://example.org/kits/page=1",
-        "last": "http://example.org/kits/page=-1"
+        "read": "http://example.org/11111111-2222-3333-4444-555555555555/page=1",
+        "first": "http://example.org/11111111-2222-3333-4444-555555555555/page=1",
+        "last": "http://example.org/11111111-2222-3333-4444-555555555555/page=-1"
     },
     "size": 1,
     "kits": [
