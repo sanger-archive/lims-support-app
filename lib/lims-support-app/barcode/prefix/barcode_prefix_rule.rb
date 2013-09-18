@@ -10,14 +10,15 @@ module Lims::SupportApp
       attr_reader :prefix
 
       def match(labware_triple)
-        matchField(labware_triple, :labware) && matchField(labware_triple, :role) && matchField(labware_triple, :contents)
+        match_field(labware_triple, :labware) && match_field(labware_triple, :role) && match_field(labware_triple, :contents)
       end
 
-      def matchField(labware_triple, field)
+      def match_field(labware_triple, field)
         value = instance_variable_get("@#{field}")
-        value.nil? or labware_triple.send(field) == value
+        value_to_match = labware_triple.send(field)
+        value.nil? or value.downcase == (value_to_match ? value_to_match.downcase : nil)
       end
-      private :matchField
+      private :match_field
     end
   end
 end

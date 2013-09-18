@@ -6,6 +6,10 @@ test:
   adapter: sqlite
   database: test.db
 
+test_ora:
+  adapter: sqlite
+  database: test.db
+
 development__:
   adapter: mysql2
   encoding: utf8

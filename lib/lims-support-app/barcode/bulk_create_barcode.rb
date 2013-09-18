@@ -15,7 +15,13 @@ module Lims::SupportApp
       attribute :number_of_barcodes, Numeric, :required => true, :writer => :private
 
       def _call_in_session(session)
-        create_barcode(labware, role, contents, session, number_of_barcodes)
+        barcodes = []
+        number_of_barcodes.times do
+          barcode = create_barcode(labware, role, contents, session)[:barcode]
+          barcodes << barcode
+        end
+
+        { :barcodes => barcodes }
       end
     end
   end

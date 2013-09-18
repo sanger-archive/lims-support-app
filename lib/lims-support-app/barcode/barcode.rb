@@ -2,6 +2,7 @@ require 'lims-core/resource'
 
 require 'lims-support-app/barcode/prefix/barcode_prefixes'
 require 'lims-support-app/barcode/prefix/labware_triple'
+require 'lims-support-app/util/db_handler'
 
 module Lims::SupportApp
 
@@ -66,7 +67,7 @@ module Lims::SupportApp
     # This method returns a generated number-like string with 7 digits (padded with '0')
     # @return [String] the generated sanger code
     def sanger_code(new_barcode)
-      @generated_sanger_code = ("%07d" % new_barcode.to_i)
+      @generated_sanger_code = new_barcode.to_i.to_s
     end
 
     # This method retrieve and returns the stored number-like string with 7 digits (padded with '0')
@@ -97,8 +98,8 @@ module Lims::SupportApp
     # if its length is less, then we will pad it with '0' characters
     # It returns a String like '0056349'
     # @return [String] a generated number-like string with 7 digits
-    def self.new_barcode
-      ('%07d' % 7.times.map { Random.rand(10) }.join.to_i)
+    def self.new_barcode(labware)
+      Util::DBHandler.next_barcode(labware)
     end
 
     #=== EAN13 Barcode Calculation begins===
@@ -108,7 +109,8 @@ module Lims::SupportApp
     # (joining the sanger prefix, sanger code and sanger suffix in one string)
     # @return [String] an ean13 version of the sanger barcode
     def ean13_barcode(sanger_barcode_full)
-      sanger_barcode_full * 10 + Barcode::calculate_ean13_checksum(sanger_barcode_full.to_s)
+      ean13 = sanger_barcode_full * 10 + Barcode::calculate_ean13_checksum(sanger_barcode_full.to_s)
+      ("%013d" % ean13)
     end
 
     # The checksum is calculated taking a varying weight value times the value
