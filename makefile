@@ -8,6 +8,13 @@ migrate_dev_n:
 	bundle exec sequel -m $(SUPPORT_APP_PATH)/db/migrations -e development config/database.yml
 migrate_test:
 	bundle exec sequel -m $(SUPPORT_APP_PATH)/db/migrations -e test config/database.yml
+	mysql -uroot -p -e "DROP DATABASE IF EXISTS sequencescape_test; CREATE DATABASE sequencescape_test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;"
+	bundle exec sequel -m $(SUPPORT_APP_PATH)/spec/db/sequencescape_migrations -e test config/sequencescape_database.yml
+	bundle exec sequel -m $(SUPPORT_APP_PATH)/spec/db/cap_migrations -e test config/cas_database.yml
+migrate_test_ora:
+	bundle exec sequel -m $(SUPPORT_APP_PATH)/db/migrations -e test config/database.yml
+	mysql -uroot -p -e "DROP DATABASE IF EXISTS sequencescape_test; CREATE DATABASE sequencescape_test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;"
+	bundle exec sequel -m $(SUPPORT_APP_PATH)/spec/db/sequencescape_migrations -e test config/sequencescape_database.yml
 migrate_dev:
 	bundle exec sequel -m $(SUPPORT_APP_PATH)/db/migrations -e development config/database.yml
 serve:

@@ -5,15 +5,21 @@ gemspec
 
 gem "mustache", "~> 0.99.4", :git => 'https://github.com/defunkt/mustache'
 gem 'sinatra', :git => 'http://github.com/sinatra/sinatra.git', :branch => '459369eb66224836f72e21bbece58c007f3422fa'
-gem 'lims-core', '~>2.1', :git => 'http://github.com/sanger/lims-core.git', :branch => 'development'
+gem 'lims-core', '~>2.5.0', :git => 'http://github.com/sanger/lims-core.git', :branch => 'master'
 # gem 'lims-core', '~>2.0.0', :path => '../lims-core'
-gem 'lims-api', '~>2.2', :git => 'http://github.com/sanger/lims-api.git', :branch => 'development'
+gem 'lims-api', '~>2.5.0', :git => 'http://github.com/sanger/lims-api.git', :branch => 'master'
 # gem 'lims-api', '~>2.0.0', :path => '../lims-api'
-gem 'lims-laboratory-app', '~>1.2', :git => 'http://github.com/sanger/lims-laboratory-app.git', :branch => 'development'
+gem 'lims-laboratory-app', '~>2.5.0', :git => 'http://github.com/sanger/lims-laboratory-app.git', :branch => 'master'
+#gem 'lims-laboratory-app', '~>1.5', :path => '../lims-laboratory-app'
 
 group :development do
   gem 'redcarpet', '~> 2.1.0', :platforms => :mri
   gem 'sqlite3', :platforms => :mri
+  gem 'mysql2', :platforms => :mri
+end
+
+group :oracle do
+  gem 'ruby-oci8', :platforms => :mri
 end
 
 group :debugger do

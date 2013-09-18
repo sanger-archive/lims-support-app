@@ -1,0 +1,27 @@
+test:
+  adapter: sqlite
+  database: cas_test.db
+
+test_ora:
+  adapter: oracle
+  host: 'ocs22-scan'
+  port: 1521
+  username: 'dev_ke4'
+  password: 'ke4'
+  database: 'cend'
+
+development:
+  adapter: oracle
+  host: 'ocs22-scan'
+  port: 1521
+  username: 'dev_ke4'
+  password: 'ke4'
+  database: 'cend'
+
+production:
+  adapter: oracle
+  host: 'ocs23-scan'
+  port: 1521
+  username: 'read_only'
+  password: 'read_only'
+  database: 'casp'
