@@ -12,7 +12,7 @@ module Lims::SupportApp
       it_behaves_like "an action"
 
       it "creates barcode objects" do
-        Lims::Core::Persistence::Session.any_instance.should_receive(:save)
+        Lims::Core::Persistence::Session.any_instance.should_receive(:save_all)
         result = subject.call
         barcodes = result[:barcodes]
         barcodes.should be_a(Array)
