@@ -1,4 +1,4 @@
-development:
+development_sqlite:
   adapter: sqlite
   database: dev.db
 
@@ -10,14 +10,20 @@ test_ora:
   adapter: sqlite
   database: test.db
 
-development__:
+development_mysql:
   adapter: mysql2
   encoding: utf8
   charset: utf8
-  database: development
+  database: support_development
   username: root
-  password:
+  password: root
   socket: /tmp/mysql.sock
+
+development_jdbc:
+  adapter: jdbc
+  encoding: utf8
+  charset: utf8
+  url: mysql://localhost/support_development?user=root&password=
 
 test__:
   adapter: mysql2
