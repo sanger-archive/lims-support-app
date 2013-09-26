@@ -4,12 +4,14 @@ module Lims::SupportApp
   class Barcode
     module CreateActionShared
 
-      def create_barcode(labware, role, contents, session)
+      def new_barcode_instance(labware, role, contents)
         barcode = Lims::SupportApp::Barcode.new(
-          :labware  => labware,
-          :role     => role,
-          :contents => contents)
+                  :labware  => labware,
+                  :role     => role,
+                  :contents => contents)
+      end
 
+      def populate_barcode(labware, barcode, session)
         barcode.sanger_code(Barcode::new_barcode(labware))
 
         barcode.ean13_code = barcode.calculate_ean13

@@ -16,9 +16,10 @@ module Lims::SupportApp
 
       def _call_in_session(session)
         barcodes = []
-        number_of_barcodes.times do
-          barcode = create_barcode(labware, role, contents, session)[:barcode]
-          barcodes << barcode
+        empty_barcode = new_barcode_instance(labware, role, contents)
+        number_of_barcodes.times do |nb|
+          barcode = empty_barcode.clone
+          barcodes << populate_barcode(labware, barcode, session)[:barcode]
         end
 
         { :barcodes => barcodes }

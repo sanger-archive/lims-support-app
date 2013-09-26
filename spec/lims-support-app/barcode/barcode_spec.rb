@@ -5,8 +5,6 @@ require 'spec_helper'
 module Lims::SupportApp
 
   shared_examples_for "a valid ean13_code" do |sanger_code, ean13_code|
-    subject { Barcode.new(
-      { :labware => labware, :role => role, :contents => contents }) }
     it {
       subject.sanger_code(sanger_code)
       subject.calculate_ean13.should == ean13_code
@@ -14,30 +12,13 @@ module Lims::SupportApp
   end
 
   shared_examples_for "using new_barcode method" do
-    subject { Barcode.new(
-      { :labware => labware, :role => role, :contents => contents }) }
     it {
       subject.sanger_code(Barcode::new_barcode(subject.labware))
       subject.calculate_ean13.length.should == 13
     }
   end
 
-  shared_examples_for "returns unsupported labware exception" do
-    subject { Barcode.new(
-      { :labware => labware, :role => role, :contents => contents }) }
-    it {
-      expect do
-        subject.sanger_code(Barcode::new_barcode(subject.labware)).should
-      end.to raise_error
-    }
-  end
-
   shared_examples_for "correct ean13 barcode" do |sanger_code, ean13_code|
-    subject {
-      Barcode.any_instance.stub(:calculate_sanger_barcode_prefix).and_return("ND")
-      Barcode.new({ :labware => labware, :role => role, :contents => contents })
-    }
-
     it {
       subject.sanger_code(sanger_code)
       subject.calculate_ean13.should == ean13_code
@@ -98,11 +79,12 @@ module Lims::SupportApp
 
     context "invalid" do
       subject { Barcode.new(creation_parameters)}
+      let(:labware) { "gel_test" }
+      let(:role) { "gel plate test" }
+      let(:contents) { "DNA test" }
 
-      it "ean13 code can't be nil in a corretly setup barcode object" do
-        expect do
-          subject.sanger_barcode_prefix.should
-        end.to raise_error(Barcode::InvalidBarcodeError)
+      it "unsupported parameter triplet results '??' prefix" do
+        subject.prefix_from_rule.should == '??'
       end
     end
 
@@ -113,34 +95,26 @@ module Lims::SupportApp
         let(:labware) { "gel" }
         let(:role) { "gel plate" }
         let(:contents) { "DNA" }
-        subject { Barcode.new(
-          { :labware => labware, :role => role, :contents => contents }) }
-        it {subject.calculate_sanger_barcode_prefix.should == "GD" }
+        it { subject.prefix_from_rule.should == "GD" }
       end
 
       context "test prefix for sanger barcode - blood" do
         let(:labware) { nil }
         let(:role) { "stock" }
         let(:contents) { "blood" }
-        subject { Barcode.new(
-          { :labware => labware, :role => role, :contents => contents }) }
-        it {subject.calculate_sanger_barcode_prefix.should == "BL" }
+        it {subject.prefix_from_rule.should == "BL" }
       end
 
       context "test prefix for sanger barcode and parameters case" do
         let(:labware) { nil }
         let(:role) { "StoCk" }
         let(:contents) { "dna" }
-        subject { Barcode.new(
-          { :labware => labware, :role => role, :contents => contents }) }
-        it {subject.calculate_sanger_barcode_prefix.should == "ND" }
+        it {subject.prefix_from_rule.should == "ND" }
       end
-
-      subject { Barcode.new(creation_parameters)}
 
       context "test sanger_barcode_prefix method - stock tube with DNA" do
         it {
-          subject.calculate_sanger_barcode_prefix.should == "JD"
+          subject.prefix_from_rule.should == "JD"
         }
       end
 
@@ -244,28 +218,14 @@ module Lims::SupportApp
         it_behaves_like('using new_barcode method')
       end
 
-      context "test ean13 code", :focus => true do
-        let(:sanger_cheksum) { "D" }
-        it_behaves_like('correct ean13 barcode', "0288261", "3820288261682" )
-      end
-
-      context "test ean13 code", :focus => true do
-        let(:sanger_cheksum) { "D" }
-        it_behaves_like('correct ean13 barcode', "288261", "3820288261682" )
-      end
-
-#      context "test new_barcode method with a rack", :focus => true do
-#        let(:labware) { "tub rack" }
-#        let(:role) { "stock" }
-#        let(:contents) { "RNA" }
-#        it_behaves_like('returns unsupported labware exception')
+#      context "test ean13 code", :focus => true do
+#        let(:sanger_cheksum) { "D" }
+#        it_behaves_like('correct ean13 barcode', "0288261", "3820288261682" )
 #      end
 #
-#      context "test new_barcode method with a spi_column", :focus => true do
-#        let(:labware) { " spi_column " }
-#        let(:role) { "stock" }
-#        let(:contents) { "RNA" }
-#        it_behaves_like('returns unsupported labware exception')
+#      context "test ean13 code", :focus => true do
+#        let(:sanger_cheksum) { "D" }
+#        it_behaves_like('correct ean13 barcode', "288261", "3820288261682" )
 #      end
     end
   end

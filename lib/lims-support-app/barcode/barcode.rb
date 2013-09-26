@@ -31,6 +31,7 @@ module Lims::SupportApp
 
     def initialize(*args, &block)
       super(*args, &block)
+      calculate_sanger_barcode_prefix(labware, role, contents)
     end
 
     # This method returns an ean13 type barcode
@@ -44,13 +45,14 @@ module Lims::SupportApp
     # @param [String] the role of the labware (like 'stock')
     # @param [String] the type of the aliquot the labware contains (DNA, RNA etc...)
     # @return [String] the prefix of sanger barcode
-    def calculate_sanger_barcode_prefix
+    def calculate_sanger_barcode_prefix(labware, role, contents)
       labware_triple = BarcodePrefix::LabwareTriple.new(labware, role, contents)
       prefix_rule = BarcodePrefix::BarcodePrefixes.instance.prefixes.find do |rule|
         rule.match(labware_triple)
       end
       @prefix_from_rule = prefix_rule.prefix
     end
+    private :calculate_sanger_barcode_prefix
 
     # This method returns the prefix of a stored sanger barcode
     # @return [String] the prefix of sanger barcode
@@ -81,7 +83,7 @@ module Lims::SupportApp
     # This method calculates the suffix of sanger barcode
     # @return [String] the suffix of sanger barcode
     def calculate_sanger_barcode_suffix
-      calculate_sanger_barcode_checksum(calculate_sanger_barcode_prefix, @generated_sanger_code)
+      calculate_sanger_barcode_checksum(@prefix_from_rule, @generated_sanger_code)
     end
 
     # This method returns the stored suffix of sanger barcode
@@ -142,7 +144,7 @@ module Lims::SupportApp
     # @param [String] a generated number-like string with 7 digits
     # @return [String] an assambled sanger barcode
     def sanger_barcode_full(sanger_code)
-      calculate_sanger_barcode(calculate_sanger_barcode_prefix, sanger_code)
+      calculate_sanger_barcode(@prefix_from_rule, sanger_code)
     end
 
     # This method generates a sanger-barcode into one string

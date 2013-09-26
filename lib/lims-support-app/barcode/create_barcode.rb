@@ -14,7 +14,10 @@ module Lims::SupportApp
       attribute :contents, String, :required => true, :writer => :private
 
       def _call_in_session(session)
-        create_barcode(labware, role, contents, session)
+        populate_barcode(
+          labware,
+          new_barcode_instance(labware, role, contents),
+          session)
       end
     end
   end
