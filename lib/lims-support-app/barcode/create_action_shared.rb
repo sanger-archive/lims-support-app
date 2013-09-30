@@ -1,25 +1,25 @@
 require 'lims-support-app/barcode/barcode'
+require 'lims-support-app/barcode/barcode_factory'
 
 module Lims::SupportApp
   class Barcode
     module CreateActionShared
 
-      def new_barcode_instance(labware, role, contents)
-        barcode = Lims::SupportApp::Barcode.new(
-                  :labware  => labware,
-                  :role     => role,
-                  :contents => contents)
+      def barcode_factory(labware, role, contents)
+        Barcode::BarcodeFactory.new(
+          :labware  => labware,
+          :role     => role,
+          :contents => contents)
       end
 
-      def populate_barcode(labware, barcode, session)
-        barcode.sanger_code(Barcode::new_barcode(labware))
-
-        barcode.ean13_code = barcode.calculate_ean13
+      def create_barcode(factory, session)
+        barcode = factory.create_barcode
 
         session << barcode
 
         { :barcode => barcode, :uuid => session.uuid_for!(barcode) }
       end
+
     end
   end
 end

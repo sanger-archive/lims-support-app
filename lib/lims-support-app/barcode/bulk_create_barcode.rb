@@ -2,6 +2,7 @@ require 'lims-core/actions/action'
 
 require 'lims-support-app/barcode/barcode'
 require 'lims-support-app/barcode/create_action_shared'
+require 'lims-support-app/barcode/barcode_factory'
 
 module Lims::SupportApp
   class Barcode
@@ -16,10 +17,9 @@ module Lims::SupportApp
 
       def _call_in_session(session)
         barcodes = []
-        empty_barcode = new_barcode_instance(labware, role, contents)
+        barcode_factory = barcode_factory(labware, role, contents)
         number_of_barcodes.times do |nb|
-          barcode = empty_barcode.clone
-          barcodes << populate_barcode(labware, barcode, session)[:barcode]
+          barcodes << create_barcode(barcode_factory, session)[:barcode]
         end
 
         { :barcodes => barcodes }
