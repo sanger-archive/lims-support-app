@@ -25,7 +25,6 @@ module Lims::SupportApp
       attribute :labware, String, :required => true, :writer => :private, :initializable => true
       attribute :role, String, :required => true, :writer => :private, :initializable => true
       attribute :contents, String, :required => true, :writer => :private, :initializable => true
-#      attribute :ean13_code, String, :writer => :private
   
       attr_reader :prefix_from_rule
       attr_reader :generated_sanger_code
@@ -44,7 +43,7 @@ module Lims::SupportApp
 
       def create_barcode
         # This call returns a generated number-like string
-        @generated_sanger_code = BarcodeFactory::new_barcode(labware).to_i.to_s
+        @generated_sanger_code = Barcode::BarcodeFactory::new_barcode(labware).to_i.to_s
         ean13_code = calculate_ean13
 
         Lims::SupportApp::Barcode.new(
@@ -78,47 +77,13 @@ module Lims::SupportApp
 #        @prefix_from_rule
       end
       private :calculate_sanger_barcode_prefix
-  
-#      # This method returns the prefix of a stored sanger barcode
-#      # @return [String] the prefix of sanger barcode
-#      def sanger_barcode_prefix
-#        if @prefix_from_rule.nil?
-#          barcode_to_human(@ean13_code)
-#          raise InvalidBarcodeError, "Barcode's prefix can't be nil." if @sanger_prefix.nil?
-#          @sanger_prefix
-#        else
-#          @prefix_from_rule
-#        end
-#      end
-  
-      
-#      # @return [String] the generated sanger code
-#      def sanger_code(new_barcode)
-#        new_barcode.to_i.to_s
-#      end
-  
-#      # This method retrieve and returns the stored number-like string with 7 digits (padded with '0')
-#      # @return [String] the stored sanger code
-#      def sanger_barcode
-#        barcode_to_human(@ean13_code) if @sanger_code_str.nil?
-#        raise InvalidBarcodeError, "Barcode's sanger code can't be nil." if @sanger_code_str.nil?
-#        @sanger_code_str
-#      end
-  
+
       # This method calculates the suffix of sanger barcode
       # @return [String] the suffix of sanger barcode
       def calculate_sanger_barcode_suffix
         calculate_sanger_barcode_checksum(@prefix_from_rule, @generated_sanger_code)
       end
-  
-#      # This method returns the stored suffix of sanger barcode
-#      # @return [String] the suffix of sanger barcode
-#      def sanger_barcode_suffix
-#        barcode_to_human(@ean13_code) if @sanger_suffix.nil?
-#        raise InvalidBarcodeError, "Barcode's suffix can't be nil." if @sanger_suffix.nil?
-#        @sanger_suffix
-#      end
-  
+
       # TODO ke4 This is just a temporary solution
       # This is generating a random number with 7 digits
       # This random 'number' should be 7 digit long,
@@ -181,41 +146,7 @@ module Lims::SupportApp
         end
         return (sum % 23 + "A".ord).chr
       end
-  
-#      # This method splits the ean13 typed barcode to its prefix, sanger code
-#      # and suffix parts. Both of them are in numeric forms.
-#      # @return [Array] the ean13 barcode's prefix, sanger code
-#      # and suffix in numeric form.
-#      def split_barcode(sanger_barcode_full)
-#        sanger_barcode_full = sanger_barcode_full.to_s
-#        if sanger_barcode_full.size > 11 && sanger_barcode_full.size < 14
-#          # Pad with zeros
-#          while sanger_barcode_full.size < 13
-#            sanger_barcode_full = "0" + sanger_barcode_full
-#          end
-#        end
-#        if /^(...)(.*)(..)(.)$/ =~ sanger_barcode_full
-#          prefix, number, check, printer_check = $1, $2, $3, $4
-#        end
-#        [prefix, number.to_i, check.to_i]
-#      end
-  
-#      # This method converts the ean13 barcode's numeric form
-#      # to a human readable form.
-#      def barcode_to_human(code)
-#        raise InvalidBarcodeError, "An existing barcode object should contain an ean13 type code." if code.nil?
-#        prefix, number, suffix = split_barcode(code)
-#        @sanger_code_str = "%07d" % number.to_s
-#        @sanger_suffix = suffix.chr
-#        @sanger_prefix = prefix_to_human(prefix)
-#      end
-  
-#      # This method converts the barcode's prefix from numerical form to
-#      # two characters form.
-#      def prefix_to_human(prefix)
-#        human_prefix = ((prefix.to_i/27)+64).chr + ((prefix.to_i%27)+64).chr
-#      end
-  
+
       # This methods convert the textual prefix to numerical value
       # @param [String] the prefix of sanger barcode
       # @return [String] the prefix converted into numerical value
