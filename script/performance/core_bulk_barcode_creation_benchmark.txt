@@ -1,0 +1,16 @@
+CORE benchmarking - before rule refactoring
+                    user        system      total        real
+100 barcodes:       0.220000   0.020000   0.240000 (  0.456154)
+500 barcodes:       1.170000   0.060000   1.230000 (  1.922354)
+1000 barcodes:      2.320000   0.120000   2.440000 (  3.771967)
+5000 barcodes:      11.070000  0.570000  11.640000 ( 17.710667)
+10000 barcodes:     22.350000  1.110000  23.460000 ( 35.395878)
+
+CORE benchmarking - after rule refactoring
+                    user        system      total        real
+100 barcodes:       0.190000   0.020000   0.210000 (  0.370864)
+500 barcodes:       1.010000   0.050000   1.060000 (  1.665452)
+1000 barcodes:      1.880000   0.100000   1.980000 (  3.022025)
+5000 barcodes:      9.250000   0.500000   9.750000 ( 15.235661)
+10000 barcodes:     18.390000   0.950000  19.340000 ( 29.364799)
+

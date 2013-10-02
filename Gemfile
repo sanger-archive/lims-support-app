@@ -16,6 +16,7 @@ group :development do
   gem 'redcarpet', '~> 2.1.0', :platforms => :mri
   gem 'sqlite3', :platforms => :mri
   gem 'mysql2', :platforms => :mri
+  gem 'rest-client', :platforms => :mri
 end
 
 group :oracle do

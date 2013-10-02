@@ -6,6 +6,11 @@ migrate_test_n:
 migrate_dev_n:
 	mysql -uroot -p -e "DROP DATABASE IF EXISTS development; CREATE DATABASE development DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;"
 	bundle exec sequel -m $(SUPPORT_APP_PATH)/db/migrations -e development config/database.yml
+migrate_dev_mysql:
+	mysql -uroot -p -e "DROP DATABASE IF EXISTS support_development; CREATE DATABASE support_development DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;"
+	bundle exec sequel -m $(SUPPORT_APP_PATH)/db/migrations -e development_mysql config/database.yml
+	mysql -uroot -p -e "DROP DATABASE IF EXISTS sequencescape_development; CREATE DATABASE sequencescape_development DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;"
+	bundle exec sequel -m $(SUPPORT_APP_PATH)/spec/db/sequencescape_migrations -e development config/sequencescape_database.yml
 migrate_test:
 	bundle exec sequel -m $(SUPPORT_APP_PATH)/db/migrations -e test config/database.yml
 	mysql -uroot -p -e "DROP DATABASE IF EXISTS sequencescape_test; CREATE DATABASE sequencescape_test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;"
@@ -15,7 +20,7 @@ migrate_test_ora:
 	bundle exec sequel -m $(SUPPORT_APP_PATH)/db/migrations -e test config/database.yml
 	mysql -uroot -p -e "DROP DATABASE IF EXISTS sequencescape_test; CREATE DATABASE sequencescape_test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;"
 	bundle exec sequel -m $(SUPPORT_APP_PATH)/spec/db/sequencescape_migrations -e test config/sequencescape_database.yml
-migrate_dev:
+migrate_dev_sqlite:
 	bundle exec sequel -m $(SUPPORT_APP_PATH)/db/migrations -e development config/database.yml
 serve:
 	bundle exec rackup

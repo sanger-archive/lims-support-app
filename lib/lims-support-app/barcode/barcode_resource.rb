@@ -26,7 +26,7 @@ module Lims::SupportApp
         include Lims::Api::CoreResource::Encoder
 
         def status
-          if object.object.prefix_from_rule == '??'
+          if object.object.sanger_barcode_prefix == '??'
             400
           else
             200

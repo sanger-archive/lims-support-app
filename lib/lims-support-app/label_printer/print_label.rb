@@ -118,7 +118,7 @@ module Lims::SupportApp
       end
 
       def validate_ean13_barcode(ean13)
-        ean13.size == 13 && Barcode::calculate_ean13_checksum(ean13.chop) == ean13[ean13.size-1].to_i
+        ean13.size == 13 && BarcodeUtils::calculate_ean13_checksum(ean13.chop) == ean13[ean13.size-1].to_i
       end
 
       def template_to_fill(name)

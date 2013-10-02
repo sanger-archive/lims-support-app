@@ -2,6 +2,7 @@ require 'lims-support-app/barcode/bulk_create_barcode'
 require 'lims-support-app/barcode/barcode'
 require 'lims-core/persistence/store'
 require 'lims-support-app/spec_helper'
+require 'spec_helper'
 
 module Lims::SupportApp
   describe Barcode::BulkCreateBarcode do
