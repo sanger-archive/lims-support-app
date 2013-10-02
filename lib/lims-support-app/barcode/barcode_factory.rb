@@ -9,8 +9,8 @@ require 'lims-support-app/barcode/barcode_utils'
 
 module Lims::SupportApp
 
-  # A Barcode object is containing the sanger and ean13 type barcode
-  # for a labware (like a tube, plate etc...).
+  # This is the BarcodeFactory class. We can create a new insatnce of the barcode
+  # object with the create_barcode method.
   # It has the following parameters:
   # `labware` the specific labware the barcode relates to (tube, plate etc..)
   # `role` the role of the labware (like 'stock')
@@ -25,41 +25,36 @@ module Lims::SupportApp
       attribute :labware, String, :required => true, :writer => :private, :initializable => true
       attribute :role, String, :required => true, :writer => :private, :initializable => true
       attribute :contents, String, :required => true, :writer => :private, :initializable => true
-  
-      attr_reader :prefix_from_rule
-      attr_reader :generated_sanger_code
-  
-      # InvalidBarcodeError exception raised if a barcode is not valid.
-      # It can happen if the prefix, sanger code or the suffix is nil.
-      class InvalidBarcodeError < StandardError
-      end
 
-      InvalidBarcodeParameterError = Class.new(Lims::Core::Actions::Action::InvalidParameters)
-  
+      attr_reader :prefix_from_rule
+
       def initialize(*args, &block)
         super(*args, &block)
         calculate_sanger_barcode_prefix(labware, role, contents)
       end
 
       def create_barcode
-        # This call returns a generated number-like string
-        @generated_sanger_code = Barcode::BarcodeFactory::new_barcode(labware).to_i.to_s
         ean13_code = calculate_ean13
 
         Lims::SupportApp::Barcode.new(
           :labware                => labware,
           :role                   => role,
           :contents               => contents,
-          :sanger_barcode_prefix  => @prefix_from_rule, #BarcodeUtils::sanger_barcode_prefix(ean13_code)
+          :sanger_barcode_prefix  => @prefix_from_rule,
           :sanger_barcode         => BarcodeUtils::sanger_barcode(ean13_code),
-          :sanger_barcode_suffix  => BarcodeUtils::sanger_barcode_suffix(ean13_code), #@sanger_suffix,
+          :sanger_barcode_suffix  => BarcodeUtils::sanger_barcode_suffix(ean13_code),
           :ean13_code             => ean13_code)
       end
+
+
+      private
 
       # This method returns an ean13 type barcode
       # @return [String] an ean13 version of the sanger barcode
       def calculate_ean13
-        ean13_barcode(sanger_barcode_full(@generated_sanger_code)).to_s
+        # This call returns a generated number-like string
+        generated_sanger_code = Barcode::BarcodeFactory::new_barcode(labware).to_i.to_s
+        ean13_barcode(sanger_barcode_full(generated_sanger_code)).to_s
       end
   
       # This method returns the prefix of the sanger barcode based on
@@ -73,22 +68,16 @@ module Lims::SupportApp
           rule.match(labware_triple)
         end
         @prefix_from_rule = prefix_rule.prefix
-#        raise InvalidBarcodeParameterError, "The request cannot be fulfilled due to bad parameter/syntax." if @prefix_from_rule == "??"
-#        @prefix_from_rule
-      end
-      private :calculate_sanger_barcode_prefix
-
-      # This method calculates the suffix of sanger barcode
-      # @return [String] the suffix of sanger barcode
-      def calculate_sanger_barcode_suffix
-        calculate_sanger_barcode_checksum(@prefix_from_rule, @generated_sanger_code)
       end
 
-      # TODO ke4 This is just a temporary solution
-      # This is generating a random number with 7 digits
-      # This random 'number' should be 7 digit long,
+      # This is generating a number with 7 digits which will be the next barcode.
+      # This 'number' should be 7 digit long,
       # if its length is less, then we will pad it with '0' characters
       # It returns a String like '0056349'
+      # The input parameter is a labware. In case of 'plate', 'rack'
+      # gets the value from the CAS DB. In case of 'tube, 'spin column'
+      # gets the value from Sequencescape's DB.
+      # @param [String] labware the type of labware
       # @return [String] a generated number-like string with 7 digits
       def self.new_barcode(labware)
         Util::DBHandler.next_barcode(labware)
@@ -157,7 +146,6 @@ module Lims::SupportApp
         second  = 0 if second < 0
         return ((first * 27) + second) * 1000000000
       end
-      private :prefix_to_number
   
       #=== Sanger Barcode Calculation ends===
     end

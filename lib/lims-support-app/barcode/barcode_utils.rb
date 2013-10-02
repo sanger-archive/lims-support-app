@@ -8,13 +8,9 @@ module Lims::SupportApp
     # This method returns the prefix of a stored sanger barcode
     # @return [String] the prefix of sanger barcode
     def self.sanger_barcode_prefix(ean13_code)
-#      if prefix_from_rule.nil?
-        sanger_code = self.barcode_to_human(ean13_code)
-        raise InvalidBarcodeError, "Barcode's prefix can't be nil." if sanger_code[:sanger_prefix].nil?
-        sanger_code[:sanger_prefix]
-#      else
-#        prefix_from_rule
-#      end
+      sanger_code = self.barcode_to_human(ean13_code)
+      raise InvalidBarcodeError, "Barcode's prefix can't be nil." if sanger_code[:sanger_prefix].nil?
+      sanger_code[:sanger_prefix]
     end
 
     # This method retrieve and returns the stored number-like string with 7 digits (padded with '0')
