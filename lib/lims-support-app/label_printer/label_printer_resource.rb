@@ -8,10 +8,10 @@ module Lims::SupportApp
 
       def content_to_stream(s, mime_type)
         object.attributes.each do |k,v|
+          next if k == :templates
           s.add_key k
           s.add_value v
         end
-
         templates_to_stream(s, mime_type)
       end
 
