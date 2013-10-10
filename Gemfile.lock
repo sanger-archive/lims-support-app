@@ -1,9 +1,9 @@
 GIT
   remote: http://github.com/sanger/lims-api.git
-  revision: 1b732f1d9ea973f2fd44be3428e3941532ae04f7
+  revision: 16a5b92b2340f697418e50c2600e0f79e7d2665b
   branch: development
   specs:
-    lims-api (3.0.0.0.0)
+    lims-api (3.0.0.0.3)
       active_support
       bunny (= 0.9.0.pre10)
       json
@@ -12,17 +12,16 @@ GIT
 
 GIT
   remote: http://github.com/sanger/lims-core.git
-  revision: 378c1b342b50475d8c5c2ac752ffbe22e20794ca
+  revision: 9e9f7867fccee589a589cf0d63416b2011737ea8
   branch: development
   specs:
-    lims-core (3.0.0.1.2)
+    lims-core (3.0.0.3.1)
       active_support
       aequitas
       bunny (= 0.9.0.pre10)
       dm-validations
       facets (= 2.9.3)
       modularity
-      oj
       sequel
       state_machine
       uuid
@@ -30,10 +29,10 @@ GIT
 
 GIT
   remote: http://github.com/sanger/lims-laboratory-app.git
-  revision: 2570843734abf375f8cae476461e20ba30fbd845
+  revision: 80ac8f880b6747094334c7ccef6ce114674a4c84
   branch: development
   specs:
-    lims-laboratory-app (3.0.0)
+    lims-laboratory-app (3.0.5)
 
 GIT
   remote: http://github.com/sanger/psd_logger.git
@@ -60,7 +59,7 @@ GIT
 PATH
   remote: .
   specs:
-    lims-support-app (0.4.0)
+    lims-support-app (0.4.1)
       bunny (= 0.9.0.pre10)
       json
       sequel
@@ -73,7 +72,7 @@ GEM
     activesupport (3.0.0)
     addressable (2.3.5)
     aequitas (0.0.2)
-    amq-protocol (1.7.0)
+    amq-protocol (1.8.0)
     bond (0.4.3)
     bunny (0.9.0.pre10)
       amq-protocol (>= 1.4.0)
@@ -108,7 +107,6 @@ GEM
     method_source (0.8.1)
     modularity (0.6.1)
     mysql2 (0.3.11)
-    oj (2.1.4)
     pry (0.9.12.2)
       coderay (~> 1.0.5)
       method_source (~> 0.8)
@@ -129,7 +127,7 @@ GEM
       diff-lcs (~> 1.1.2)
     rspec-mocks (2.8.0)
     ruby-oci8 (2.1.5)
-    sequel (4.2.0)
+    sequel (4.3.0)
     shotgun (0.9)
       rack (>= 1.0)
     slop (3.4.5)
