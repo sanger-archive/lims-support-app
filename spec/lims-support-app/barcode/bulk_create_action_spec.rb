@@ -2,6 +2,7 @@ require 'lims-support-app/barcode/bulk_create_barcode'
 require 'lims-support-app/barcode/barcode'
 require 'lims-core/persistence/store'
 require 'lims-support-app/spec_helper'
+require 'spec_helper'
 
 module Lims::SupportApp
   describe Barcode::BulkCreateBarcode do
@@ -11,7 +12,7 @@ module Lims::SupportApp
       it_behaves_like "an action"
 
       it "creates barcode objects" do
-        Lims::Core::Persistence::Session.any_instance.should_receive(:save)
+        Lims::Core::Persistence::Session.any_instance.should_receive(:save_all)
         result = subject.call
         barcodes = result[:barcodes]
         barcodes.should be_a(Array)
