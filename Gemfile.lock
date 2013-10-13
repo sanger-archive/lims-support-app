@@ -1,9 +1,9 @@
 GIT
   remote: http://github.com/sanger/lims-api.git
-  revision: 16a5b92b2340f697418e50c2600e0f79e7d2665b
-  branch: development
+  revision: 73870c86a3e9e4158d73d57375b83160b4ebb05a
+  branch: uat
   specs:
-    lims-api (3.0.0.0.3)
+    lims-api (3.0.1.rc1)
       active_support
       bunny (= 0.9.0.pre10)
       json
@@ -12,10 +12,10 @@ GIT
 
 GIT
   remote: http://github.com/sanger/lims-core.git
-  revision: 9e9f7867fccee589a589cf0d63416b2011737ea8
-  branch: development
+  revision: bc263264c56d16e5edf5141d5fa26b033e548fab
+  branch: uat
   specs:
-    lims-core (3.0.0.3.1)
+    lims-core (3.0.0.rc1)
       active_support
       aequitas
       bunny (= 0.9.0.pre10)
@@ -29,10 +29,10 @@ GIT
 
 GIT
   remote: http://github.com/sanger/lims-laboratory-app.git
-  revision: 80ac8f880b6747094334c7ccef6ce114674a4c84
-  branch: development
+  revision: d78b5a213aed3d2a890dd3d8e5786cf7d8167926
+  branch: uat
   specs:
-    lims-laboratory-app (3.0.5)
+    lims-laboratory-app (3.0.6.rc1)
 
 GIT
   remote: http://github.com/sanger/psd_logger.git
@@ -59,7 +59,7 @@ GIT
 PATH
   remote: .
   specs:
-    lims-support-app (0.4.1)
+    lims-support-app (0.4.1.rc1)
       bunny (= 0.9.0.pre10)
       json
       sequel
@@ -160,9 +160,9 @@ DEPENDENCIES
   github-markup (~> 0.7.1)
   hashdiff
   jdbc-mysql
-  lims-api (~> 3.0.0)!
-  lims-core (~> 3.0.0)!
-  lims-laboratory-app (~> 3.0.0)!
+  lims-api (~> 3.0.1.rc1)!
+  lims-core (~> 3.0.0.rc1)!
+  lims-laboratory-app (~> 3.0.6.rc1)!
   lims-support-app!
   mustache (~> 0.99.4)!
   mysql2

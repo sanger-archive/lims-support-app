@@ -9,7 +9,7 @@ gem 'lims-core', '~>3.0.0.rc1', :git => 'http://github.com/sanger/lims-core.git'
 #gem 'lims-core', '~>3.0.0', :path => '../lims-core'
 gem 'lims-api', '~>3.0.1.rc1', :git => 'http://github.com/sanger/lims-api.git', :branch => 'uat'
 #gem 'lims-api', '~>3.0.0', :path => '../lims-api'
-gem 'lims-laboratory-app', '~>3.0.0.rc1', :git => 'http://github.com/sanger/lims-laboratory-app.git', :branch => 'uat'
+gem 'lims-laboratory-app', '~>3.0.6.rc1', :git => 'http://github.com/sanger/lims-laboratory-app.git', :branch => 'uat'
 #gem 'lims-laboratory-app', '~>1.5', :path => '../lims-laboratory-app'
 
 group :development do
