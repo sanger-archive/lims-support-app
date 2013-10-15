@@ -47,6 +47,9 @@ module Lims::SupportApp
         before do
           DBHandler.stub(:create_barcode_asset).and_return(sequencescape_barcode)
         end
+        before do
+          DBHandler.stub(:find_asset_by_barcode_in_sequencescape).and_return(false)
+        end
 
         context "get the next barcode with a CAS related labware" do
           let(:labware) { "plate" }
