@@ -19,7 +19,6 @@ module Lims::SupportApp
         @db_cas                 = Sequel.connect(cas_settings) unless cas_settings.empty?
         @db_sequencescape       = Sequel.connect(sequenscape_settings) unless sequenscape_settings.empty?
         @cas_labware            = labware_settings["cas"]
-        @sequencescape_labware  = labware_settings["sequencescape"]
         @retries                = labware_settings["number_of_retries"]
       end
 
@@ -33,7 +32,7 @@ module Lims::SupportApp
         if @cas_labware.include?(labware.strip.downcase)
           # gets the new barcode from CAS database
           barcode_from_cas
-        elsif @sequencescape_labware.include?(labware.strip.downcase)
+        else
           # gets the new barcode from Sequencescape DB
           barcode = create_barcode_asset
 
@@ -43,8 +42,6 @@ module Lims::SupportApp
           end
 
           (barcode).to_s
-        else
-          raise "The given labware is not supported: #{labware}"
         end
       end
 
