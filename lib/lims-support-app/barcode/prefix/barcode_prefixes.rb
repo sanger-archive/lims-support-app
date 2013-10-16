@@ -1,6 +1,6 @@
 require 'lims-support-app/barcode/prefix/barcode_prefix_rule'
 require 'singleton'
-require 'json'
+require 'lims-core/helpers'
 
 module Lims::SupportApp
   module BarcodePrefix
@@ -10,7 +10,7 @@ module Lims::SupportApp
       attr_reader :prefixes
 
       def load_prefixes
-        JSON::parse(IO.read(File.join("config", "barcode_prefixes.json"))).collect do |rule|
+        Lims::Core::Helpers::load_json(IO.read(File.join("config", "barcode_prefixes.json"))).collect do |rule|
           BarcodePrefixRule.new(rule["labware"], rule["role"], rule["contents"], rule["prefix"])
         end
       end
