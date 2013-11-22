@@ -20,6 +20,10 @@ class Lims::LaboratoryApp::Labels::SangerBarcode
   NOT_IN_ROOT = 1
 end
 
+class Lims::LaboratoryApp::Labels::Text
+  NOT_IN_ROOT = 1
+end
+
 # Actions
 
 class Lims::LaboratoryApp::Labels::Labellable::CreateLabellable
