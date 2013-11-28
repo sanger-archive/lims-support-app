@@ -8,12 +8,12 @@ module Lims::SupportApp
         context "and there is a DB error", :ex => true do
           before do
             Sequel::SQLite::Database.any_instance.stub(:fetch).and_return do
-                raise Sequel::DatabaseError
+              raise Sequel::Error
             end
           end
 
           it "raises exception" do
-            DBHandler::barcode_from_cas.should raise_exception
+            expect { DBHandler::barcode_from_cas }.to raise_error(Lims::SupportApp::Util::DBHandler::DatabaseError)
           end
         end
 
@@ -25,15 +25,35 @@ module Lims::SupportApp
                 @times_called += 1
                 raise Sequel::DatabaseError
               else
-                [{:DNAPLATEID => 1}]
+                [{:dnaplateid => 1}]
               end
             end
           end
 
-          let(:number_of_throw_ex) { 2 }
+          let(:labware_settings)    { YAML.load_file(File.join("config", "labware_db.yml")) }
+          let(:number_of_throw_ex)  { labware_settings["number_of_retries"] - 1 }
 
           it "created a number" do
             DBHandler::barcode_from_cas.should == "1"
+          end
+        end
+
+        context "should retry a number of times to creating a barcode, throws an error when fails", :ex => true do
+          before do
+            @times_called = 0
+            Sequel::SQLite::Database.any_instance.stub_chain(:fetch, :all).and_return do
+              if @times_called < number_of_throw_ex
+                @times_called += 1
+                raise Sequel::DatabaseError
+              end
+            end
+          end
+  
+          let(:labware_settings)    { YAML.load_file(File.join("config", "labware_db.yml")) }
+          let(:number_of_throw_ex)  { labware_settings["number_of_retries"] }
+  
+          it "raises an exception" do
+            expect { DBHandler::barcode_from_cas }.to raise_error(Lims::SupportApp::Util::DBHandler::DatabaseError)
           end
         end
       end
