@@ -1,9 +1,9 @@
-require 'lims-api/core_resource'
+require 'lims-laboratory-app/labellable_core_resource'
 require 'lims-api/struct_stream'
 
 module Lims::SupportApp
   class Kit
-    class KitResource < Lims::Api::CoreResource
+    class KitResource < Lims::LaboratoryApp::LabellableCoreResource
 
       def content_to_stream(s, mime_type)
         s.add_key "process"
