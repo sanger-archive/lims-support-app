@@ -12,7 +12,15 @@ module Lims::SupportApp
       attribute :db_cas, Sequel::Database, :required => true, :writer => :private, :reader => :private
       attribute :db_sequencescape, Sequel::Database, :required => true, :writer => :private, :reader => :private
 
-      DatabaseError = Class.new(StandardError)
+      DatabaseError = Class.new(StandardError) do
+
+        attr_accessor :wrapped_exception
+
+        def initialize(message, wrapped_exception)
+          @wrapped_exception = wrapped_exception
+          super(message)
+        end
+      end
 
       # Initilize the DBHandler class
       # @param [Hash] cas DB settings
@@ -60,9 +68,10 @@ module Lims::SupportApp
           self.connect_db(@db_cas.opts[:orig_opts])
           retry
         else
-          raise DatabaseError, "Failed to process request: %s: %s. "\
+          raise DatabaseError.new("Failed to process request: %s: %s. "\
             "You could try to increase the number of retry's value to connect "\
-            "to the Oracle databe in the configuration file." %[ex.class, ex.message]
+            "to the Oracle databe in the configuration file." %[ex.class, ex.message],
+            ex)
         end
       end
 

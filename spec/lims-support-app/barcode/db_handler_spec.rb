@@ -56,6 +56,28 @@ module Lims::SupportApp
             expect { DBHandler::barcode_from_cas }.to raise_error(Lims::SupportApp::Util::DBHandler::DatabaseError)
           end
         end
+
+        context "Sequel::Error raising when there is a DB error" do
+          before do
+
+            cas_settings = YAML.load_file(File.join("config", "cas_database.yml"))['test']
+            @db_cas = DBHandler::connect_db(cas_settings)
+
+            DBHandler.stub(:plate_id) do
+              results = @db_cas.fetch("SELECT").all
+            end
+          end
+
+          let(:labware_settings)    { YAML.load_file(File.join("config", "labware_db.yml")) }
+          let(:number_of_throw_ex)  { labware_settings["number_of_retries"] }
+
+          it "raises an exception" do
+            expect { DBHandler::barcode_from_cas }.to raise_error(Lims::SupportApp::Util::DBHandler::DatabaseError) { |exception|
+              exception.should be_a(Lims::SupportApp::Util::DBHandler::DatabaseError)
+              exception.wrapped_exception.should_not nil
+            }
+          end
+        end
       end
 
       context "test the next_barcode method" do
