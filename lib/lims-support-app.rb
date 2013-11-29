@@ -5,9 +5,6 @@ require 'lims-support-app/barcode/all'
 
 require 'lims-support-app/kit/all'
 
-#require 'lims-support-app/barcode/create_printable_label'
-#require 'lims-support-app/barcode/create_printable_label_resource'
-
 require 'lims-support-app/label_printer/all'
 
 require 'lims-core/persistence/sequel'
@@ -29,6 +26,7 @@ require 'lims-support-app/util/db_handler'
 require 'hide_resources'
 
 ENV["LIMS_SUPPORTAPP_ENV"] = "test" unless ENV["LIMS_SUPPORTAPP_ENV"]
+
 
 class Hash
   def deep_fetch(key, default = nil)
