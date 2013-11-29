@@ -29,10 +29,10 @@ GIT
 
 GIT
   remote: http://github.com/sanger/lims-laboratory-app.git
-  revision: f86483bb390f6da684569825b10a5b2824429789
+  revision: 3daca3c5330dede2662fbdfbc7b3a444d0612c54
   branch: development
   specs:
-    lims-laboratory-app (3.4.0.5.0)
+    lims-laboratory-app (3.4.0.5.1)
 
 GIT
   remote: http://github.com/sanger/psd_logger.git

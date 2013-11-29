@@ -10,7 +10,7 @@ gem 'lims-core', '~>3.1', :git => 'http://github.com/sanger/lims-core.git', :bra
 gem 'lims-api', '~>3.1', :git => 'http://github.com/sanger/lims-api.git', :branch => 'development'
 #gem 'lims-api', '~>3.1', :path => '../lims-api'
 gem 'lims-laboratory-app', '~>3', :git => 'http://github.com/sanger/lims-laboratory-app.git', :branch => 'development'
-#gem 'lims-laboratory-app', '~>3.4', :path => '../lims-laboratory-app'
+#gem 'lims-laboratory-app', '~>3', :path => '../lims-laboratory-app'
 
 group :development do
   gem 'redcarpet', '~> 2.1.0', :platforms => :mri

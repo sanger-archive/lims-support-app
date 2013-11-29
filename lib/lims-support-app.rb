@@ -10,13 +10,6 @@ require 'lims-support-app/label_printer/all'
 require 'lims-core/persistence/sequel'
 require 'lims-core/persistence/sequel/session'
 
-module Lims::LaboratoryApp
-  module Laboratory
-    module Container
-    end
-  end
-end
-
 require 'lims-laboratory-app/labels/all'
 
 require 'lims-core/persistence/search'
