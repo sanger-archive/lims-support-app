@@ -69,8 +69,8 @@ module Lims::SupportApp
           retry
         else
           raise DatabaseError.new("Failed to process request: %s: %s. "\
-            "You could try to increase the number of retry's value to connect "\
-            "to the Oracle databe in the configuration file." %[ex.class, ex.message],
+            "You could try to increase the number of retry's value in the "\
+            "configuration file to connect to the Oracle database." %[ex.class, ex.message],
             ex)
         end
       end
