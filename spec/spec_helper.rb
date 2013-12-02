@@ -9,6 +9,7 @@ set :raise_errors, true
 set :logging, false
 
 env = ENV["LIMS_SUPPORTAPP_ENV"]
+
 cas_settings = YAML.load_file(File.join("config", "cas_database.yml"))[env]
 sequencescape_settings = YAML.load_file(File.join("config", "sequencescape_database.yml"))[env]
 labware_settings = YAML.load_file(File.join("config", "labware_db.yml"))
@@ -20,12 +21,9 @@ if env == "test"
   module Lims::SupportApp
     module Util
       class DBHandler
-        def self.barcode_from_cas
-          tries ||= @retries
+        def self.dna_plate_id
           results = @db_cas.fetch("SELECT SEQ_DNAPLATE.NEXTVAL AS DNAPLATEID FROM SEQ_DNAPLATE").all
-          results.first[:DNAPLATEID].to_i.to_s
-        rescue Sequel::DatabaseError
-          retry unless (tries -= 1).zero?
+          results.first[:dnaplateid].to_i.to_s
         end
       end
     end
