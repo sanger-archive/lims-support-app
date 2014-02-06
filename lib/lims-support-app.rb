@@ -11,6 +11,7 @@ require 'lims-core/persistence/sequel'
 require 'lims-core/persistence/sequel/session'
 
 require 'lims-laboratory-app/labels/all'
+require 'lims-laboratory-app/labels/labellable/eager_load_labellable'
 
 require 'lims-core/persistence/search'
 require 'lims-core/persistence/search/all'
