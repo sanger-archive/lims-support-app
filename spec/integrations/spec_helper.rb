@@ -31,6 +31,7 @@ shared_context 'use core context service' do |user='user', application_id='appli
     mock(:message_bus).tap { |m|
       m.stub(:publish)
       m.stub(:connect)
+      m.stub(:backend_application_id) { "lims-support-app/spec" }
     }
   }
   let(:context_service) { Lims::Api::ContextService.new(store, message_bus) }
@@ -43,11 +44,15 @@ shared_context 'use core context service' do |user='user', application_id='appli
 
   # This code is cleaning up the DB after each test case execution
   after(:each) do
-    # list of all the tables in our DB
-    %w{templates label_printers barcodes kits labels labellables uuid_resources}.each do |table|
-      db[table.to_sym].delete
+    store.with_session(:backend_application_id => "lims-support-app/spec", :parameters => {action: "purge"}) do
+      # list of all the tables in our DB
+      %w{templates label_printers barcodes kits labels labellables uuid_resources}.each do |table|
+        db[table.to_sym].delete
+        revision_table = "#{table}_revision".to_sym
+        db[revision_table].delete if db.table_exists?(revision_table)
+      end
+      db.disconnect
     end
-    db.disconnect
   end
 end
 
