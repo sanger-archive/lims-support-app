@@ -16,7 +16,6 @@ group :development do
   gem 'redcarpet', '~> 2.1.0', :platforms => :mri
   gem 'sqlite3', :platforms => :mri
   gem 'mysql2', :platforms => :mri
-  gem 'systemu' # fix requirement for bug in macaddr, need to be removed when macaddr fixed
 end
 
 group :oracle do
