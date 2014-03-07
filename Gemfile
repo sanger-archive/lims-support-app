@@ -11,6 +11,7 @@ gem 'lims-api', '~>3.1', :git => 'http://github.com/sanger/lims-api.git', :branc
 #gem 'lims-api', '~>3.1', :path => '../lims-api'
 gem 'lims-laboratory-app', '~>3', :git => 'http://github.com/sanger/lims-laboratory-app.git', :branch => 'development'
 #gem 'lims-laboratory-app', '~>3', :path => '../lims-laboratory-app'
+gem 'lims-exception-notifier-app', '~>0.1', :git => 'http://github.com/sanger/lims-exception-notifier-app.git', :branch => 'master'
 
 group :development do
   gem 'redcarpet', '~> 2.1.0', :platforms => :mri
