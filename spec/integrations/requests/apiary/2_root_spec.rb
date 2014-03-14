@@ -109,6 +109,11 @@ describe "root" do
             "create": "http://example.org/actions/update_label"
         }
     },
+    "bulk_update_labels": {
+        "actions": {
+            "create": "http://example.org/actions/bulk_update_label"
+        }
+    },
     "revision": 3
 }
     EOD

@@ -1,0 +1,669 @@
+HOST: http://www.example.com/
+
+--- S2 Lims-Support-App API ---
+---
+Welcome to our API documentation.
+
+S2 Lims-Support-App API provides a JSON RESTful interface. The path to the root URL `/` only is needed to interact with the API.
+All the other actions are embedded in every JSON response.
+Please note that all URLs are to be considered unstable. As a consequence, you should only refer to the actions
+elements returned in the response.
+
+Please find below the different actions available in the JSON:
+
+* `create` creates a new resource using a HTTP POST request
+* `read`, `first` and `last` actions are used for pagination through HTTP GET requests
+* `update` action update a resource using a HTTP PUT request
+* `delete` action delete a resource using a HTTP DELETE request
+
+In top of the above actions, more specific actions are available to interact between multiple resources.
+These actions use generally HTTP POST request and are listed under the root JSON response (for example `/actions/print_label`).
+
+Please note you will generally find two different URLs to create a new resource, which produce an identical result:
+`/resources` or `/actions/create_resource`.
+---
+-- Root --
+
+The root JSON lists all the resources available through the API and all the actions which can be performed. 
+A resource responds to all the actions listed under its `actions` elements.
+Consider this URL and the JSON response like the entry point for S2 API. All the other interactions through the 
+API can be performed browsing this JSON response.
+
+GET /
+> Accept: application/json
+< 200
+< Content-Type: application/json
+{
+    "actions": {
+        "read": "http://example.org/"
+    },
+    "uuid_resources": {
+        "actions": {
+            "create": "http://example.org/uuid_resources",
+            "read": "http://example.org/uuid_resources",
+            "first": "http://example.org/uuid_resources/page=1",
+            "last": "http://example.org/uuid_resources/page=-1"
+        }
+    },
+    "barcodes": {
+        "actions": {
+            "create": "http://example.org/barcodes",
+            "read": "http://example.org/barcodes",
+            "first": "http://example.org/barcodes/page=1",
+            "last": "http://example.org/barcodes/page=-1"
+        }
+    },
+    "searches": {
+        "actions": {
+            "create": "http://example.org/searches",
+            "read": "http://example.org/searches",
+            "first": "http://example.org/searches/page=1",
+            "last": "http://example.org/searches/page=-1"
+        }
+    },
+    "kits": {
+        "actions": {
+            "create": "http://example.org/kits",
+            "read": "http://example.org/kits",
+            "first": "http://example.org/kits/page=1",
+            "last": "http://example.org/kits/page=-1"
+        }
+    },
+    "label_printers": {
+        "actions": {
+            "create": "http://example.org/label_printers",
+            "read": "http://example.org/label_printers",
+            "first": "http://example.org/label_printers/page=1",
+            "last": "http://example.org/label_printers/page=-1"
+        }
+    },
+    "templates": {
+        "actions": {
+            "create": "http://example.org/templates",
+            "read": "http://example.org/templates",
+            "first": "http://example.org/templates/page=1",
+            "last": "http://example.org/templates/page=-1"
+        }
+    },
+    "create_barcodes": {
+        "actions": {
+            "create": "http://example.org/actions/create_barcode"
+        }
+    },
+    "bulk_create_barcodes": {
+        "actions": {
+            "create": "http://example.org/actions/bulk_create_barcode"
+        }
+    },
+    "create_searches": {
+        "actions": {
+            "create": "http://example.org/actions/create_search"
+        }
+    },
+    "create_labels": {
+        "actions": {
+            "create": "http://example.org/actions/create_label"
+        }
+    },
+    "create_kits": {
+        "actions": {
+            "create": "http://example.org/actions/create_kit"
+        }
+    },
+    "create_label_printers": {
+        "actions": {
+            "create": "http://example.org/actions/create_label_printer"
+        }
+    },
+    "print_labels": {
+        "actions": {
+            "create": "http://example.org/actions/print_label"
+        }
+    },
+    "revision": 3
+}
+
+-- Barcode Resource --
+**List actions for a barcode resource.**
+
+* `create` creates a new barcode via HTTP POST request
+* `read` currently returns the list of actions for a barcode resource via HTTP GET request
+* `first` lists the first barcode resources in a page browsing system
+* `last` lists the last barcode resources in a page browsing system
+
+GET /barcodes
+> Accept: application/json
+< 200
+< Content-Type: application/json
+{ 
+    "barcodes": {
+        "actions": {
+            "create": "/barcodes",
+            "read": "/barcodes",
+            "first": "/barcodes/page=1",
+            "last": "/barcodes/page=-1"
+        }
+    } 
+}
+
+**Create a barcode for an asset.**
+
+* `labware` the specific labware the barcode relates to (tube, plate etc..). **(Mandatory)**
+* `role` the role of the labware (like 'stock')  **(Mandatory)**
+* `contents` the type of the aliquot the labware contains (DNA, RNA etc...)  **(Mandatory)**
+
+**Note: `labware`, `role` and `contents` parameters are mandatory.**
+POST /barcodes
+> Accept: application/json
+{ "barcode": {
+    "labware": "tube",
+    "role": "stock",
+    "contents": "DNA"
+}}
+< 200
+< Content-Type: application/json
+{ "barcode": {
+    "actions": {
+        "read": "http://example.org/11111111-2222-3333-4444-555555555555",
+        "update": "http://example.org/11111111-2222-3333-4444-555555555555",
+        "delete": "http://example.org/11111111-2222-3333-4444-555555555555",
+        "create": "http://example.org/11111111-2222-3333-4444-555555555555"
+    },
+    "uuid": "11111111-2222-3333-4444-555555555555",
+    "ean13": "2741233334859",
+    "sanger": {
+      "prefix": "JD",
+      "number": "1233334",
+      "suffix": "U"
+    }
+}}
+
+**Use the create barcode action.**
+
+* `labware` the specific labware the barcode relates to (tube, plate etc..) **(Mandatory)**
+* `role` the role of the labware (like 'stock') **(Mandatory)**
+* `contents` the type of the aliquot the labware contains (DNA, RNA etc...) **(Mandatory)**
+
+**Note: `labware`, `role` and `contents` parameters are mandatory.**
+
+**This is the same operation as we POST the same JSON to /barcodes URL.**
+
+POST /actions/create_barcode
+> Accept: application/json
+{ "create_barcode": {
+    "labware": "tube",
+    "role": "stock",
+    "contents": "DNA"
+}}
+< 200
+< Content-Type: application/json
+{ "create_barcode": {
+    "actions": {
+    },
+    "user": "user",
+    "application": "application",
+    "result": {
+        "barcode": {
+            "actions": {
+                "read": "http://example.org/11111111-2222-3333-4444-555555555555",
+                "update": "http://example.org/11111111-2222-3333-4444-555555555555",
+                "delete": "http://example.org/11111111-2222-3333-4444-555555555555",
+                "create": "http://example.org/11111111-2222-3333-4444-555555555555"
+            },
+            "uuid": "11111111-2222-3333-4444-555555555555",
+            "ean13": "2741233334859",
+            "sanger": {
+              "prefix": "JD",
+              "number": "1233334",
+              "suffix": "U"
+            }
+        },
+        "uuid": "11111111-2222-3333-4444-555555555555"
+    },
+    "labware": "tube",
+    "role": "stock",
+    "contents": "DNA"
+}}
+
+**Read a previously created barcode object.**
+
+* `uuid_of_the_barcode` for example: 11111111-2222-3333-4444-555555555555
+
+GET /<uuid_of_the_barcode>
+> Accept: application/json
+< 200
+< Content-Type: application/json
+{ "barcode": {
+    "actions": {
+        "read": "http://example.org/11111111-2222-3333-4444-555555555555",
+        "update": "http://example.org/11111111-2222-3333-4444-555555555555",
+        "delete": "http://example.org/11111111-2222-3333-4444-555555555555",
+        "create": "http://example.org/11111111-2222-3333-4444-555555555555"
+    },
+    "uuid": "11111111-2222-3333-4444-555555555555",
+    "ean13": "2741233334859",
+    "sanger": {
+      "prefix": "JD",
+      "number": "1233334",
+      "suffix": "U"
+    }
+}}
+
+**Use the bulk create barcode action.**
+
+* `labware` the specific labware the barcode relates to (tube, plate etc..) **(Mandatory)**
+* `role` the role of the labware (like 'stock') **(Mandatory)**
+* `contents` the type of the aliquot the labware contains (DNA, RNA etc...) **(Mandatory)**
+* `number_of_barcodes` the number of the barcode(s) to create **(Mandatory)**
+
+**Note: `labware`, `role`, `contents` and `number_of_barcodes` parameters are mandatory.**
+POST /actions/bulk_create_barcode
+> Accept: application/json
+{ "bulk_create_barcode": {
+    "labware": "tube",
+    "role": "stock",
+    "contents": "DNA",
+    "number_of_barcodes": 2
+}}
+< 200
+< Content-Type: application/json
+{ "bulk_create_barcode": {
+    "actions": {
+    },
+    "user": "user",
+    "application": "application",
+    "result": {
+        "barcodes": [ 
+            {
+                "actions": {
+                    "read": "http://example.org/11111111-2222-3333-4444-555555555555",
+                    "update": "http://example.org/11111111-2222-3333-4444-555555555555",
+                    "delete": "http://example.org/11111111-2222-3333-4444-555555555555",
+                    "create": "http://example.org/11111111-2222-3333-4444-555555555555"
+                },
+                "uuid": "11111111-2222-3333-4444-555555555555",
+                "ean13": "2741233334859",
+                "sanger": {
+                  "prefix": "JD",
+                  "number": "1233334",
+                  "suffix": "U"
+                }
+            },
+            {
+                "actions": {
+                    "read": "http://example.org/11111111-2222-3333-4444-666666666666",
+                    "update": "http://example.org/11111111-2222-3333-4444-666666666666",
+                    "delete": "http://example.org/11111111-2222-3333-4444-666666666666",
+                    "create": "http://example.org/11111111-2222-3333-4444-666666666666"
+                },
+                "uuid": "11111111-2222-3333-4444-666666666666",
+                "ean13": "2741233334859",
+                "sanger": {
+                  "prefix": "JD",
+                  "number": "1233334",
+                  "suffix": "U"
+                }
+            }
+        ]
+    },
+    "labware": "tube",
+    "role": "stock",
+    "contents": "DNA",
+    "number_of_barcodes": 2
+}}
+
+-- Kit Resource --
+**List actions for a kit resource.**
+
+* `create` creates a new kit via HTTP POST request
+* `read` currently returns the list of actions for a kit resource via HTTP GET request
+* `first` lists the first kit resources in a page browsing system
+* `last` lists the last kit resources in a page browsing system
+
+GET /kits
+> Accept: application/json
+< 200
+< Content-Type: application/json
+{ "kits": {
+    "actions": {
+        "create": "/kits",
+        "read": "/kits",
+        "first": "/kits/page=1",
+        "last": "/kits/page=-1"
+    }
+}}
+
+**Create a kit for an asset.**
+
+* `process` the title of the specific process the kit relates to **(Mandatory)**
+* `aliquotType` the type of the aliquot the kit relates to **(Mandatory)**
+* `expires` the expiry date of the kit **(Mandatory)**
+* `amount` the amount of the kit **(Mandatory)**
+
+**Note: `process`, `aliquotType`, `expires` and `amount` parameters are mandatory.**
+POST /kits
+> Accept: application/json
+{ "kit": {
+    "process": "DNA & RNA extraction",
+    "aliquot_type": "NA+P",
+    "expires": "2013-05-01",
+    "amount": 10
+}}
+< 200
+< Content-Type: application/json
+{ "kit": {
+    "actions": {
+        "read": "http://example.org/11111111-2222-3333-4444-555555555555",
+        "update": "http://example.org/11111111-2222-3333-4444-555555555555",
+        "delete": "http://example.org/11111111-2222-3333-4444-555555555555",
+        "create": "http://example.org/11111111-2222-3333-4444-555555555555"
+    },
+    "uuid": "11111111-2222-3333-4444-555555555555",
+    "process": "DNA & RNA extraction",
+    "aliquotType": "NA+P",
+    "expires": "2013-05-01",
+    "amount": 10
+}}
+
+**Use the create kit action.**
+
+* `process` the title of the specific process the kit relates to **(Mandatory)**
+* `aliquotType` the type of the aliquot the kit relates to **(Mandatory)**
+* `expires` the expiry date of the kit **(Mandatory)**
+* `amount` the amount of the kit **(Mandatory)**
+
+**Note: `process`, `aliquotType`, `expires` and `amount` parameters are mandatory.**
+
+POST /actions/create_kit
+> Accept: application/json
+{ "create_kit": {
+    "process": "DNA & RNA extraction",
+    "aliquot_type": "NA+P",
+    "expires": "2013-05-01",
+    "amount": 10
+}}
+< 200
+< Content-Type: application/json
+{ "create_kit": {
+    "actions": {
+    },
+    "user": "user",
+    "application": "application",
+    "result": {
+        "kit": {
+            "actions": {
+                "read": "http://example.org/11111111-2222-3333-4444-555555555555",
+                "update": "http://example.org/11111111-2222-3333-4444-555555555555",
+                "delete": "http://example.org/11111111-2222-3333-4444-555555555555",
+                "create": "http://example.org/11111111-2222-3333-4444-555555555555"
+            },
+            "uuid": "11111111-2222-3333-4444-555555555555",
+            "process": "DNA & RNA extraction",
+            "aliquotType": "NA+P",
+            "expires": "2013-05-01",
+            "amount": 10
+        },
+        "uuid": "11111111-2222-3333-4444-555555555555"
+    },
+    "process": "DNA & RNA extraction",
+    "aliquot_type": "NA+P",
+    "expires": "2013-05-01",
+    "amount": 10
+}}
+
+**Read a previously created kit object.**
+
+* `uuid_of_the_kit` for example: 11111111-2222-3333-4444-555555555555
+
+GET /<uuid_of_the_kit>
+> Accept: application/json
+< 200
+< Content-Type: application/json
+{ "kit": {
+    "actions": {
+        "read": "http://example.org/11111111-2222-3333-4444-555555555555",
+        "update": "http://example.org/11111111-2222-3333-4444-555555555555",
+        "delete": "http://example.org/11111111-2222-3333-4444-555555555555",
+        "create": "http://example.org/11111111-2222-3333-4444-555555555555"
+    },
+    "uuid": "11111111-2222-3333-4444-555555555555",
+    "process": "DNA & RNA extraction",
+    "aliquotType": "NA+P",
+    "expires": "2013-05-01",
+    "amount": 10
+}}
+
+-- LabelPrinter Resource --
+**List actions for a label printer resource.**
+
+* `create` creates a new label printer via HTTP POST request
+* `read` currently returns the list of actions for a label printer resource via HTTP GET request
+* `first` lists the first label printer resources in a page browsing system
+* `last` lists the last label printer resources in a page browsing system
+
+GET /label_printers
+> Accept: application/json
+< 200
+< Content-Type: application/json
+{ "label_printers": {
+    "actions": {
+        "create": "/label_printers",
+        "read": "/label_printers",
+        "first": "/label_printers/page=1",
+        "last": "/label_printers/page=-1"
+    }
+}}
+
+**Create a label printer.**
+
+* `name` the name of the label printer to use **(Mandatory)**
+* `templates` the list of templates to use with this printer **(Mandatory)**
+The templates array contains hash elements with the following parameters:
+
+    * `name` the name of the template **(Mandatory)**
+    * `description` the description of the template
+    * `content` the base64 encoded content of the template **(Mandatory)**
+
+* `label_type` the type of the label in the printer **(Mandatory)**
+* `header` the base64 encoded header of the labels **(Mandatory)**
+* `footer` the base64 encoded footer of the labels **(Mandatory)**
+
+POST /label_printers
+> Accept: application/json
+{ "label_printer": {
+    "name": "e367bc",
+    "templates": [
+        {
+            "name": "tube",
+            "description": "normal tube template",
+            "content": "#{content}"
+        }
+    ],
+    "label_type": "tube labels",
+    "header": "#{header}",
+    "footer": "#{footer}"
+}}
+< 200
+< Content-Type: application/json
+{ "label_printer": {
+    "actions": {
+        "read": "http://example.org/11111111-2222-3333-4444-555555555555",
+        "update": "http://example.org/11111111-2222-3333-4444-555555555555",
+        "delete": "http://example.org/11111111-2222-3333-4444-555555555555",
+        "create": "http://example.org/11111111-2222-3333-4444-555555555555"
+    },
+    "uuid": "11111111-2222-3333-4444-555555555555",
+    "name": "e367bc",
+    "templates": [
+        {
+            "name": "tube",
+            "description": "normal tube template",
+            "content": "#{content}"
+        }
+    ],
+    "label_type": "tube labels",
+    "header": "#{header}",
+    "footer": "#{footer}"
+}}
+
+**Use the create label printer action.**
+
+* `name` the name of the label printer to use **(Mandatory)**
+* `templates` the list of templates to use with this printer **(Mandatory)**
+The templates array contains hash elements with the following parameters:
+
+    * `name` the name of the template **(Mandatory)**
+    * `description` the description of the template
+    * `content` the base64 encoded content of the template **(Mandatory)**
+
+* `label_type` the type of the label in the printer **(Mandatory)**
+* `header` the base64 encoded header of the labels **(Mandatory)**
+* `footer` the base64 encoded footer of the labels **(Mandatory)**
+
+POST /actions/create_label_printer
+> Accept: application/json
+{ "create_label_printer": {
+    "name": "e367bc",
+    "templates": [
+        {
+            "name": "tube",
+            "description": "normal tube template",
+            "content": "#{content}"
+        }
+    ],
+    "label_type": "tube labels",
+    "header": "#{header}",
+    "footer": "#{footer}"
+}}
+< 200
+< Content-Type: application/json
+{ "create_label_printer": {
+    "actions": {
+    },
+    "user": "user",
+    "application": "application",
+    "result": {
+        "label_printer": {
+            "actions": {
+                "read": "http://example.org/11111111-2222-3333-4444-555555555555",
+                "update": "http://example.org/11111111-2222-3333-4444-555555555555",
+                "delete": "http://example.org/11111111-2222-3333-4444-555555555555",
+                "create": "http://example.org/11111111-2222-3333-4444-555555555555"
+            },
+            "uuid": "11111111-2222-3333-4444-555555555555",
+            "name": "e367bc",
+            "templates": [
+                {
+                    "name": "tube",
+                    "description": "normal tube template",
+                    "content": "#{content}"
+                }
+            ],
+            "label_type": "tube labels",
+            "header": "#{header}",
+            "footer": "#{footer}"
+        },
+        "uuid": "11111111-2222-3333-4444-555555555555"
+    },
+    "name": "e367bc",
+    "templates": [
+        {
+            "name": "tube",
+            "description": "normal tube template",
+            "content": "#{content}"
+        }
+    ],
+    "label_type": "tube labels",
+    "header": "#{header}",
+    "footer": "#{footer}"
+}}
+
+**Use the print action on an existing label printer.**
+
+* `labels` is a list of labels to print **(Mandatory)**
+The labels array contains hash elements with the following parameters:
+    *   `template` is the name of the template to use for printing **(Mandatory)**
+    *   a hash structure with a key (for example: tube if it is a tube's label).
+        The hash will contains the ean13 type barcode with the ean13 key
+        and other label related text. This text should use the same structure
+        the related template use in its placeholders.
+* `header_text` is a hash contains the header text with the same structure 
+the related template use in its placeholders  **(Mandatory)**
+* `footer_text` is a hash contains the footer text with the same structure
+the related template use in its placeholders  **(Mandatory)**
+
+POST /<uuid_of_the_label_printer>
+> Accept: application/json
+{ "label_printer": {
+    "labels": [
+        {
+            "template": "tube",
+            "main": {
+                "ean13": "2748670880727",
+                "label_text": {
+                    "text1": "pos1",
+                    "text3": "pos3"
+                }
+            }
+        }
+    ],
+    "header_text": {
+        "header_text1": "header by ke4",
+        "header_text2": "#{now}"
+    },
+    "footer_text": {
+        "footer_text1": "footer by ke4",
+        "footer_text2": "#{now}"
+    }
+}}
+< 200
+< Content-Type: application/json
+{ "label_printer": {
+    "actions": {
+    },
+    "user": "user",
+    "application": "application",
+    "uuid": "11111111-2222-3333-4444-555555555555",
+    "result": {
+            "labels": [
+                {
+                    "template": "tube",
+                    "main": {
+                        "ean13": "2748670880727",
+                        "label_text": {
+                            "text1": "pos1",
+                            "text3": "pos3"
+                        }
+                    }
+                }
+            ],
+            "header_text": {
+                "header_text1": "header by ke4",
+                "header_text2": "#{now}"
+            },
+            "footer_text": {
+                "footer_text1": "footer by ke4",
+                "footer_text2": "#{now}"
+            }
+    },
+    "labels": [
+        {
+            "template": "tube",
+            "main": {
+                "ean13": "2748670880727",
+                "label_text": {
+                    "text1": "pos1",
+                    "text3": "pos3"
+                }
+            }
+        }
+    ],
+    "header_text": {
+        "header_text1": "header by ke4",
+        "header_text2": "#{now}"
+    },
+    "footer_text": {
+        "footer_text1": "footer by ke4",
+        "footer_text2": "#{now}"
+    }
+}}

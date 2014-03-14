@@ -11,15 +11,25 @@ module Lims::SupportApp
 
       attribute :db_cas, Sequel::Database, :required => true, :writer => :private, :reader => :private
       attribute :db_sequencescape, Sequel::Database, :required => true, :writer => :private, :reader => :private
-  
+
+      DatabaseError = Class.new(StandardError) do
+
+        attr_accessor :wrapped_exception
+
+        def initialize(message, wrapped_exception)
+          @wrapped_exception = wrapped_exception
+          super(message)
+        end
+      end
+
       # Initilize the DBHandler class
       # @param [Hash] cas DB settings
       # @param [Hash] Sequencescape DB settings
       def self.db_initialize(cas_settings, sequenscape_settings, labware_settings)
-        @db_cas                 = Sequel.connect(cas_settings) unless cas_settings.empty?
-        @db_sequencescape       = Sequel.connect(sequenscape_settings) unless sequenscape_settings.empty?
-        @cas_labware            = labware_settings["cas"]
-        @retries                = labware_settings["number_of_retries"]
+        @db_cas           = connect_db(cas_settings) unless cas_settings.empty?
+        @db_sequencescape = connect_db(sequenscape_settings) unless sequenscape_settings.empty?
+        @cas_labware      = labware_settings["cas"]
+        @retries          = labware_settings["number_of_retries"]
       end
 
       # Gets the value of the next barcode
@@ -51,13 +61,34 @@ module Lims::SupportApp
 
       def self.barcode_from_cas
         tries ||= @retries
-        results = @db_cas.fetch("SELECT SEQ_DNAPLATE.NEXTVAL AS DNAPLATEID FROM DUAL").all
-        results.first[:dnaplateid].to_i.to_s
-      rescue Sequel::DatabaseError
-        retry unless (tries -= 1).zero?
+        @db_cas.test_connection
+        plate_id
+      rescue Sequel::Error => ex
+        unless (tries -= 1).zero?
+          self.connect_db(@db_cas.opts[:orig_opts])
+          retry
+        else
+          raise DatabaseError.new("Failed to process request: %s: %s. "\
+            "You could try to increase the number of retry's value in the "\
+            "configuration file to connect to the Oracle database." %[ex.class, ex.message],
+            ex)
+        end
       end
 
       private
+
+      # Fetches the next id for the plate from CAS DB
+      def self.plate_id
+        results = @db_cas.fetch("SELECT SEQ_DNAPLATE.NEXTVAL AS DNAPLATEID FROM DUAL").all
+        results.first[:dnaplateid].to_i.to_s
+      end
+
+      # connect to a database with the given settings
+      # @param [Hash] settings
+      # @returns [Database] a new database object
+      def self.connect_db(settings)
+        Sequel.connect(settings)
+      end
 
       # Checks asset existence with the given barcode in SS's assets table
       def self.find_asset_by_barcode_in_sequencescape(barcode)
