@@ -1,9 +1,9 @@
 GIT
   remote: http://github.com/sanger/lims-api.git
-  revision: 2d5144dfc7daef7d12e4451d620481cf43f04b56
+  revision: b84f0123532c50220f7aae87672bb896f993117c
   branch: master
   specs:
-    lims-api (3.1.1)
+    lims-api (3.2.1)
       active_support
       bunny (= 0.9.0.pre10)
       json
@@ -12,16 +12,16 @@ GIT
 
 GIT
   remote: http://github.com/sanger/lims-core.git
-  revision: 89efb696d273f66e68b519e4a389235a9d74c6df
+  revision: af87a596a8ede246c6e86c6574a75053302382c7
   branch: master
   specs:
-    lims-core (3.1.0)
+    lims-core (3.2.0)
       active_support
       aequitas
       bunny (= 0.9.0.pre10)
       dm-validations
       facets (= 2.9.3)
-      modularity
+      modularity (= 0.6.1)
       sequel
       state_machine
       uuid
@@ -37,10 +37,10 @@ GIT
 
 GIT
   remote: http://github.com/sanger/lims-laboratory-app.git
-  revision: ad7ccf10fc25e16f8638ccbf3f86693c4bb5cca6
+  revision: 438c3c01bd952fefb1a2be92064d4a08534cc412
   branch: master
   specs:
-    lims-laboratory-app (3.5.0)
+    lims-laboratory-app (3.7.0)
 
 GIT
   remote: http://github.com/sanger/psd_logger.git
@@ -67,7 +67,7 @@ GIT
 PATH
   remote: .
   specs:
-    lims-support-app (0.5.0)
+    lims-support-app (0.6.0)
       bunny (= 0.9.0.pre10)
       json
       sequel
@@ -110,8 +110,8 @@ GEM
     jruby-rack (1.1.13.2)
     json (1.8.1)
     json (1.8.1-java)
-    macaddr (1.6.1)
-      systemu (~> 2.5.0)
+    macaddr (1.6.7)
+      systemu (~> 2.6.2)
     method_source (0.8.1)
     modularity (0.6.1)
     mysql2 (0.3.11)
@@ -141,7 +141,7 @@ GEM
     slop (3.4.5)
     sqlite3 (1.3.7)
     state_machine (1.2.0)
-    systemu (2.5.2)
+    systemu (2.6.4)
     tilt (1.4.1)
     trinidad (1.4.5)
       jruby-rack (>= 1.1.13)
@@ -168,10 +168,10 @@ DEPENDENCIES
   github-markup (~> 0.7.1)
   hashdiff
   jdbc-mysql
-  lims-api (~> 3.1.1)!
-  lims-core (~> 3.1.0)!
+  lims-api (~> 3.2.0)!
+  lims-core (~> 3.2.0)!
   lims-exception-notifier-app (~> 0.1)!
-  lims-laboratory-app (~> 3.5.0)!
+  lims-laboratory-app (~> 3.7.0)!
   lims-support-app!
   mustache (~> 0.99.4)!
   mysql2
