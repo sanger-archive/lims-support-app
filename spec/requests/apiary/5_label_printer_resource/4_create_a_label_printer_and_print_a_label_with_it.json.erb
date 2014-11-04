@@ -102,6 +102,16 @@ print_step[:setup]=<<EOD
 Lims::SupportApp::LabelPrinter::PrintLabel.any_instance.stub(:print_labels) do
   # TODO ke4
 end
+
+barcode = Lims::SupportApp::Barcode.new(
+  :labware  => 'tube',
+  :role     => 'stock',
+  :contents => 'Cell Pellet')
+
+barcode.ean13_code = '2748670880727'
+
+save_with_uuid barcode => [1,2,3,4,7]
+
 EOD
 print_step[:parameters] = <<EOD
 { "print_label": {
