@@ -84,6 +84,15 @@ describe "create_a_label_printer_and_print_a_label_with_it", :label_printer => t
     Lims::SupportApp::LabelPrinter::PrintLabel.any_instance.stub(:print_labels) do
       # TODO ke4
     end
+    
+    barcode = Lims::SupportApp::Barcode.new(
+      :labware  => 'tube',
+      :role     => 'stock',
+      :contents => 'Cell Pellet')
+    
+    barcode.ean13_code = '2748670880727'
+    
+    save_with_uuid barcode => [1,2,3,4,7]
 
     header('Accept', 'application/json')
     header('Content-Type', 'application/json')
@@ -106,11 +115,11 @@ describe "create_a_label_printer_and_print_a_label_with_it", :label_printer => t
         ],
         "header_text": {
             "header_text1": "header by ke4",
-            "header_text2": "2013-07-09 11:40:52"
+            "header_text2": "2014-11-04 14:22:00"
         },
         "footer_text": {
             "footer_text1": "footer by ke4",
-            "footer_text2": "2013-07-09 11:40:52"
+            "footer_text2": "2014-11-04 14:22:00"
         }
     }
 }
@@ -139,11 +148,11 @@ describe "create_a_label_printer_and_print_a_label_with_it", :label_printer => t
             ],
             "header_text": {
                 "header_text1": "header by ke4",
-                "header_text2": "2013-07-09 11:40:52"
+                "header_text2": "2014-11-04 14:22:00"
             },
             "footer_text": {
                 "footer_text1": "footer by ke4",
-                "footer_text2": "2013-07-09 11:40:52"
+                "footer_text2": "2014-11-04 14:22:00"
             }
         },
         "labels": [
@@ -160,11 +169,11 @@ describe "create_a_label_printer_and_print_a_label_with_it", :label_printer => t
         ],
         "header_text": {
             "header_text1": "header by ke4",
-            "header_text2": "2013-07-09 11:40:52"
+            "header_text2": "2014-11-04 14:22:00"
         },
         "footer_text": {
             "footer_text1": "footer by ke4",
-            "footer_text2": "2013-07-09 11:40:52"
+            "footer_text2": "2014-11-04 14:22:00"
         }
     }
 }
