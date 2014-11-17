@@ -1,6 +1,6 @@
 module Lims
   module SupportApp
-    VERSION = "0.6.2.rc1"
+    VERSION = "0.6.3.rc1"
   end
 end
 
