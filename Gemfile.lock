@@ -67,7 +67,7 @@ GIT
 PATH
   remote: .
   specs:
-    lims-support-app (0.6.3.rc1)
+    lims-support-app (0.6.4.rc1)
       bunny (= 0.9.0.pre10)
       json
       sequel

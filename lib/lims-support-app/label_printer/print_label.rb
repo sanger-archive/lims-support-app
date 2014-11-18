@@ -52,7 +52,7 @@ module Lims::SupportApp
             print_count = print_count(session, ean13_code)
             if print_count
               if print_count > 0
-                label["print_count"] = print_count + 1
+                label["print_count"] = "No. #{print_count + 1}"
               end
               increase_print_count(session, ean13_code)
             end
