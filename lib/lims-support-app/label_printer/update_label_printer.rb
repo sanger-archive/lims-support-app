@@ -2,8 +2,6 @@ require 'lims-core/actions/action'
 
 require 'lims-support-app/label_printer/label_printer'
 
-require 'ruby-debug'
-
 module Lims::SupportApp
   class LabelPrinter
     class UpdateLabelPrinter
@@ -23,7 +21,7 @@ module Lims::SupportApp
             :description  => template["description"],
             :content      => template["content"])
         end
-        
+
         label_printer.label_type  = label_type if label_type
         label_printer.header      = header if header
         label_printer.footer      = footer if footer
