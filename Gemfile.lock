@@ -1,9 +1,9 @@
 GIT
   remote: http://github.com/sanger/lims-api.git
-  revision: e487eaa632c95d1048d737a105b484a6a22788a6
-  branch: uat
+  revision: ccdd6ff70effbfbba40666b910e61650c27a6ebb
+  branch: development
   specs:
-    lims-api (3.2.2.rc1)
+    lims-api (3.2.2)
       activesupport
       bunny (= 0.9.0.pre10)
       json
@@ -12,10 +12,10 @@ GIT
 
 GIT
   remote: http://github.com/sanger/lims-core.git
-  revision: da083bba6950830ff7456bb7d3e2302180cb39f4
-  branch: uat
+  revision: 172e4316f3d1095acd8e03e771470390b98dfda7
+  branch: development
   specs:
-    lims-core (3.2.1.rc1)
+    lims-core (3.2.2)
       activesupport
       aequitas
       bunny (= 0.9.0.pre10)
@@ -37,10 +37,10 @@ GIT
 
 GIT
   remote: http://github.com/sanger/lims-laboratory-app.git
-  revision: adac210a4facc4202e8a2c436230ccf4e2761cc5
-  branch: uat
+  revision: 2dbbfd8a9ec7f144485711cc1c31477d8cf7a247
+  branch: development
   specs:
-    lims-laboratory-app (3.7.1.rc1)
+    lims-laboratory-app (3.7.1)
 
 GIT
   remote: http://github.com/sanger/psd_logger.git
@@ -166,10 +166,10 @@ DEPENDENCIES
   github-markup (~> 0.7.1)
   hashdiff
   jdbc-mysql
-  lims-api (~> 3.2.2.rc1)!
-  lims-core (~> 3.2.1.rc1)!
+  lims-api (~> 3.2.2)!
+  lims-core (~> 3.2.2)!
   lims-exception-notifier-app (~> 0.1)!
-  lims-laboratory-app (~> 3.7.1.rc1)!
+  lims-laboratory-app (~> 3.7.1)!
   lims-support-app!
   mustache (~> 0.99.4)!
   mysql2
