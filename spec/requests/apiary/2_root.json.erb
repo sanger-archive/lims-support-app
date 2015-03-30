@@ -69,6 +69,22 @@ h[:response]=<<EOD
                "last": "http://example.org/templates/page=-1"
              }
          },
+         "user_sessions": {
+           "actions": {
+             "create": "http://example.org/user_sessions",
+             "read": "http://example.org/user_sessions",
+             "first": "http://example.org/user_sessions/page=1",
+             "last": "http://example.org/user_sessions/page=-1"
+           }
+         },
+         "revisions": {
+           "actions": {
+             "create": "http://example.org/revisions",
+             "read": "http://example.org/revisions",
+             "first": "http://example.org/revisions/page=1",
+             "last": "http://example.org/revisions/page=-1"
+           }
+         },
          "create_barcodes": {
            "actions": {
              "create": "http://example.org/actions/create_barcode"

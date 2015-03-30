@@ -5,11 +5,11 @@ gemspec
 
 gem "mustache", "~> 0.99.4", :git => 'https://github.com/defunkt/mustache'
 gem 'sinatra', :git => 'http://github.com/sinatra/sinatra.git', :branch => '459369eb66224836f72e21bbece58c007f3422fa'
-gem 'lims-core', '~>3.1', :git => 'http://github.com/sanger/lims-core.git', :branch => 'development'
+gem 'lims-core', '~>3.1.0.11.1', :git => 'http://github.com/sanger/lims-core.git', :branch => 'development_with_revisions'
 #gem 'lims-core', '~>3.0', :path => '../lims-core'
-gem 'lims-api', '~>3.1', :git => 'http://github.com/sanger/lims-api.git', :branch => 'development'
+gem 'lims-api', '~>3.1.0.11.2', :git => 'http://github.com/sanger/lims-api.git', :branch => 'development_with_revisions'
 #gem 'lims-api', '~>3.1', :path => '../lims-api'
-gem 'lims-laboratory-app', '~>3', :git => 'http://github.com/sanger/lims-laboratory-app.git', :branch => 'development'
+gem 'lims-laboratory-app', '~>3.4.0.13.0', :git => 'http://github.com/sanger/lims-laboratory-app.git', :branch => 'development_with_revisions'
 #gem 'lims-laboratory-app', '~>3', :path => '../lims-laboratory-app'
 gem 'lims-exception-notifier-app', '~>0.1', :git => 'http://github.com/sanger/lims-exception-notifier-app.git', :branch => 'master'
 
