@@ -9,9 +9,9 @@ module Lims::SupportApp
 
       include Lims::Core::Resource
 
-      attribute :name, String, :required => true, :writer => :private, :initializable => true
-      attribute :description, String, :required => true, :writer => :private, :initializable => true
-      attribute :content, File, :required => true, :writer => :private, :initializable => true
+      attribute :name, String, :required => true, :initializable => true
+      attribute :description, String, :required => true, :initializable => true
+      attribute :content, File, :required => true, :initializable => true
 
     end
   end

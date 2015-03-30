@@ -99,6 +99,11 @@ describe "root" do
             "create": "http://example.org/actions/create_label_printer"
         }
     },
+    "update_label_printers": {
+        "actions": {
+            "create": "http://example.org/actions/update_label_printer"
+        }
+    },
     "print_labels": {
         "actions": {
             "create": "http://example.org/actions/print_label"
