@@ -99,6 +99,29 @@ describe "create_a_label_printer_and_print_a_tube_and_a_spin_column_label_with_i
     Lims::SupportApp::LabelPrinter::PrintLabel.any_instance.stub(:print_labels) do
       # TODO ke4
     end
+    
+    barcode1 = Lims::SupportApp::Barcode.new(
+      :labware  => 'tube',
+      :role     => 'stock',
+      :contents => 'Cell Pellet')
+    
+    barcode1.ean13_code = '2748670880727'
+    
+    barcode2 = Lims::SupportApp::Barcode.new(
+      :labware  => 'tube',
+      :role     => 'stock',
+      :contents => 'Cell Pellet')
+    
+    barcode2.ean13_code = '2741854757853'
+    
+    barcode3 = Lims::SupportApp::Barcode.new(
+      :labware  => 'tube',
+      :role     => 'stock',
+      :contents => 'Cell Pellet')
+    
+    barcode3.ean13_code = '2747595068692'
+    
+    save_with_uuid barcode1 => [1,2,3,4,7], barcode2 => [1,2,3,4,8], barcode3 => [1,2,3,4,9]
 
     header('Accept', 'application/json')
     header('Content-Type', 'application/json')
@@ -134,11 +157,11 @@ describe "create_a_label_printer_and_print_a_tube_and_a_spin_column_label_with_i
         ],
         "header_text": {
             "header_text1": "header by ke4",
-            "header_text2": "2013-07-09 11:40:55"
+            "header_text2": "2014-11-04 14:26:02"
         },
         "footer_text": {
             "footer_text1": "footer by ke4",
-            "footer_text2": "2013-07-09 11:40:55"
+            "footer_text2": "2014-11-04 14:26:02"
         }
     }
 }
@@ -180,11 +203,11 @@ describe "create_a_label_printer_and_print_a_tube_and_a_spin_column_label_with_i
             ],
             "header_text": {
                 "header_text1": "header by ke4",
-                "header_text2": "2013-07-09 11:40:55"
+                "header_text2": "2014-11-04 14:26:02"
             },
             "footer_text": {
                 "footer_text1": "footer by ke4",
-                "footer_text2": "2013-07-09 11:40:55"
+                "footer_text2": "2014-11-04 14:26:02"
             }
         },
         "labels": [
@@ -214,11 +237,11 @@ describe "create_a_label_printer_and_print_a_tube_and_a_spin_column_label_with_i
         ],
         "header_text": {
             "header_text1": "header by ke4",
-            "header_text2": "2013-07-09 11:40:55"
+            "header_text2": "2014-11-04 14:26:02"
         },
         "footer_text": {
             "footer_text1": "footer by ke4",
-            "footer_text2": "2013-07-09 11:40:55"
+            "footer_text2": "2014-11-04 14:26:02"
         }
     }
 }
