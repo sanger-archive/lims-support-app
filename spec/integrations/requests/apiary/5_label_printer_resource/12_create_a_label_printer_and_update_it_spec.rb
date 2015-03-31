@@ -1,7 +1,7 @@
 require "integrations/requests/apiary/5_label_printer_resource/spec_helper"
-describe "create_a_label_printer_and_post_a_label_to_it", :label_printer => true do
+describe "create_a_label_printer_and_update_it", :label_printer => true do
   include_context "use core context service"
-  it "create_a_label_printer_and_post_a_label_to_it" do
+  it "create_a_label_printer_and_update_it" do
 
 
   # **Use the create label printer action.**
@@ -78,49 +78,29 @@ describe "create_a_label_printer_and_post_a_label_to_it", :label_printer => true
 }
     EOD
 
-  # **Call the print action on the label printer.**
-    # I have to stub the printing, because the string to print
-    # contains null bytes.
-    Lims::SupportApp::LabelPrinter::PrintLabel.any_instance.stub(:print_labels) do
-      # TODO ke4
-    end
-    
-    barcode = Lims::SupportApp::Barcode.new(
-      :labware  => 'tube',
-      :role     => 'stock',
-      :contents => 'Cell Pellet')
-    
-    barcode.ean13_code = '2748670880727'
-    
-    save_with_uuid barcode => [1,2,3,4,7]
+  # **Using the update action on a label printer**
+  # 
+  # Update a label printer's following attributes:
+  # * `templates` the array of the new templates to use with the label printer
+  # * `label_type` the updated label type
+  # * `header` the updated header
+  # * `footer` the updated footer
 
     header('Accept', 'application/json')
     header('Content-Type', 'application/json')
 
-    response = post "/11111111-2222-3333-4444-555555555555", <<-EOD
+    response = put "/11111111-2222-3333-4444-555555555555", <<-EOD
     {
-    "label_printer": {
-        "labels": [
-            {
-                "template": "tube",
-                "main": {
-                    "ean13": "2748670880727",
-                    "label_text": {
-                        "text1": "pos1",
-                        "text3": "pos3"
-                    }
-                }
-            }
-        ],
-        "header_text": {
-            "header_text1": "header by ke4",
-            "header_text2": "2014-11-04 14:22:00"
-        },
-        "footer_text": {
-            "footer_text1": "footer by ke4",
-            "footer_text2": "2014-11-04 14:22:00"
+    "label_type": "tube labels 2",
+    "header": "RDA0MzAsMDMwMCwwNDAwCkFZOyswOCwwCkFYOyswMjIsKzAwMCwrMDAKVDIwQzMyClBDMDAxOzAxMTIsMDAyMCwwNSwwNSxILCswMiwxMSxCClBDMDAyOzAwNjIsMDAyMCwwNSwwNSxILCswMiwxMSxCCkMKUkMwMDE7e3toZWFkZXJfdGV4dDF9fS0tClJDMDAyO3t7aGVhZGVyX3RleHQyfX0tLQpYUztJLDAwMDEsMDAwMkM1MjAxCg==",
+    "footer": "UEMwMDE7MDExMiwwMDIwLDA1LDA1LEgsKzAyLDExLEIKUEMwMDI7MDA2MiwwMDIwLDA1LDA1LEgsKzAyLDExLEIKQwpSQzAwMTt7e2Zvb3Rlcl90ZXh0MX19LS0KUkMwMDI7e3tmb290ZXJfdGV4dDJ9fS0tClhTO0ksMDAwMSwwMDAyQzUyMDEKQw==",
+    "templates": [
+        {
+            "name": "tube2",
+            "description": "normal tube template 2",
+            "content": "QwpQQzAwMTswMDM4LDAyMTAsMDUsMDUsSCwrMDMsMTEsQgpQQzAwMjswMTIwLDAyMTAsMDUsMDUsSCwrMDIsMTEsQgpQQzAwMzswMDcwLDAyMTAsMDUsMDUsSCwrMDIsMTEsQgpQQzAwNTswMjQwLDAxNjUsMDUsMSxHLCswMCwwMCxCClBDMDA2OzAyMjAsMDE5MywwNSwxLEcsKzAwLDAwLEIKUEMwMDc7MDIyNSwwMjE3LDA1LDEsRywrMDEsMDAsQgpQQzAwODswMTUwLDAyMTAsMDUsMSxHLCswMSwxMSxCClhCMDE7MDA0MywwMTAwLDUsMywwMSwwLDAxMDAsKzAwMDAwMDAwMDAsMDAyLDAsMDAKQwpSQzAwMTt7eyNtYWluLmxhYmVsX3RleHR9fXt7bWFpbi5sYWJlbF90ZXh0LnRleHQxfX17ey9tYWluLmxhYmVsX3RleHR9fQpSQzAwMjt7eyNtYWluLmxhYmVsX3RleHR9fXt7bWFpbi5sYWJlbF90ZXh0LnRleHQyfX17ey9tYWluLmxhYmVsX3RleHR9fQpSQzAwMzt7eyNtYWluLmxhYmVsX3RleHR9fXt7bWFpbi5sYWJlbF90ZXh0LnRleHQzfX17ey9tYWluLmxhYmVsX3RleHR9fQpSQzAwNTt7eyNtYWluLmxhYmVsX3RleHR9fXt7bWFpbi5sYWJlbF90ZXh0LnRleHQ1fX17ey9tYWluLmxhYmVsX3RleHR9fQpSQjAxO3t7bWFpbi5lYW4xM193aXRob3V0X2NoZWNrc3VtfX0KWFM7SSwwMDAxLDAwMDJDMzIwMQ=="
         }
-    }
+    ]
 }
     EOD
     response.status.should == 200
@@ -128,52 +108,23 @@ describe "create_a_label_printer_and_post_a_label_to_it", :label_printer => true
     {
     "label_printer": {
         "actions": {
+            "read": "http://example.org/11111111-2222-3333-4444-555555555555",
+            "update": "http://example.org/11111111-2222-3333-4444-555555555555",
+            "delete": "http://example.org/11111111-2222-3333-4444-555555555555",
+            "create": "http://example.org/11111111-2222-3333-4444-555555555555"
         },
-        "user": "user",
-        "application": "application",
         "uuid": "11111111-2222-3333-4444-555555555555",
-        "result": {
-            "labels": [
-                {
-                    "template": "tube",
-                    "main": {
-                        "ean13": "2748670880727",
-                        "label_text": {
-                            "text1": "pos1",
-                            "text3": "pos3"
-                        }
-                    }
-                }
-            ],
-            "header_text": {
-                "header_text1": "header by ke4",
-                "header_text2": "2014-11-04 14:22:00"
-            },
-            "footer_text": {
-                "footer_text1": "footer by ke4",
-                "footer_text2": "2014-11-04 14:22:00"
-            }
-        },
-        "labels": [
+        "name": "e367bc",
+        "templates": [
             {
-                "template": "tube",
-                "main": {
-                    "ean13": "2748670880727",
-                    "label_text": {
-                        "text1": "pos1",
-                        "text3": "pos3"
-                    }
-                }
+                "name": "tube2",
+                "description": "normal tube template 2",
+                "content": "QwpQQzAwMTswMDM4LDAyMTAsMDUsMDUsSCwrMDMsMTEsQgpQQzAwMjswMTIwLDAyMTAsMDUsMDUsSCwrMDIsMTEsQgpQQzAwMzswMDcwLDAyMTAsMDUsMDUsSCwrMDIsMTEsQgpQQzAwNTswMjQwLDAxNjUsMDUsMSxHLCswMCwwMCxCClBDMDA2OzAyMjAsMDE5MywwNSwxLEcsKzAwLDAwLEIKUEMwMDc7MDIyNSwwMjE3LDA1LDEsRywrMDEsMDAsQgpQQzAwODswMTUwLDAyMTAsMDUsMSxHLCswMSwxMSxCClhCMDE7MDA0MywwMTAwLDUsMywwMSwwLDAxMDAsKzAwMDAwMDAwMDAsMDAyLDAsMDAKQwpSQzAwMTt7eyNtYWluLmxhYmVsX3RleHR9fXt7bWFpbi5sYWJlbF90ZXh0LnRleHQxfX17ey9tYWluLmxhYmVsX3RleHR9fQpSQzAwMjt7eyNtYWluLmxhYmVsX3RleHR9fXt7bWFpbi5sYWJlbF90ZXh0LnRleHQyfX17ey9tYWluLmxhYmVsX3RleHR9fQpSQzAwMzt7eyNtYWluLmxhYmVsX3RleHR9fXt7bWFpbi5sYWJlbF90ZXh0LnRleHQzfX17ey9tYWluLmxhYmVsX3RleHR9fQpSQzAwNTt7eyNtYWluLmxhYmVsX3RleHR9fXt7bWFpbi5sYWJlbF90ZXh0LnRleHQ1fX17ey9tYWluLmxhYmVsX3RleHR9fQpSQjAxO3t7bWFpbi5lYW4xM193aXRob3V0X2NoZWNrc3VtfX0KWFM7SSwwMDAxLDAwMDJDMzIwMQ=="
             }
         ],
-        "header_text": {
-            "header_text1": "header by ke4",
-            "header_text2": "2014-11-04 14:22:00"
-        },
-        "footer_text": {
-            "footer_text1": "footer by ke4",
-            "footer_text2": "2014-11-04 14:22:00"
-        }
+        "label_type": "tube labels 2",
+        "header": "RDA0MzAsMDMwMCwwNDAwCkFZOyswOCwwCkFYOyswMjIsKzAwMCwrMDAKVDIwQzMyClBDMDAxOzAxMTIsMDAyMCwwNSwwNSxILCswMiwxMSxCClBDMDAyOzAwNjIsMDAyMCwwNSwwNSxILCswMiwxMSxCCkMKUkMwMDE7e3toZWFkZXJfdGV4dDF9fS0tClJDMDAyO3t7aGVhZGVyX3RleHQyfX0tLQpYUztJLDAwMDEsMDAwMkM1MjAxCg==",
+        "footer": "UEMwMDE7MDExMiwwMDIwLDA1LDA1LEgsKzAyLDExLEIKUEMwMDI7MDA2MiwwMDIwLDA1LDA1LEgsKzAyLDExLEIKQwpSQzAwMTt7e2Zvb3Rlcl90ZXh0MX19LS0KUkMwMDI7e3tmb290ZXJfdGV4dDJ9fS0tClhTO0ksMDAwMSwwMDAyQzUyMDEKQw=="
     }
 }
     EOD

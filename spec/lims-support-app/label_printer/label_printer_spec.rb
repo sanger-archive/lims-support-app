@@ -44,10 +44,6 @@ module Lims::SupportApp
         described_class.new(parameters - [:name]).valid?.should == false
       end
 
-      it "requires a valid printer name" do
-        described_class.new(parameters.merge({:name => "abc"})).valid?.should == false
-      end
-
       it "requires templates" do
         described_class.new(parameters - [:templates]).valid?.should == false
       end

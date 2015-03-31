@@ -47,6 +47,16 @@ module Lims::SupportApp
             label_template = template_to_fill(template_name)
 
             # fill in the template
+            ean13_code = label.deep_fetch_all("ean13").first
+
+            print_count = print_count(session, ean13_code)
+            if print_count
+              if print_count > 0
+                label["print_count"] = "No. #{print_count + 1}"
+              end
+              increase_print_count(session, ean13_code)
+            end
+
             label_to_print = fill_the_template(label_template, label)
 
             # add the specific escape characters for printing to the label
@@ -129,6 +139,19 @@ module Lims::SupportApp
       def fill_the_template(label_template, label_data)
         label_template = Base64.decode64(label_template)
         label_template = Mustache.render(label_template, chop_checksum_digit_from_barcodes(label_data))
+      end
+
+      def print_count(session, ean13_code)
+        print_count = nil;
+        barcode_record = session.database[:barcodes].select(:print_count).where(:ean13_code => ean13_code).first
+        if barcode_record
+          print_count = barcode_record[:print_count]
+        end
+        print_count
+      end
+
+      def increase_print_count(session, ean13_code)
+        session.database[:barcodes].where(:ean13_code => ean13_code).update(:print_count => Sequel.expr(1) + :print_count)
       end
 
       def chop_checksum_digit_from_barcodes(label_data_to_process)
