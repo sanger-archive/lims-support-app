@@ -80,7 +80,9 @@ module Lims::SupportApp
 
           `lpr -l -P#{@label_printer.name} < #{temp_file.path}`
         ensure
-          temp_file.unlink # deletes the temp_file
+          # RT Issue 500775
+          # Temporarily disabling of the temp_file removal, so we can use it to reproduce the printing problem
+          #temp_file.unlink # deletes the temp_file
         end
       end
 
