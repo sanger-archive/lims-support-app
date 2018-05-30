@@ -94,7 +94,7 @@ module Lims::SupportApp
       def self.find_asset_by_barcode_in_sequencescape(barcode)
         found = false
         asset_ds = @db_sequencescape[:assets]
-        result = asset_ds.where(:barcode => barcode).all
+        result = asset_ds.join(:barcodes).where(:barcode => barcode).all
         unless result.empty?
           found = true
         end
