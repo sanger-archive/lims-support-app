@@ -1,6 +1,6 @@
 language: ruby
 rvm:
-  - "1.9.3-p484"
+  - "1.9.3"
 dist: trusty
 cache: bundler
 bundler_args: --without oracle debugger pry
