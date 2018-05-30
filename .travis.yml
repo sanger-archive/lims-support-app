@@ -1,6 +1,6 @@
+language: ruby
 rvm:
   - "1.9.3-p484"
-
-before_install: gem install bundler
-
-install: bundle install --without oracle debugger pry
+dist: trusty
+cache: bundler
+bundler_args: --without oracle debugger pry
